@@ -3,27 +3,51 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761:eureka
+      defaultZone: http://127.0.0.1:8761/eureka
 
 spring:
   application:
     name: ssafycnt-apigateway-service
   cloud:
     gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Filter
+            preLogger: true
+            postLogger: true
       routes:
-        - id: first-service
-          uri: http://localhost:8081/
+        - id: ssafycnt-user-service
+          uri: lb://SSAFYCNT-USER-SERVICE
           predicates:
-            - Path=/first-service/**
+            - Path=/ssafycnt-user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/ssafycnt-user-service/(?<segment>.*), /$\{segment}
+        - id: ssafycnt-user-service
+          uri: lb://SSAFYCNT-USER-SERVICE
+          predicates:
+            - Path=/ssafycnt-user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/ssafycnt-user-service/(?<segment>.*), /$\{segment}
+        - id: ssafycnt-user-service
+          uri: lb://SSAFYCNT-USER-SERVICE
+          predicates:
+            - Path=/ssafycnt-user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/ssafycnt-user-service/(?<segment>.*), /$\{segment}
         - id: second-service
           uri: http://localhost:8082/
           predicates:
             - Path=/second-service/**
+          filters:
+            - CustomFilter
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
