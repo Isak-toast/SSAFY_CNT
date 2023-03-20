@@ -23,8 +23,9 @@ ChartJS.register(
 
 Chart.defaults.font.family = "munchebu.ttf"             // Chart 이내 글자체 통일
 
-function TrendItems() {
-    let pickItem = '자동차'
+function TrendItems(props) {
+    const imOrExport = props.anyItem[3]
+    const pickItem = props.anyItem[2]
 
     // 정렬된 순서로 들어와야함 (Top1 -> Top5)
     const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May']    // Top5 품목
@@ -73,10 +74,10 @@ function TrendItems() {
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
                     <div className='mt-1 font-bold text-base text-gray-12'>{ pickItem }</div>                {/* 동적값으로 할당 해야함 */}               
-                    <div className='mt-1 font-bold text-xl font-mun'>수입 Top 5</div>
+                    <div className='mt-1 font-bold text-xl font-mun'>{imOrExport} 추세</div>
                 </div>
                 <div className='flex w-40 h-8 justify-center items-center bg-[#f3f4f6] font-bold text-xs'>
-                    <p className='text-[#4b5563] font-mun'>수입금액</p>
+                    <p className='text-[#4b5563] font-mun'>{imOrExport}금액</p>
                     <p className='ml-4 font-mun'>단위: 백만달러</p>
                 </div>
             </div>

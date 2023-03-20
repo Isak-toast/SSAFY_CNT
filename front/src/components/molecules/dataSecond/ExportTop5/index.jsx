@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';  // Uncaught Error: "category" is not a registered scale
 import { Bar } from 'react-chartjs-2'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -19,11 +19,12 @@ ChartJS.register(
     ChartDataLabels,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    
   );
 
 Chart.defaults.font.family = "munchebu.ttf"             // Chart 이내 글자체 통일
-function ExportTop5() {
+function ExportTop5(props) {
     let pickNation = '전세계'
 
     // 정렬된 순서로 들어와야함 (Top1 -> Top5)
@@ -31,38 +32,7 @@ function ExportTop5() {
     let values = [807000000000, 700000000000, 600000000000, 432000000000, 234000000000]    // Top5 품목 수출량
     values = values.map(function(x) {
         return x / 1000000
-      });
-    
-    const horizontalBackgroundPlugin = {
-        id: 'horizontalBackgroundPlugin',
-        beforeDatasetsDraw(chart, args, plugins) {
-            const {
-                ctx,
-                data,
-                chartArea: { top, bottom, left, right, width, height },
-                scales: { x, y },
-            } = chart;
-        
-            const barPercentage = data.datasets[0].barPercentage || 0.9;
-            const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
-            const barThickness = height / data.labels.length * categoryPercentage;
-        
-            ctx.save();
-            data.datasets[0].data.forEach((value, index) => {
-                ctx.fillStyle = 'rgba(240, 240, 240, 0.2)'
-                ctx.fillRect(
-                    left,
-                    y.getPixelForValue(index) - barThickness / 2,
-                    width * value / 100,
-                    barThickness,
-                );
-            });
-            ctx.restore();
-        },
-    };
-
-    
-    ChartJS.register(horizontalBackgroundPlugin)
+    });
 
     const options = {
         indexAxis: 'y',
@@ -109,25 +79,48 @@ function ExportTop5() {
         onClick: function (evt, element) {
             if (element.length > 0) {
                 setColorsHandler(element[0]['index'])
+                props.onSaveClickOrNot(data.labels[element[0]['index']])
             }
         }
     }
 
     const [colors, setColors] = useState(['rgba(240, 240, 240)',
-    'rgba(240, 240, 240)',
-    'rgba(240, 240, 240)',
-    'rgba(240, 240, 240)',
-    'rgba(240, 240, 240)'])
+                                        'rgba(240, 240, 240)',
+                                        'rgba(240, 240, 240)',
+                                        'rgba(240, 240, 240)',
+                                        'rgba(240, 240, 240)'])
 
-    const setColorsHandler = (props) => { 
+    const setColorsHandler = (idx) => { 
         const newColors = ['rgba(240, 240, 240)',
-        'rgba(240, 240, 240)',
-        'rgba(240, 240, 240)',
-        'rgba(240, 240, 240)',
-        'rgba(240, 240, 240)']
-        newColors[props] = 'rgba(54, 162, 235)'
-        setColors(newColors)
+                            'rgba(240, 240, 240)',
+                            'rgba(240, 240, 240)',
+                            'rgba(240, 240, 240)',
+                            'rgba(240, 240, 240)']
+        newColors[idx] = 'rgba(54, 162, 235)'
+        setColors(newColors) 
     }
+
+    useEffect(() => {
+        
+        if (props.alreadyClicked[0] === 1) {
+            const setColorsHandler = (idx) => { 
+                const newColors = ['rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)']
+                newColors[idx] = 'rgba(54, 162, 235)'
+                setColors(newColors)
+            }
+        } else {
+            const newColors = ['rgba(240, 240, 240)',
+            'rgba(240, 240, 240)',
+            'rgba(240, 240, 240)',
+            'rgba(240, 240, 240)',
+            'rgba(240, 240, 240)']        
+            setColors(newColors) 
+        }
+    }, [props.alreadyClicked[0]]);
     
     const data = {
       labels,
