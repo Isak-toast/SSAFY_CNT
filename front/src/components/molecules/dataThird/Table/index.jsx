@@ -142,7 +142,7 @@ function Table({ columns, data, exportImportState }) {
                       {headerGroup.headers.map((column) => (
                         <th
                           scope="col"
-                          className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider"
+                          className="px-6 py-3 text-center text-xs font-mun text-gray-900 uppercase tracking-wider"
                           {...column.getHeaderProps(
                             column.getSortByToggleProps()
                           )}
@@ -227,7 +227,7 @@ function Table({ columns, data, exportImportState }) {
                     </div>
                     <div>
                       <nav
-                        className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                        className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px font-mun"
                         aria-label="Pagination"
                       >
                         <PageButton

@@ -20,8 +20,8 @@ function WorldMap() {
     <>
       <Chart
         chartType="GeoChart"
-        width="100%"
-        height="600px"
+        // width="80%"
+        // height="50px"
         data={data}
         options={options}
       />
