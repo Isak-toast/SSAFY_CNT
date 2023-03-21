@@ -14,10 +14,17 @@ function NavBar() {
   const [state, setState] = useState("Nation");
 
   // stateHandler라는 함수를 사용하여 state를 이용
-  const stateHandler = (state) => {
-    setState(state);
-    console.log(state);
+  const stateHandler = (event) => {
+    setState(event);
+    console.log(event);
   };
+
+  // ViewPeriod
+  // const [selectedYear, setSelectedYear] = useState();
+  // const YearHandler = (event) => {
+  //   console.log(event);
+  //   setSelectedYear(event);
+  // };
 
   return (
     <>

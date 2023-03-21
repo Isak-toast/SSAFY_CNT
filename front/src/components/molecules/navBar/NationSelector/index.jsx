@@ -6,6 +6,7 @@ faker.seed(100);
 faker.locale = "ko";
 
 function NationSelector() {
+  // options의 label이 UI에 표현
   const options = [
     { value: "가나", label: "가나" },
     { value: "가봉", label: "가봉" },
