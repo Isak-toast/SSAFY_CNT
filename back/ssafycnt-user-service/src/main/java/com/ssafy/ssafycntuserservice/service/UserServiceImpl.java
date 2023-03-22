@@ -30,15 +30,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
+        // 보안을 위한 인코딩(UUID)
         userDto.setUserId(UUID.randomUUID().toString());
 
+        // Controller와 동일한 전략을 따른다.
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = mapper.map(userDto, UserEntity.class);
-        userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
+        userEntity.setEncryptedPwd("encypted_password");
+//        userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
 
         userRepository.save(userEntity);
 
+        // 실제 DB의 개체와 mapping 해서 응답 결과를 반환한다
         UserDto returnUserDto = mapper.map(userEntity, UserDto.class);
 
         return returnUserDto;
