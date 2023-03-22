@@ -13,12 +13,6 @@ spring:
     name: ssafycnt-apigateway-service
   cloud:
     gateway:
-      default-filters:
-        - name: GlobalFilter
-          args:
-            baseMessage: Spring Cloud Gateway Filter
-            preLogger: true
-            postLogger: true
       routes:
         - id: ssafycnt-user-service
           uri: lb://SSAFYCNT-USER-SERVICE
@@ -44,10 +38,12 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/ssafycnt-user-service/(?<segment>.*), /$\{segment}
-        - id: second-service
-          uri: http://localhost:8082/
+        - id: ssafycnt-news-service
+          uri: lb://SSAFYCNT-NEWS-SERVICE
           predicates:
-            - Path=/second-service/**
+            - Path=/ssafycnt-news-service/**
+            - Method=GET
           filters:
-            - CustomFilter
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/ssafycnt-news-service/(?<segment>.*), /$\{segment}
 

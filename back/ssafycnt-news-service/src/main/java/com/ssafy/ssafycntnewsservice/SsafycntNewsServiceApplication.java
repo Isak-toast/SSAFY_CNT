@@ -1,6 +1,5 @@
 package com.ssafy.ssafycntnewsservice;
 
-import com.ssafy.ssafycntnewsservice.configuration.NewsJobConfiguration;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 //@EnableBatchProcessing
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @SpringBootApplication
 public class SsafycntNewsServiceApplication {
 
