@@ -21,3 +21,4 @@ response = openai.Completion.create(
 print(response)
 
 print(response.choices[0].text.strip())
+

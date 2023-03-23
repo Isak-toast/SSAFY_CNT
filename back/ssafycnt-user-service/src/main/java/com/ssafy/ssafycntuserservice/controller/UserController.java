@@ -67,9 +67,11 @@ public class UserController {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        // user class에 맞춰서 RequestUser의 내용을 mapping 한다.
         UserDto userDto = mapper.map(user, UserDto.class);
         userService.createUser(userDto);
 
+        // ResponseUser 클래스에 맞춰서 반환값을 전달하자.
         ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
