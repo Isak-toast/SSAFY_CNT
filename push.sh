@@ -1,5 +1,5 @@
 #! 
 git add .
-git pull origin main
+git pull origin develop
 git commit -m "$1"
-git push origin main
+git push origin develop
