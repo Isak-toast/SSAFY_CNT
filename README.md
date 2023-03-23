@@ -42,12 +42,15 @@
 <br />
 
 ### 🎫 ERD
+![erd](./assets/samulERD.png)
 
 #### 
 
 <br />
 
 ### 🍏 API
+![api](./assets/apilist1.png)
+![api](./assets/apilist2.png)
 
 #### 
 
