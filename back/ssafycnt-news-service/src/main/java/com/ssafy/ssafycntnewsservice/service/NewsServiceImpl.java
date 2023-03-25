@@ -45,9 +45,9 @@ public class NewsServiceImpl implements NewsService{
 
         List<NewsDto> crowlingData = new ArrayList<>();
         Document doc;
-        System.out.println("================================");
-        System.out.println(URL);
-        System.out.println("================================");
+//        System.out.println("================================");
+//        System.out.println(URL);
+//        System.out.println("================================");
         for (int j = 0; j < 10; j++) {
             if (crowlingData.size() < 10 * j) {
                 break;
@@ -58,22 +58,22 @@ public class NewsServiceImpl implements NewsService{
                 Elements news_info = doc.select(".info_group >span");    // 시간
                 Elements news_title = doc.select(".news_tit");           // 제목
                 Elements news_content = doc.select(".dsc_wrap a");       // 내용
-                System.out.println(news_info.text());
+//                System.out.println(news_info.text());
 
                 int n = 0;
                 for (int i = 0; i < news_press.size(); i++) {
-                    System.out.println(news_press.get(i).text());
+//                    System.out.println(news_press.get(i).text());
                     if (news_info.size() > 10) {
-                        System.out.println(news_info.get(i + n).text());
-                        System.out.println(!news_info.get(i + n).text().contains("전") || !news_info.get(i + n).text().contains("."));
+//                        System.out.println(news_info.get(i + n).text());
+//                        System.out.println(!news_info.get(i + n).text().contains("전") || !news_info.get(i + n).text().contains("."));
 //                        news_info.get(i + n).text().length() != 11 && news_info.get(i + n).text().length() != 4
                         if (news_info.get(i + n).text().contains("전") || news_info.get(i + n).text().contains(".")) {
                         } else {n++;}
                     }
-                    System.out.println(news_info.get(i + n).text());
-                    System.out.println(news_title.get(i).text());
-                    System.out.println(news_content.get(i).text());
-                    System.out.println(news_title.get(i).attr("abs:href"));
+//                    System.out.println(news_info.get(i + n).text());
+//                    System.out.println(news_title.get(i).text());
+//                    System.out.println(news_content.get(i).text());
+//                    System.out.println(news_title.get(i).attr("abs:href"));
 
                     NewsDto newsDto = new NewsDto(
                             news_press.get(i).text(),

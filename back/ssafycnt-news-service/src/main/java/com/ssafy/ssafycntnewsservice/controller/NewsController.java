@@ -19,7 +19,7 @@ public class NewsController {
     private final NewsService newsService;
     private final MiningService miningService;
     List<NewsDto> newsdata;
-    Map<String, Integer> miningdata;
+    Map<String, List<NewsDto>> miningdata;
 
     @GetMapping("/news")
     public List<NewsDto> NewsController(@RequestParam String country, String item, String startDate, String endDate) {
@@ -27,7 +27,8 @@ public class NewsController {
         return newsdata;
     }
     @GetMapping("/news/mining")
-    public Map<String, Integer> TextMining(@RequestParam String country, String item, String startDate, String endDate) {
+    public Map<String, List<NewsDto>> TextMining(@RequestParam String country, String item, String startDate, String endDate) {
+        newsdata = newsService.getNewsData(country, item, startDate, endDate);
         miningdata = miningService.getMiningData(newsdata);
         return miningdata;
     }

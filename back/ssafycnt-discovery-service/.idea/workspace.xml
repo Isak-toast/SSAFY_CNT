@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d788d9a-61c7-43ca-b39b-4bb0432c1106" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/controller/NewsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/controller/NewsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/controller/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/controller/NewsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,18 +61,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "a17420104f9723a15eed27dc28549e3e",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="SsafycntDiscoveryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ssafycnt-discovery-service.main" />
@@ -72,6 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1679558257652</updated>
       <workItem from="1679558260167" duration="424000" />
+      <workItem from="1679730314240" duration="1200000" />
     </task>
     <servers />
   </component>
