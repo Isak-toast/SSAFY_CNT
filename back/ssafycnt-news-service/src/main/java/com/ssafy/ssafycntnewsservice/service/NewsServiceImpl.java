@@ -33,11 +33,11 @@ public class NewsServiceImpl implements NewsService{
         }
         // 검색 시작일 수정
         if (!Objects.equals(startDate, "")) {
-            start_date = new String("20" + startDate + ".01");
+            start_date = new String(startDate + ".01");
         }
         // 검색 끝일 수정
         if (!Objects.equals(endDate, "") && (!Objects.equals(endDate, CurrentMonth()))){
-            end_date = new String("20" + endDate + ".28");
+            end_date = new String(endDate+ ".28");
         }
         String[] start_idx = {"1", "11", "21", "31", "41", "51", "61", "71", "81", "91"};
         String URL = "https://search.naver.com/search.naver?where=news&sm=tab_pge&query="
@@ -60,23 +60,22 @@ public class NewsServiceImpl implements NewsService{
                 Elements news_info = doc.select(".info_group >span");    // 시간
                 Elements news_title = doc.select(".news_tit");           // 제목
                 Elements news_content = doc.select(".dsc_wrap a");       // 내용
-
                 int n = 0;
                 for (int i = 0; i < news_press.size(); i++) {
                     if (news_info.size() > 10) {
                         if (news_info.get(i + n).text().contains("전") || news_info.get(i + n).text().contains(".")) {
                         } else {n++;}
                     }
-
                     NewsDto newsDto = new NewsDto(
                             news_press.get(i).text(),
                             news_info.get(i + n).text(),
                             news_title.get(i).text(),
                             news_content.get(i).text(),
                             news_title.get(i).attr("abs:href"));
-                    crowlingData.add(newsDto);
+                    if (!(crowlingData.contains(newsDto))) {
+                        crowlingData.add(newsDto);
+                    }
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,10 +95,10 @@ public class NewsServiceImpl implements NewsService{
         // 현재 날짜 구하기
         LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
         // 포맷 정의
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM");
         // 포맷 적용
         String formatedNow = now.format(formatter);
         return formatedNow;  // 2021.06
     }
-    }
+}
 

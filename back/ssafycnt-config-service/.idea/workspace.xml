@@ -5,6 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6adec5f1-d396-44d2-931a-7369d3432f6c" name="Changes" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-apigateway-service/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-discovery-service/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-discovery-service/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-discovery-service/.idea/workspace.xml" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/build.gradle.kts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
@@ -22,6 +31,7 @@
       <change afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/resources/bootstrap.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/test/java/com/ssafy/ssafycnttradeservice/SsafycntTradeServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> 85bbc77d1444c751d116ea3b0fa9408811c2dd15
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,6 +39,14 @@
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/SsafycntNewsServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/SsafycntNewsServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/SsafycntNewsServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/SsafycntNewsServiceApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/controller/NewsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/controller/NewsController.class" afterDir="false" />
@@ -41,6 +59,7 @@
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/classes/java/main/com/ssafy/ssafycntnewsservice/service/NewsServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-user-service/src/main/java/com/ssafy/ssafycntuserservice/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-user-service/src/main/java/com/ssafy/ssafycntuserservice/controller/UserController.java" afterDir="false" />
+>>>>>>> 85bbc77d1444c751d116ea3b0fa9408811c2dd15
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +109,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Sub_1/github/S08P22B308/back/ssafycnt-config-service/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "68814f0d168fa260d87b69f3ff3158b1",
+    "vue.rearranger.settings.migration": "true"
+=======
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -106,6 +139,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;68814f0d168fa260d87b69f3ff3158b1&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> 85bbc77d1444c751d116ea3b0fa9408811c2dd15
   }
 }</component>
   <component name="RecentsManager">
@@ -131,8 +165,12 @@
       <option name="presentableId" value="Default" />
       <updated>1679462548199</updated>
       <workItem from="1679462549652" duration="6224000" />
+<<<<<<< HEAD
+      <workItem from="1679881999242" duration="1880000" />
+=======
       <workItem from="1679831847152" duration="6848000" />
       <workItem from="1679877812452" duration="2096000" />
+>>>>>>> 85bbc77d1444c751d116ea3b0fa9408811c2dd15
     </task>
     <servers />
   </component>

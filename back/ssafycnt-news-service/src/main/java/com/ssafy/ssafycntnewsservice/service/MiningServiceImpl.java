@@ -6,10 +6,7 @@ import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MiningServiceImpl implements MiningService{
@@ -27,21 +24,27 @@ public class MiningServiceImpl implements MiningService{
 
             List<NewsDto> newsDtoList;
             for (String word : miningData) {
+                // 한 단어는 스킵
                 if (word.length() < 2) {
                     continue;
                 }
+                // 숫자면 스킵
                 if (word.matches("[0-9]+")) {
                     continue;
                 }
-                newsDtoList = wordDict.computeIfAbsent(word, k -> new ArrayList<>(newsdata.size()));
+                newsDtoList = wordDict.computeIfAbsent(word, k -> new ArrayList<>());
                 newsDtoList.add(news);
             }
         }
-
-        for (Map.Entry<String, List<NewsDto>> entry : wordDict.entrySet()) {
-            if (entry.getValue().size() > 2) {
-                miningResult.put(entry.getKey(), entry.getValue());
-            }
+        System.out.println("wordDict : " + wordDict);
+        // 단어 많은 순으로 정렬해서 50개만 보내기
+        List<Map.Entry<String, List<NewsDto>>> entries = new ArrayList<>(wordDict.entrySet());
+        // entry들을 value로 내림차순 정렬
+        Collections.sort(entries, (e1, e2) -> e2.getValue().size() - e1.getValue().size());
+        // 상위 50개의 entry를 miningResult에 추가
+        for (int i = 0; i < 50 && i < entries.size(); i++) {
+            Map.Entry<String, List<NewsDto>> entry = entries.get(i);
+            miningResult.put(entry.getKey(), entry.getValue());
         }
 
         return miningResult;
