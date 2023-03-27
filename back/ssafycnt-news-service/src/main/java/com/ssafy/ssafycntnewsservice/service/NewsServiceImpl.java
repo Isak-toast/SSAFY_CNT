@@ -33,21 +33,23 @@ public class NewsServiceImpl implements NewsService{
         }
         // 검색 시작일 수정
         if (!Objects.equals(startDate, "")) {
-            start_date = new String(startDate);
+            start_date = new String("20" + startDate + ".01");
         }
         // 검색 끝일 수정
-        if (endDate != "") {
-            end_date = new String(endDate);
+        if (!Objects.equals(endDate, "") && (!Objects.equals(endDate, CurrentMonth()))){
+            end_date = new String("20" + endDate + ".28");
         }
         String[] start_idx = {"1", "11", "21", "31", "41", "51", "61", "71", "81", "91"};
-        String URL = "https://search.naver.com/search.naver?where=news&sm=tab_pge&query=" + search_word + "&sort=0&photo=0&field=0&pd=3&ds=" + start_date + "&de=" + end_date + "&cluster_rank=33&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so:r,p:from20230101to20230201,a:all&start=";
+        String URL = "https://search.naver.com/search.naver?where=news&sm=tab_pge&query="
+                + search_word
+                + "&sort=0&photo=0&field=0&pd=3&ds=" + start_date
+                + "&de=" + end_date
+                + "&cluster_rank=33&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so:r,p:from20230101to20230201,a:all&start=";
         // https://search.naver.com/search.naver?where=news&sm=tab_pge&query=%EB%AC%B4%EC%97%AD&sort=0&photo=0&field=0&pd=3&ds=2023.03.16&de=2022.02.17&cluster_rank=33&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so:r,p:from20230101to20230201,a:all&start=1
+        System.out.println(URL);
 
         List<NewsDto> crowlingData = new ArrayList<>();
         Document doc;
-//        System.out.println("================================");
-//        System.out.println(URL);
-//        System.out.println("================================");
         for (int j = 0; j < 10; j++) {
             if (crowlingData.size() < 10 * j) {
                 break;
@@ -58,22 +60,13 @@ public class NewsServiceImpl implements NewsService{
                 Elements news_info = doc.select(".info_group >span");    // 시간
                 Elements news_title = doc.select(".news_tit");           // 제목
                 Elements news_content = doc.select(".dsc_wrap a");       // 내용
-//                System.out.println(news_info.text());
 
                 int n = 0;
                 for (int i = 0; i < news_press.size(); i++) {
-//                    System.out.println(news_press.get(i).text());
                     if (news_info.size() > 10) {
-//                        System.out.println(news_info.get(i + n).text());
-//                        System.out.println(!news_info.get(i + n).text().contains("전") || !news_info.get(i + n).text().contains("."));
-//                        news_info.get(i + n).text().length() != 11 && news_info.get(i + n).text().length() != 4
                         if (news_info.get(i + n).text().contains("전") || news_info.get(i + n).text().contains(".")) {
                         } else {n++;}
                     }
-//                    System.out.println(news_info.get(i + n).text());
-//                    System.out.println(news_title.get(i).text());
-//                    System.out.println(news_content.get(i).text());
-//                    System.out.println(news_title.get(i).attr("abs:href"));
 
                     NewsDto newsDto = new NewsDto(
                             news_press.get(i).text(),
@@ -85,7 +78,6 @@ public class NewsServiceImpl implements NewsService{
                 }
 
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -98,8 +90,16 @@ public class NewsServiceImpl implements NewsService{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
             // 포맷 적용
             String formatedNow = now.format(formatter);
-            // 결과 출력
             return formatedNow;  // 2021.06.17
         }
+    public String CurrentMonth() {
+        // 현재 날짜 구하기
+        LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        // 포맷 정의
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM");
+        // 포맷 적용
+        String formatedNow = now.format(formatter);
+        return formatedNow;  // 2021.06
+    }
     }
 
