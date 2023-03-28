@@ -18,18 +18,13 @@ import java.util.Map;
 public class NewsController {
     private final NewsService newsService;
     private final MiningService miningService;
-    List<NewsDto> newsdata;
-    Map<String, List<NewsDto>> miningdata;
-
     @GetMapping("/news")
     public List<NewsDto> NewsController(@RequestParam String country, String item, String startDate, String endDate) {
-        newsdata = newsService.getNewsData(country, item, startDate, endDate);
-        return newsdata;
+        return newsService.getNewsData(country, item, startDate, endDate);
     }
     @GetMapping("/news/mining")
     public Map<String, List<NewsDto>> TextMining(@RequestParam String country, String item, String startDate, String endDate) {
-        newsdata = newsService.getNewsData(country, item, startDate, endDate);
-        miningdata = miningService.getMiningData(newsdata);
-        return miningdata;
+        List<NewsDto> newsdata = newsService.getNewsData(country, item, startDate, endDate);
+        return miningService.getMiningData(newsdata);
     }
 }

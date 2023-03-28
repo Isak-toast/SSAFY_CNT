@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +46,8 @@ public class NewsServiceImpl implements NewsService{
         // https://search.naver.com/search.naver?where=news&sm=tab_pge&query=%EB%AC%B4%EC%97%AD&sort=0&photo=0&field=0&pd=3&ds=2023.03.16&de=2022.02.17&cluster_rank=33&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so:r,p:from20230101to20230201,a:all&start=1
         System.out.println(URL);
 
-        List<NewsDto> crowlingData = new ArrayList<>();
+        Set<NewsDto> crowlingData = new HashSet<>();
+        List<NewsDto> crowlingResult = null;
         Document doc;
         for (int j = 0; j < 10; j++) {
             if (crowlingData.size() < 10 * j) {
@@ -79,8 +78,9 @@ public class NewsServiceImpl implements NewsService{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            crowlingResult = new ArrayList<>(crowlingData);
         }
-        return crowlingData;
+        return crowlingResult;
     }
     public String CurrentDateTime() {
             // 현재 날짜 구하기
