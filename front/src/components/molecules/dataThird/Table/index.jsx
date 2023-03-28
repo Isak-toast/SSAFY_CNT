@@ -287,12 +287,17 @@ function Table({ columns, data, exportImportState }) {
 
 export default Table;
 
+import unImg from "./../../../../../assets/nationalFlags/UN.png";
+
+const onErrorImg = (e) => {
+  e.target.src = unImg;
+};
 export function AvatarCell({ value }) {
   const imgSrc = "./../../../../../assets/nationalFlags/" + value + ".gif";
   return (
     <div className="flex items-center justify-items-center">
       <div className="flex-shrink-0 h-10 w-10">
-        <img className="mt-2 h-7 w-10 " src={imgSrc} alt="" />
+        <img className="mt-2 h-7 w-10 " src={imgSrc} onError={onErrorImg} />
       </div>
       <div className="ml-3">
         <div>{value}</div>

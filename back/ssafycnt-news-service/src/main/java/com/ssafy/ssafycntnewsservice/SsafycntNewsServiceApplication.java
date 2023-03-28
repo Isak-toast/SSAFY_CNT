@@ -12,9 +12,6 @@ public class SsafycntNewsServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SsafycntNewsServiceApplication.class, args);
-
-//		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(NewsJobConfiguration.class);
-//		Job simpleJob = applicationContext.getBean("Job", Job.class);
 	}
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder(){

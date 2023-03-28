@@ -26,14 +26,29 @@ ChartJS.defaults.font.family = "munchebu"             // Chart 이내 글자체 
 ChartJS.defaults.font.size = 10             // Chart 이내 글자체 통일
 ChartJS.defaults.color = "black";
 function ImportTop5(props) {
-    let pickNation = '전세계'
+    let pickNation = props.alreadyClicked[6]
 
     // 정렬된 순서로 들어와야함 (Top1 -> Top5)
-    const labels = ['원유', '자동차부품', '의료용 기기', '향신료', '타코']    // Top5 품목
-    let values = [302000000000, 272000000000, 268000000000, 120000000000, 100000000]    // Top5 품목 수출량
-    values = values.map(function(x) {
-        return x / 1000000
-      });
+    let labels
+    let values
+
+    if (typeof props.alreadyClicked[5]['수입'] !== 'undefined' && props.alreadyClicked[5]['수입'] !== null) {
+        labels = Object.keys(props.alreadyClicked[5]['수입'])
+    } else {
+        labels = ['', '', '', '', '']
+    }
+
+    if (typeof props.alreadyClicked[5]['수입'] !== 'undefined' && props.alreadyClicked[5]['수입'] !== null) {
+        values = Object.values(props.alreadyClicked[5]['수입'])
+        values = values.map(function (value) {
+            return value.impdlrSum
+        })
+        values = values.map(function(x) {
+            return x / 1000000
+        });
+    } else {
+        values = [0, 0, 0, 0, 0]
+    }
     
     const horizontalBackgroundPlugin = {
         id: 'horizontalBackgroundPlugin',

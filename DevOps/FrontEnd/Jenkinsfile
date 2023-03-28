@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    options {
+        gitLabConnection('gitlab-connection-ssafycnt')
+        gitlabBuilds(builds: ["Build", "Deploy"])
+    }
+
+    stages {
+        stage("Build") {
+            steps{
+                updateGitlabCommitStatus name: 'React build', state: 'running'
+                build(
+                    job: "SSAFYCNT-React-CI", 
+                    parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                )
+            }
+            post {
+                failure {
+                    updateGitlabCommitStatus name: 'React build', state: 'failed'
+                }
+                success {
+                    updateGitlabCommitStatus name: 'React build', state: 'success'
+                }
+                aborted {
+                    updateGitlabCommitStatus name: 'React build', state: 'canceled'
+                }
+            }
+        }
+        stage("Deploy") {
+            steps{
+                updateGitlabCommitStatus name: 'React deploy', state: 'running'
+                build(
+                    job: "SSAFYCNT-React-CD", 
+                    parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                )
+            }
+            post {
+                failure {
+                    updateGitlabCommitStatus name: 'React deploy', state: 'failed'
+                }
+                success {
+                    updateGitlabCommitStatus name: 'React deploy', state: 'success'
+                }
+                aborted {
+                    updateGitlabCommitStatus name: 'React deploy', state: 'canceled'
+                }
+            }
+        }
+    }
+}

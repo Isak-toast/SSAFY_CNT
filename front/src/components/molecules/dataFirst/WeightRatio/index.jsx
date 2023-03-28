@@ -7,9 +7,10 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 
 ChartJS.defaults.font.family = "munchebu.ttf"             // Chart 이내 글자체 통일
-function NationRatio() {
+function NationRatio({ data1 }) {
+    let duration = data1.period
     const labels = ['수출', '수입']
-    const values = [123456, 12345]
+    const values = [data1.expwgtSum, data1.impwgtSum]
     const sumValues = values[0] + values[1]
 
     const data = {
@@ -76,7 +77,7 @@ function NationRatio() {
         <div className='mb-5'>
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
-                    <div className='w-96 mt-1 mb-3 text-lg text-right font-mun'>기간 : 2022.12 ~ 2023.02</div>
+                    <div className='w-96 mt-1 mb-3 text-lg text-right font-mun'>기간 : { duration }</div>
                     <hr className='mb-10'/>
                 </div>
             </div>

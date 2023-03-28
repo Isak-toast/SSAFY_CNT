@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
 // 오늘 날짜
@@ -24,12 +25,6 @@ for (let i = todayYear; i >= todayYear - 10; i = i - 1) {
   }
 }
 
-// const endYearList = [];
-// for (let i = yearList[10].value; i < startYM.startY; i++) {
-//   endYearList.push({ value: i, label: i });
-// }
-// console.log(endYearList);
-
 // 올해 년도 기준, 월 표시
 // const todayYearMonthList = [
 //   { value: 1, label: 1 },
@@ -42,7 +37,6 @@ for (let i = 1; i <= todayMonth; i = i + 1) {
     todayYearMonthList.push({ value: i, label: i });
   }
 }
-// console.log(todayYearMonthList);
 
 // 1월 ~ 12월
 // const monthList = [
@@ -65,10 +59,11 @@ for (let i = 1; i <= 12; i = i + 1) {
     monthList.push({ value: i, label: i });
   }
 }
-// console.log(monthList);
 
 // 함수 시작
 function ViewPeriod() {
+  const params = useParams();
+  const navigate = useNavigate();
   const [IsOpen, setIsOpen] = useState(false);
 
   // Modal을 Open하는 함수
@@ -89,7 +84,6 @@ function ViewPeriod() {
   const [startYear, setStartYear] = useState();
   const startYearHandler = (event) => {
     setStartYear(event.value);
-    // console.log(event.value);
   };
 
   // 시작 월 선택 함수
@@ -103,11 +97,9 @@ function ViewPeriod() {
     startY: startYear,
     startM: startMonth,
   };
-  console.log(startYM);
 
   const searchStart = startYM.startY + "." + startYM.startM;
   const searchStartNum = startYM.startY * 100 + startYM.startM;
-  // console.log("searchStartNum", searchStartNum);
 
   // 종료 연도 선택 함수
   const [endYear, setEndYear] = useState();
@@ -131,14 +123,12 @@ function ViewPeriod() {
   // 조회 기간 표현
   const searchEnd = endYM.endY + "." + endYM.endM;
   const searchEndNum = endYM.endY * 100 + endYM.endM;
-  // console.log("searchEndNum", searchEndNum);
 
   // 종료 연도 리스트(시작년도 이후로 부터)
   const endYearList = [];
   for (let i = todayYear; i >= startYM.startY; i--) {
     endYearList.push({ value: i, label: i });
   }
-  // console.log(endYearList);
 
   // 종료 월 리스트
   const endMonthList = [];
@@ -161,16 +151,35 @@ function ViewPeriod() {
     }
   }
 
-  // 최종제출시 에러 검토
+  const [duration, setDuratinon] = useState("");
+
+  const setDurationHandler = () => {
+    setDuratinon(
+      (startYear * 100 + startMonth).toString() +
+        "-" +
+        (endYear * 100 + endMonth).toString()
+    );
+  };
+
+  // 최종제출시 에러 검토 후 duration 변경
   const durationHandler = () => {
     if (searchStartNum > searchEndNum) {
       alert("조회시작기간이 조회종료기간보다 빠릅니다.");
+    } else {
+      setDurationHandler();
     }
   };
 
+  useEffect(() => {
+    navigate("/nation/" + params.nationCode + "/" + duration);
+  }, [duration]);
+
   return (
     <div>
-      <button onClick={openModal}>조회 기간 설정</button>
+      <div>{params.duration}</div>
+      <button onClick={openModal} className="rounded-full bg-blue-300">
+        기간 설정
+      </button>
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
@@ -218,7 +227,9 @@ function ViewPeriod() {
           </h2>
         </div>
 
-        <button onClick={durationHandler}>적용하기</button>
+        <form>
+          <button onClick={durationHandler}>적용하기</button>
+        </form>
       </Modal>
     </div>
   );

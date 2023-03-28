@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Chart from "react-google-charts";
 
 function WorldMap({ data1 }) {
-  const [a, setA] = useState("all");
+  const params = useParams();
+  const [a, setA] = useState(params.nationCode);
   const navigate = useNavigate();
 
   const data = [
@@ -23,7 +24,7 @@ function WorldMap({ data1 }) {
   };
 
   useEffect(() => {
-    navigate("/nation/" + a + "/2203-2302");
+    navigate("/nation/" + a + "/" + params.duration);
   }, [a]);
 
   const options = {
@@ -46,6 +47,7 @@ function WorldMap({ data1 }) {
         const selectedId = chartWrapper.getChart().getSelection();
         if (selectedId.length) {
           setAHandler(selectedId[0]["row"] + 1);
+          // navigate("/nation/" + params.nationCode + "/2203-2302");
         }
       },
     },
@@ -60,7 +62,7 @@ function WorldMap({ data1 }) {
         <div className="mr-5">수입</div>
         <div className="w-5 h-5 rounded-full bg-yellow-300 mr-3"></div>
         <div className="mr-5">수출입</div>
-        <div className="ml-20">{a}</div>
+        <div className="ml-20">{params.nationName}</div>
         <div className="ml-20">balance :{data1.balpayments}</div>
       </div>
       <Chart

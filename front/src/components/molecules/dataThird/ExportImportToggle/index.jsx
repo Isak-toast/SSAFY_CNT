@@ -1,4 +1,4 @@
-function ExportImportToggle({ exportImportState }) {
+function ExportImportToggle({ exportImportState, params }) {
   return (
     <>
       {exportImportState ? (
@@ -20,6 +20,7 @@ function ExportImportToggle({ exportImportState }) {
           </button>
         </div>
       )}
+      <div>{params.nationName}</div>
     </>
   );
 }

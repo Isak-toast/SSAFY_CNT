@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function NationOrItem(props) {
+  const navigate = useNavigate();
+  const params = useParams();
   return (
     <>
       <div className="flex justify-between">
@@ -27,6 +30,7 @@ function NationOrItem(props) {
           name="status"
           onClick={() => {
             props.stateHandler("Item");
+            navigate("/item/all/" + params.duration);
           }}
         />
         <label htmlFor="item" className="peer-checked/item:text-sky-500">

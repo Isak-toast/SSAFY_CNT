@@ -35,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .addFilter(getAuthenticationFilter());
 //
-//        http.headers().frameOptions().disable();
+        http.headers().frameOptions().disable();
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception{

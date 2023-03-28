@@ -1,8 +1,6 @@
 import MoneyRatio from './../../molecules/dataFirst/MoneyRatio/index'
 import WeightRatio from './../../molecules/dataFirst/WeightRatio/index'
 import TradeInfo from './../../molecules/dataFirst/tradeInfo/index'
-import axios from 'axios';
-import { useEffect } from 'react';
 
 function DataFirst(props) {    
     return (

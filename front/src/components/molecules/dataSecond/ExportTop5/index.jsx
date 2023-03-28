@@ -28,14 +28,30 @@ ChartJS.defaults.font.size = 10             // Chart 이내 글자체 통일
 ChartJS.defaults.color = "black";
 
 function ExportTop5(props) {
-    let pickNation = '전세계'
+    let pickNation = props.alreadyClicked[6]
 
     // 정렬된 순서로 들어와야함 (Top1 -> Top5)
-    const labels = ['자동차', '가전제품', '반도체', '김치', '합성수지']    // Top5 품목
-    let values = [807000000000, 700000000000, 600000000000, 432000000000, 234000000000]    // Top5 품목 수출량
-    values = values.map(function(x) {
-        return x / 1000000
-    });
+    let labels
+    let values
+
+    if (typeof props.alreadyClicked[5]['수출'] !== 'undefined' && props.alreadyClicked[5]['수출'] !== null) {
+        labels = Object.keys(props.alreadyClicked[5]['수출'])
+    } else {
+        labels = ['', '', '', '', '']
+    }
+
+    if (typeof props.alreadyClicked[5]['수출'] !== 'undefined' && props.alreadyClicked[5]['수출'] !== null) {
+        values = Object.values(props.alreadyClicked[5]['수출'])
+        values = values.map(function (value) {
+            return value.exppdlrSum
+        })
+        values = values.map(function(x) {
+            return x / 1000000
+        });
+    } else {
+        values = [0, 0, 0, 0, 0]
+    }
+    
 
     const options = {
         indexAxis: 'y',

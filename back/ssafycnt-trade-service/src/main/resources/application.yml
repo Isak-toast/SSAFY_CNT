@@ -1,0 +1,44 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: ssafycnt-trade-service
+  datasource:
+    url: jdbc:mysql://localhost:3307/trade?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+#    username: isak
+#    password: 1234
+
+
+# p6spy? ?? SQL ?? ??
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+# p6spy? ?? ?? ??? debug? ??
+logging:
+  level:
+    p6spy: debug
+
+#eureka:
+#  instance:
+#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://127.0.0.1:8761/eureka
+#
+#greeting:
+#  message: Welcome to the ssafycnt.
+
+
