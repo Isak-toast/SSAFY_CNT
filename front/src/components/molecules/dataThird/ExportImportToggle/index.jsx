@@ -3,7 +3,7 @@ function ExportImportToggle({ exportImportState, params }) {
     <>
       {exportImportState ? (
         <div className="inline-flex">
-          <button className="bg-red-300 hover:bg-gray-400 text-gray-800 font-mun py-2 px-4 rounded-l">
+          <button className="bg-blue-300 hover:bg-gray-400 text-gray-800 font-mun py-2 px-4 rounded-l">
             수출
           </button>
           <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-mun py-2 px-4 rounded-r">

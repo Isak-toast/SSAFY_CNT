@@ -4,6 +4,7 @@ import Select from "react-select";
 import Code from "../../../../assets/Code.json";
 import unImg from "./../../../../../assets/nationalFlags/UN.png";
 import Modal from "react-modal";
+import magnifier1 from "../../../../assets/magnifier1.png";
 
 const customStyles = {
   content: {
@@ -35,7 +36,7 @@ for (let i = 3; i < Code.국가코드.length; i++) {
         <div className="w-10 h-10">
           <img src={imgSrc} onError={onErrorImg} alt="" />
         </div>
-        <div className="">{Code.국가코드[i].Column2}</div>
+        <div className="ml-3">{Code.국가코드[i].Column2}</div>
       </div>
     ),
     // label: Code.국가코드[i].Column2,
@@ -86,8 +87,9 @@ function NationSelector() {
 
   return (
     <div className="font-mun">
-      <button onClick={openModal} className="rounded-full bg-blue-300 text-2xl">
-        국가 선택
+      <button onClick={openModal} className="text-2xl inline-flex">
+        국가
+        <img src={magnifier1} className="w-8 h-8 ml-2" />
       </button>
       <Modal
         ariaHideApp={false}
@@ -113,14 +115,14 @@ function NationSelector() {
                 "/nation/" + nationState.nationCode + "/" + params.duration
               );
             }}
-            className="rounded hover:rounded-lg bg-blue-300 mr-3"
+            className="rounded hover:rounded-lg bg-blue-300 mr-3 p-1"
           >
             확인
           </button>
 
           <button
             onClick={closeModal}
-            className="rounded hover:rounded-lg bg-red-300 mr-3"
+            className="rounded hover:rounded-lg bg-red-300 mr-3 p-1"
           >
             취소
           </button>

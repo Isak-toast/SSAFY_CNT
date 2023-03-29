@@ -192,7 +192,7 @@ function ExportTop5(props) {
           <p className="ml-4 font-mun">단위: 백만달러</p>
         </div>
       </div>
-      <Bar options={options} data={data} width={400} height={300} />
+      <Bar options={options} data={data} width={350} height={280} />
     </div>
   );
 }

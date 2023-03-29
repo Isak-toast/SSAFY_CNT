@@ -18,7 +18,7 @@ function NationOrItem(props) {
           }}
         />
         <label htmlFor="nation" className="peer-checked/nation:text-sky-500 ml-2 text-2xl font-bold">
-          국가
+          국가별
         </label>
       </div>
 
@@ -34,7 +34,7 @@ function NationOrItem(props) {
           }}
         />
         <label htmlFor="item" className="peer-checked/item:text-sky-500 ml-2 text-2xl font-bold">
-          품목
+          품목별
         </label>
       </div>
     </>

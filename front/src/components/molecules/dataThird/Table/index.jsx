@@ -43,7 +43,7 @@ function PageButton({ children, className, ...rest }) {
 
 function Table({ columns, data, exportImportState }) {
   function frameColor(exportImportState) {
-    return exportImportState ? "bg-red-300" : "bg-blue-300";
+    return exportImportState ? "bg-gray-300" : "bg-gray-300";
   }
 
   // const headList = columns.map((value, key) => (

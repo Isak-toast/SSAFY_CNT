@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/controller/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/controller/NewsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,12 +20,7 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ssafycnt-apigateway-service" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -66,18 +57,35 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Sub_1/github/S08P22B308/back/ssafycnt-apigateway-service/src/main/resources/ssl&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;b116035cf86325bf28c111476fde5224&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;bb79899f47f15214ae877aed1020bd66&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Sub_1\github\S08P22B308\back\ssafycnt-apigateway-service\src\main\resources\ssl" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="SsafycntApigatewayServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="ssafycnt-apigateway-service.main" />
+      <option name="ACTIVE_PROFILES" value="dev" />
+      <option name="ALTERNATIVE_JRE_PATH" value="zulu-1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="back.ssafycnt-apigateway-service.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy.ssafycntapigatewayservice.SsafycntApigatewayServiceApplication" />
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -94,8 +102,8 @@
       <workItem from="1679558262731" duration="421000" />
       <workItem from="1679730326590" duration="1591000" />
       <workItem from="1679735602883" duration="2469000" />
-      <workItem from="1679983167045" duration="625000" />
-      <workItem from="1680048214898" duration="1082000" />
+      <workItem from="1679966019071" duration="1506000" />
+      <workItem from="1679969504779" duration="2470000" />
     </task>
     <servers />
   </component>

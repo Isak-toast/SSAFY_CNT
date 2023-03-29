@@ -76,7 +76,6 @@ function DataSecond() {
   }, [params]);
 
   const onChangeExportClick = (item) => {
-    console.log('====='+currentState[7])
     changeState([1, 0, item, '수출', currentState[4], currentState[5], currentState[6], currentState[5]['수출'][item]['exportChange']]);
   }
   const onChangeImportClick = (item) => {

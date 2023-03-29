@@ -28,12 +28,14 @@ function WorldMap() {
   const [data, setData] = useState([]);
 
   const dataHandler = (data) => {
-    const temp = [["Country", "balance"]];
+    const temp = [["Country", "무역수지 ($) "]];
     for (let i in data) {
       const item = [];
-
+      // console.log('!@#!@!#' + i)
+      console.log('!@#!@!#' + data[i]["nationName"])
       item.push(i);
       item.push(data[i]["balpaymentsLr"]);
+      // item.push(data[i]["nationName"]);
       temp.push(item);
     }
 
@@ -64,7 +66,7 @@ function WorldMap() {
   }, [a]);
 
   const options = {
-    backgroundColor: "93C5FD",
+    // backgroundColor: "81d4fa",
     colorAxis: {
       colors: ["008000"],
     },
@@ -74,8 +76,7 @@ function WorldMap() {
     height: 550,
     width: 1200,
     // legend: "none",
-    // tooltip: { textStyle: { color: "black" }, showColorCode: true },
-    tooltip: { trigger: "focus" },
+    tooltip: {textStyle:  {fontName: 'munchebu', fontSize: 12, bold: true}, showColorCode: true, isHtml: true, ignoreBounds: true, text: 'both'}
     // sizeAxis: { minValue: 0, maxSize: 20 },
   };
 
@@ -111,9 +112,9 @@ function WorldMap() {
           options={options}
           chartEvents={chartEvents}
         />
-        <div className="absolute bottom-0 left-3 mt-5">
+        {/* <div className="absolute bottom-0 left-3 mt-5">
           <p className="font-mun">무역 수지</p>
-        </div>
+        </div> */}
       </div>
     </>
   );

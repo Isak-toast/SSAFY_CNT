@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: ssafycnt-config-service
+  rabbitmq:
+   host: 172.26.2.118
+   port: 5672
+   username: guest
+   password: guest
+  profiles:
+    active: git
+  cloud:
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
+    config:
+      server:
+        git:
+          uri: https://github.com/Isak-toast/ssafycnt-config-prod.git
+        native:
+          search-locations: file:///C:/Users/SSAFY/Desktop/config-repo
+  config:
+    use-legacy-processing: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus

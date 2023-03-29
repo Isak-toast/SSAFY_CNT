@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate to="/nation/all/202203-202302" />} />
+        <Route path="/" element={<Navigate to="/nation/ALL/202203-202302" />} />
         <Route path="/nation/:nationCode/:duration" element={<Nation />} />
         <Route path="/item/:hsCode/:duration" element={<Item />} />
       </Routes>

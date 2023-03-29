@@ -19,9 +19,9 @@ function DataThird() {
     },
     { accessor: "duration", Header: "조회기준" },
     { accessor: "expdlrSum", Header: "금액($)" },
-    { accessor: "expdlrRatio", Header: "점유율(금액)" },
+    { accessor: "expdlrRatio", Header: " 금액 점유율(%)" },
     { accessor: "expwgtSum", Header: "중량(kg)" },
-    { accessor: "expwgtRatio", Header: "점유율(중량)" },
+    { accessor: "expwgtRatio", Header: "중량 점유율(%)" },
     { accessor: "hsCode", Header: "품목코드(HS코드)" },
   ]);
 
@@ -34,9 +34,9 @@ function DataThird() {
     },
     { accessor: "duration", Header: "조회기준" },
     { accessor: "impdlrSum", Header: "금액($)" },
-    { accessor: "impdlrRatio", Header: "점유율(금액)" },
+    { accessor: "impdlrRatio", Header: "금액 점유율(%)" },
     { accessor: "impwgtSum", Header: "중량(kg)" },
-    { accessor: "impwgtRatio", Header: "점유율(중량)" },
+    { accessor: "impwgtRatio", Header: "중량 점유율(%)" },
     { accessor: "hsCode", Header: "품목코드(HS코드)" },
   ]);
 
@@ -47,6 +47,26 @@ function DataThird() {
     for (let objKey in data["importDetail"]) {
       data["importDetail"][objKey]["nationCode"] = objKey;
       data["importDetail"][objKey]["duration"] = data["period"];
+
+      let num = data["importDetail"][objKey]["impdlrRatio"]
+        .toString()
+        .split(".");
+
+      data["importDetail"][objKey]["impdlrRatio"] =
+        num[0] + "." + num[1].slice(0, 1);
+
+      num = data["importDetail"][objKey]["impwgtRatio"].toString().split(".");
+
+      data["importDetail"][objKey]["impwgtRatio"] =
+        num[0] + "." + num[1].slice(0, 1);
+
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      num = data["importDetail"][objKey]["impdlrSum"].toLocaleString();
+      data["importDetail"][objKey]["impdlrSum"] = num;
+
+      num = data["importDetail"][objKey]["impwgtSum"].toLocaleString();
+      data["importDetail"][objKey]["impwgtSum"] = num;
+
       temp.push(data["importDetail"][objKey]);
     }
 
@@ -60,6 +80,26 @@ function DataThird() {
     for (let objKey in data["exportDetail"]) {
       data["exportDetail"][objKey]["nationCode"] = objKey;
       data["exportDetail"][objKey]["duration"] = data["period"];
+
+      let num = data["exportDetail"][objKey]["expdlrRatio"]
+        .toString()
+        .split(".");
+
+      data["exportDetail"][objKey]["expdlrRatio"] =
+        num[0] + "." + num[1].slice(0, 1);
+
+      num = data["exportDetail"][objKey]["expwgtRatio"].toString().split(".");
+
+      data["exportDetail"][objKey]["expwgtRatio"] =
+        num[0] + "." + num[1].slice(0, 1);
+
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      num = data["exportDetail"][objKey]["expdlrSum"].toLocaleString();
+      data["exportDetail"][objKey]["expdlrSum"] = num;
+
+      num = data["exportDetail"][objKey]["expwgtSum"].toLocaleString();
+      data["exportDetail"][objKey]["expwgtSum"] = num;
+
       temp.push(data["exportDetail"][objKey]);
     }
 
@@ -112,34 +152,38 @@ function DataThird() {
   // );
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
-      <main className="mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="flex-start" onClick={exportImportStateHandler}>
-          <ExportImportToggle
-            exportImportState={exportImportState}
-            params={params}
-          />
-        </div>
+    <>
+      <hr className="mt-3"></hr>
+      <div onClick={exportImportStateHandler} className="mt-5 left-0">
+        <ExportImportToggle
+          exportImportState={exportImportState}
+          params={params}
+        />
+      </div>
+      <div className="min-h-screen mt-5  text-gray-900">
+        <main className="mx-10 my-5">
+          {/* mx-auto px-4 sm:px-6 lg:px-8 pt-4  */}
 
-        {exportImportState === true ? (
-          <div className="mt-2">
-            <Table
-              columns={exColumns}
-              data={exData}
-              exportImportState={exportImportState}
-            />
-          </div>
-        ) : (
-          <div className="mt-2">
-            <Table
-              columns={imColumns}
-              data={imData}
-              exportImportState={exportImportState}
-            />
-          </div>
-        )}
-      </main>
-    </div>
+          {exportImportState === true ? (
+            <div className="mt-2">
+              <Table
+                columns={exColumns}
+                data={exData}
+                exportImportState={exportImportState}
+              />
+            </div>
+          ) : (
+            <div className="mt-2">
+              <Table
+                columns={imColumns}
+                data={imData}
+                exportImportState={exportImportState}
+              />
+            </div>
+          )}
+        </main>
+      </div>
+    </>
   );
 }
 

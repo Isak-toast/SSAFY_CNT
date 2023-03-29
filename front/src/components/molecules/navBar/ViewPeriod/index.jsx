@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import magnifier1 from "../../../../assets/magnifier1.png";
 
 // 오늘 날짜
 const today = new Date();
@@ -176,8 +177,9 @@ function ViewPeriod() {
   // 202203-202302
   return (
     <div className="font-mun">
-      <button onClick={openModal} className="rounded-full bg-blue-300 mr-5">
-        기간 설정
+      <button onClick={openModal} className="mr-5 inline-flex">
+        기간
+        <img src={magnifier1} className="w-8 h-8 ml-2" />
       </button>
       {params.duration.substring(0, 4) + '.' + params.duration.substring(4, 6) +
           ' ~ ' + params.duration.substring(7, 11) + '.' + params.duration.substring(11, 13)}
