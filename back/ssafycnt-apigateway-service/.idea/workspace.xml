@@ -62,7 +62,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Sub_1/github/S08P22B308/back/ssafycnt-apigateway-service/src/main/resources/ssl",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/S08P22B308/back/ssafycnt-apigateway-service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,7 +70,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "bb79899f47f15214ae877aed1020bd66",
+    "spring.configuration.checksum": "28ac49bea78cd1ce2ddc3336e1c9e7aa",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -106,6 +106,7 @@
       <workItem from="1679735602883" duration="2469000" />
       <workItem from="1679966019071" duration="1506000" />
       <workItem from="1679969504779" duration="1804000" />
+      <workItem from="1680054373533" duration="538000" />
     </task>
     <servers />
   </component>
