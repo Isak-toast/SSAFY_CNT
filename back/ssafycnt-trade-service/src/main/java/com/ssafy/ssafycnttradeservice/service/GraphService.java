@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.event.ChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class GraphService {
     @PersistenceContext
     private EntityManager em;
     public List<Graph> findDataByCountry(String statCd, String startDate, String endDate) {
+        startDate = Change(startDate);
+        endDate = Change(endDate);
         String tableName = statCd+"_trading";
         String sql = "select * from " + tableName + " where year between " +
                 startDate + " and " + endDate;
@@ -26,5 +29,12 @@ public class GraphService {
             resultDtos.add(new Graph(list.get(i)));
         }
         return resultDtos;
+    }
+
+    private String Change(String Date) {
+        String year = Date.substring(0,4);
+        String month = Date.substring(4,6);
+        String result = year+"."+month;
+        return result;
     }
 }

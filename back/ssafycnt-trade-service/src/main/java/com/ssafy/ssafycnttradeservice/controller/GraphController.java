@@ -8,10 +8,7 @@ import com.ssafy.ssafycnttradeservice.service.GraphService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +19,10 @@ import java.util.List;
 public class GraphController {
     private final GraphService graphService;
 
-    @PostMapping("/trade/country")
-    public ResponseEntity<?> searchDataByCountry(@RequestBody Row1RequestDTO dto) throws JsonProcessingException {
-        List<Graph> list = graphService.findDataByCountry(dto.getStatCd(),dto.getStartDate(),dto.getEndDate());
-        return ResponseEntity.ok(new Row1ResponseDTO(list,dto.getStatCd(),dto.getStartDate(),dto.getEndDate()));
+    @GetMapping("/trade/onelow")
+    public ResponseEntity<?> searchDataByCountry(@RequestParam String statCd, @RequestParam String startDate,
+                                                 @RequestParam String endDate) throws JsonProcessingException {
+        List<Graph> list = graphService.findDataByCountry(statCd,startDate,endDate);
+        return ResponseEntity.ok(new Row1ResponseDTO(list,statCd,startDate,endDate));
     }
 }
