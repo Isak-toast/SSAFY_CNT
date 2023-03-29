@@ -11,7 +11,7 @@ function tradeInfo({ data1 }) {
     }
 
     return (
-        <div className="w-auto flex justify-between items-center font-mun text-xl mr-20">
+        <div className="w-auto flex justify-between items-center font-mun text-xl ml-20">
             <div className="font-bold">
                 <p>수출</p>
                 <p className="mt-8">수입</p>

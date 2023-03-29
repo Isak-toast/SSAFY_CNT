@@ -131,7 +131,7 @@ function Table({ columns, data, exportImportState }) {
       <div className="mt-2 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg text-sm">
               <table
                 {...getTableProps()}
                 className="min-w-full divide-y divide-blue-800 font-mun"
@@ -199,7 +199,7 @@ function Table({ columns, data, exportImportState }) {
                     </Button>
                   </div>
 
-                  <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
+                  <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center font-mun">
                     <div className="flex gap-x-2 mr-10">
                       <span className="text-sm text-gray-700">
                         Page{" "}

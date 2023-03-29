@@ -73,9 +73,20 @@ function NationSelector() {
   //   navigate("/nation/" + nationState.nationCode + "/" + params.duration);
   // }, [nationSelect]);
 
+  const styles = {
+    control: base => ({
+      ...base,
+      fontFamily: "munchebu"
+    }),
+    menu: base => ({
+      ...base,
+      fontFamily: "munchebu"
+    })
+  };
+
   return (
-    <div>
-      <button onClick={openModal} className="rounded-full bg-blue-300">
+    <div className="font-mun">
+      <button onClick={openModal} className="rounded-full bg-blue-300 text-2xl">
         국가 선택
       </button>
       <Modal
@@ -91,9 +102,10 @@ function NationSelector() {
           placeholder="국가를 검색해주세요."
           // defaultInputValue="국가를 검색해주세요."
           onChange={nationSelectHandler}
+          styles={styles}
         />
 
-        <div className="mt-5 left-20px">
+        <div className="mt-5 left-20px font-mun">
           <button
             onClick={() => {
               closeModal();
@@ -105,6 +117,7 @@ function NationSelector() {
           >
             확인
           </button>
+
           <button
             onClick={closeModal}
             className="rounded hover:rounded-lg bg-red-300 mr-3"

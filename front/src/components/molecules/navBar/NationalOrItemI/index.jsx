@@ -6,7 +6,8 @@ function NationOrItemI(props) {
   const params = useParams();
   return (
     <>
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between font-mun"> */}
+      <div className="font-mun">
         <input
           id="nation"
           className="peer/nation"
@@ -17,7 +18,7 @@ function NationOrItemI(props) {
             navigate("/nation/all/" + params.duration);
           }}
         />
-        <label htmlFor="nation" className="peer-checked/nation:text-sky-500">
+        <label htmlFor="nation" className="peer-checked/nation:text-sky-500 ml-2">
           국가
         </label>
       </div>
@@ -33,7 +34,7 @@ function NationOrItemI(props) {
             props.stateHandler("Item");
           }}
         />
-        <label htmlFor="item" className="peer-checked/item:text-sky-500">
+        <label htmlFor="item" className="peer-checked/item:text-sky-500 ml-2">
           품목
         </label>
       </div>

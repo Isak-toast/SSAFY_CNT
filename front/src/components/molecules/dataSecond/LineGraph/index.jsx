@@ -103,7 +103,7 @@ function TrendItems(props) {
     };
 
     return (
-        <div>
+        <div className='mr-3'>
             <div className='flex justify-between items-center ml-2 text-left mb-3'>
                 <div>
                     <div className='mt-1 font-bold text-base text-gray-12'>{ pickItem }</div>               
@@ -114,7 +114,7 @@ function TrendItems(props) {
                     <p className='ml-4 font-mun'>단위: 백만달러</p>
                 </div>
             </div>
-            <Line options={options} data={data} width={400} height={300} />
+            <Line options={options} data={data} width={350} height={280} />
         </div>
     )
   }

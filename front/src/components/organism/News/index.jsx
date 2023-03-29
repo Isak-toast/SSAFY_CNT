@@ -66,7 +66,7 @@ function News() {
 
   useEffect(() => {
     axios.get(url).then((response) => setNewsData(response.data));
-  }, []);
+  }, [params]);
   // console.log(newsData[0]);
 
   return (

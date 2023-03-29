@@ -122,7 +122,7 @@ function DataThird() {
         </div>
 
         {exportImportState === true ? (
-          <div className="mt-4">
+          <div className="mt-2">
             <Table
               columns={exColumns}
               data={exData}
@@ -130,7 +130,7 @@ function DataThird() {
             />
           </div>
         ) : (
-          <div className="mt-4">
+          <div className="mt-2">
             <Table
               columns={imColumns}
               data={imData}

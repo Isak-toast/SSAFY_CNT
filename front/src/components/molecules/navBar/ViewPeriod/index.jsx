@@ -173,13 +173,14 @@ function ViewPeriod() {
   useEffect(() => {
     navigate("/nation/" + params.nationCode + "/" + duration);
   }, [duration]);
-
+  // 202203-202302
   return (
-    <div>
-      <div>{params.duration}</div>
-      <button onClick={openModal} className="rounded-full bg-blue-300">
+    <div className="font-mun">
+      <button onClick={openModal} className="rounded-full bg-blue-300 mr-5">
         기간 설정
       </button>
+      {params.duration.substring(0, 4) + '.' + params.duration.substring(4, 6) +
+          ' ~ ' + params.duration.substring(7, 11) + '.' + params.duration.substring(11, 13)}
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
@@ -189,7 +190,7 @@ function ViewPeriod() {
         contentLabel="Example Modal"
       >
         <button onClick={closeModal}>close</button>
-        <div>
+        <div className="font-mun">
           <h2>시작 년/월</h2>
           <br />
           <h3>시작 년도</h3>
@@ -204,7 +205,7 @@ function ViewPeriod() {
         <br />
         <hr />
         <br />
-        <div>
+        <div className="font-mun">
           <h2>종료 년/월</h2>
           <br />
           <h3>종료 년도</h3>
@@ -221,7 +222,7 @@ function ViewPeriod() {
         <hr />
         <br />
 
-        <div>
+        <div className="font-mun">
           <h2>
             조회기간 : {searchStart} ~ {searchEnd}
           </h2>

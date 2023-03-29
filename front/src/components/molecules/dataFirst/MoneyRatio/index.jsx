@@ -79,12 +79,12 @@ function NationRatio({data1}) {
         <div className='mb-5'>
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
-                    <div className='w-96 mt-1 mb-3 font-bold text-xl font-mun'>수출입 비중 ( 한국 ⇆ { nation } )</div>
+                    <div className='w-72 mt-1 mb-3 font-bold text-xl font-mun'>수출입 비중 ( 한국 ⇆ { nation } )</div>
                     <hr className='mb-10'/>
                 </div>
             </div>
            
-            <Doughnut options={options} data={data} width={400} height={300} plugins={[textCenter]} />
+            <Doughnut options={options} data={data} width={280} height={280} plugins={[textCenter]} />
         </div>
     )
   }

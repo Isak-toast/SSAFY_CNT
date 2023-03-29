@@ -190,7 +190,7 @@ function ImportTop5(props) {
     };
 
     return (
-        <div>
+        <div className='ml-3'>
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
                     <div className='mt-1 font-bold text-base text-gray-12'>{ pickNation }</div>                {/* 동적값으로 할당 해야함 */}               
@@ -201,7 +201,7 @@ function ImportTop5(props) {
                     <p className='ml-4 font-mun'>단위: 백만달러</p>
                 </div>
             </div>
-            <Bar options={options} data={data} width={400} height={300} />
+            <Bar options={options} data={data} width={350} height={280} />
         </div>
     )
   }

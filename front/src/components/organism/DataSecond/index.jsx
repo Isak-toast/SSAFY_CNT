@@ -84,7 +84,7 @@ function DataSecond() {
   };
 
   return (
-    <div className="flex justify-around space-x-5 top-0 border-8 border--400">
+    <div className="flex justify-center space-x-5 mt-7">
       <LineChartTrend anyItem={currentState} />
       <BarChartExport alreadyClicked={currentState} onSaveClickOrNot={onChangeExportClick} />
       <BarChartImport alreadyClicked={currentState} onSaveClickOrNot={onChangeImportClick} />
