@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor 
 public class Row1ResponseDTO {
 //    nationName: "전세계",
 //    period: "2022.03 ~ 2023.02",
