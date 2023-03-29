@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="" />
+=======
+    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/controller/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/controller/NewsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-news-service/src/main/java/com/ssafy/ssafycntnewsservice/service/MiningServiceImpl.java" afterDir="false" />
+    </list>
+>>>>>>> 1b96f40c31be14adccd522496c13d860c9d1f815
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,9 +112,14 @@
       <workItem from="1679558262731" duration="421000" />
       <workItem from="1679730326590" duration="1591000" />
       <workItem from="1679735602883" duration="2469000" />
+<<<<<<< HEAD
       <workItem from="1679966019071" duration="1506000" />
       <workItem from="1679969504779" duration="1804000" />
       <workItem from="1680054373533" duration="538000" />
+=======
+      <workItem from="1679983167045" duration="625000" />
+      <workItem from="1680048214898" duration="1082000" />
+>>>>>>> 1b96f40c31be14adccd522496c13d860c9d1f815
     </task>
     <servers />
   </component>

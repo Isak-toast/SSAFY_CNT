@@ -17,7 +17,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create  #always
+      ddl-auto: create  # always
   output:
     ansi:
       enabled: always   # trace

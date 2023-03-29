@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8000
 
 spring:
   application:
@@ -17,7 +17,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create  #always
+      ddl-auto: create  # always
   output:
     ansi:
       enabled: always   # trace
@@ -26,14 +26,14 @@ logging:
     org.hibernate.type: trace
 
 
-eureka:
-  instance:
-    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+#eureka:
+#  instance:
+#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://127.0.0.1:8761/eureka
 
 greeting:
   message: Welcome to the ssafycnt.
