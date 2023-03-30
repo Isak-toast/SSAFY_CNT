@@ -17,6 +17,8 @@ public class GraphService {
     @PersistenceContext
     private EntityManager em;
     public List<Graph> findOneRow(String statCd, String startDate, String endDate) {
+        startDate = Change(startDate);
+        endDate = Change(endDate);
         String tableName = statCd+"_trading";
         String sql = "select * from " + tableName + " where year between " +
                 startDate + " and " + endDate;
@@ -29,6 +31,8 @@ public class GraphService {
     }
 
     public List<Map<String, Object>> findTwoRow(String statCd, String startDate, String endDate) {
+        startDate = ChangeMinusOneMonth(startDate);
+        endDate = Change(endDate);
         String tableName = statCd+"_trading";
         String sql = "select * from " + tableName + " where year between " +
                 startDate + " and " + endDate;
@@ -65,9 +69,27 @@ public class GraphService {
         return result;
     }
 
-    private Map<String, Object> makeImportTop(List<Graph> list) {
-        return null;
+    private List<Long> IncreaseGraph(Map<String, Object> map) {
+        List<Long> changeRate = new ArrayList<>();
+        Long prev = null;
+        Long now = null;
+        String firstYear = null;
+        for(String key : map.keySet()) {
+            now = (Long) map.get(key);
+            if(prev!=null)  {
+                Long diff = (now-prev)*100;
+                if(prev!=0) diff/=prev;
+                else diff = 100L;
+                changeRate.add(diff);
+            } else {
+                firstYear = key;
+            }
+            prev = now;
+        }
+        return changeRate;
     }
+
+    // export start
 
     private Map<String, Object> makeExportTop(List<Graph> list) {
         Map<String, Object> exportTop = new HashMap<>();
@@ -97,7 +119,23 @@ public class GraphService {
             map.put("exportChange",exportChange.get(hscd));
             exportTop.put(CdConstants.HSCDS.get(hscd),map);
         }
-        return exportTop;
+        List<Map.Entry<String,Object>> resultDtos = new LinkedList<>(exportTop.entrySet());
+        resultDtos.sort(new Comparator<Map.Entry<String, Object>>() {
+            @Override
+            public int compare(Map.Entry<String, Object> o1, Map.Entry<String, Object> o2) {
+                Map<String, Object> hscdList1 = (Map<String, Object>)o1.getValue();
+                Long cost1 = (Long) hscdList1.get("expdlrSum");
+                Map<String, Object> hscdList2 = (Map<String, Object>)o2.getValue();
+                Long cost2 = (Long) hscdList2.get("expdlrSum");
+                return cost1 < cost2 ? 1 : -1;
+            }
+        });
+        Map<String, Object> sortedexportTop = new LinkedHashMap<>();
+        for(Map.Entry<String, Object> entry : resultDtos) {
+            sortedexportTop.put(entry.getKey(), entry.getValue());
+            if(sortedexportTop.size()==5) break;
+        }
+        return sortedexportTop;
     }
 
     private Map<String, Object> MakeExpDlrChange(List<Graph> list) {
@@ -122,23 +160,78 @@ public class GraphService {
         return result;
     }
 
-    private List<Long> IncreaseGraph(Map<String, Object> map) {
-        List<Long> changeRate = new ArrayList<>();
-        Long prev = null;
-        Long now = null;
-        String firstYear = null;
-        for(String key : map.keySet()) {
-            now = (Long) map.get(key);
-            if(prev!=null)  {
-                Long diff = (now-prev)*100;
-                if(prev!=0) diff/=prev;
-                else diff = 100L;
-                changeRate.add(diff);
-            } else {
-                firstYear = key;
-            }
-            prev = now;
+    // export end
+
+    // import start
+
+    private Map<String, Object> makeImportTop(List<Graph> list) {
+        Map<String, Object> importTop = new HashMap<>();
+        Map<String, TreeMap<String, Object>> importChange = new HashMap<>();
+        Map<String, Long> impdlrSum = new HashMap<>();
+        for(Graph g : list) {
+            String hscd = g.getHscd().substring(0,4);
+            String year = g.getYear();
+            Long impDlr = g.getImpdlr();
+            TreeMap<String, Object> hscdMap = importChange.getOrDefault(hscd, new TreeMap<String, Object>());
+            Long x = (Long) hscdMap.getOrDefault(year, 0L) + impDlr;
+            hscdMap.put(year,x);
+            importChange.put(hscd,hscdMap);
         }
-        return changeRate;
+        for(String key : importChange.keySet()) {
+            TreeMap<String, Object> hscdMap = importChange.get(key);
+            List<Long> changeRate = IncreaseGraph(hscdMap);
+            hscdMap.remove(hscdMap.firstKey());
+            Long sum = MakeImpDlrSum(hscdMap);
+            impdlrSum.put(key,sum);
+            hscdMap.put("changeRate",changeRate);
+        }
+        for(String key : importChange.keySet()) {
+            String hscd = key;
+            Map<String,Object> map = new HashMap<>();
+            map.put("impdlrSum",impdlrSum.get(hscd));
+            map.put("importChange",importChange.get(hscd));
+            importTop.put(CdConstants.HSCDS.get(hscd),map);
+        }
+        List<Map.Entry<String,Object>> resultDtos = new LinkedList<>(importTop.entrySet());
+        resultDtos.sort(new Comparator<Map.Entry<String, Object>>() {
+            @Override
+            public int compare(Map.Entry<String, Object> o1, Map.Entry<String, Object> o2) {
+                Map<String, Object> hscdList1 = (Map<String, Object>)o1.getValue();
+                Long cost1 = (Long) hscdList1.get("impdlrSum");
+                Map<String, Object> hscdList2 = (Map<String, Object>)o2.getValue();
+                Long cost2 = (Long) hscdList2.get("impdlrSum");
+                return cost1 < cost2 ? 1 : -1;
+            }
+        });
+        Map<String, Object> sortedimportTop = new LinkedHashMap<>();
+        for(Map.Entry<String, Object> entry : resultDtos) {
+            sortedimportTop.put(entry.getKey(), entry.getValue());
+            if(sortedimportTop.size()==5) break;
+        }
+        return sortedimportTop;
     }
+
+    private Map<String, Object> MakeImpDlrChange(List<Graph> list) {
+        TreeMap<String, Object> sumImpDlrPerYear = new TreeMap<>();
+        for(Graph g : list) {
+            String year = g.getYear();
+            Long impDlr = g.getImpdlr();
+            Long x = (Long) sumImpDlrPerYear.getOrDefault(year, 0L) + impDlr;
+            sumImpDlrPerYear.put(year,x);
+        }
+        List<Long> changeRate = IncreaseGraph(sumImpDlrPerYear);
+        sumImpDlrPerYear.remove(sumImpDlrPerYear.firstKey());
+        sumImpDlrPerYear.put("changeRate",changeRate);
+        return sumImpDlrPerYear;
+    }
+
+    private Long MakeImpDlrSum(Map<String, Object> map) {
+        Long result = 0L;
+        for(String key : map.keySet()) {
+            result += (Long) map.get(key);
+        }
+        return result;
+    }
+
+    // import end
 }

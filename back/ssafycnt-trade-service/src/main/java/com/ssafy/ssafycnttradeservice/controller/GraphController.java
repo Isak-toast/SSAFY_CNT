@@ -23,18 +23,18 @@ public class GraphController {
     @GetMapping("/trade/onerow")
     public ResponseEntity<?> searchOneRow(@RequestParam String statCd, @RequestParam String startDate,
                                                  @RequestParam String endDate) throws JsonProcessingException {
+        List<Graph> list = graphService.findOneRow(statCd,startDate,endDate);
         startDate = Change(startDate);
         endDate = Change(endDate);
-        List<Graph> list = graphService.findOneRow(statCd,startDate,endDate);
         return ResponseEntity.ok(new Row1ResponseDTO(list,statCd,startDate,endDate));
     }
 
     @GetMapping("/trade/tworow")
     public ResponseEntity<?> searchTwoRow(@RequestParam String statCd, @RequestParam String startDate,
                                                  @RequestParam String endDate) throws JsonProcessingException {
-        startDate = ChangeMinusOneMonth(startDate);
-        endDate = Change(endDate);
         List<Map<String, Object>> list = graphService.findTwoRow(statCd,startDate,endDate);
+        startDate = Change(startDate);
+        endDate = Change(endDate);
         return ResponseEntity.ok(new Row2ResponseDTO(list,statCd,startDate,endDate));
     }
 
@@ -42,21 +42,6 @@ public class GraphController {
         String year = Date.substring(0,4);
         String month = Date.substring(4,6);
         String result = year+"."+month;
-        return result;
-    }
-
-    private String ChangeMinusOneMonth(String Date) {
-        Integer year = Integer.parseInt(Date.substring(0,4));
-        Integer month = Integer.parseInt(Date.substring(4,6));
-        month -= 1;
-        if(month==0) {
-            year -= 1;
-            month = 12;
-        }
-        String yearStr = year.toString();
-        String monthStr = month.toString();
-        if(monthStr.length()==1) monthStr = new String("0"+monthStr);
-        String result = yearStr+"."+monthStr;
         return result;
     }
 }
