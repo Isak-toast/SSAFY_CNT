@@ -1,30 +1,68 @@
-import logo from "./../../../../public/assets/logo.svg";
-import excel from "./../../../../public/assets/excel.svg";
-import pdf from "./../../../../public/assets/pdf.svg";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import logo from "./../../../assets/logo.svg";
+import pdf from "./../../../assets/pdf.svg";
+import excel from "./../../../assets/excel.svg";
 import NationOrItem from "../../molecules/navBar/NationOrItem";
 import NationSelector from "../../molecules/navBar/NationSelector";
 import ViewPeriod from "../../molecules/navBar/ViewPeriod";
+import Pdf from "../../molecules/navBar/Pdf";
+import unImg from "./../../../../assets/nationalFlags/UN.png";
+import Code from "../../../assets/Code.json";
 
 function NavBar() {
+  // Nation, Item의 state에서 Default를 Nation으로 설정
+  const [state, setState] = useState("Nation");
+
+  // stateHandler라는 함수를 사용하여 state를 이용
+  const stateHandler = (event) => {
+    setState(event);
+  };
+
+  const params = useParams();
+  const src =
+    "./../../../../assets/nationalFlags/" + params.nationCode + ".gif";
+  const onErrorImg = (e) => {
+    e.target.src = unImg;
+  };
+
+  const nationNameList = [];
+  for (let i = 3; i < Code.국가코드.length; i++) {
+    if (Code.국가코드[i].Column1 === params.nationCode) {
+      nationNameList.push(Code.국가코드[i].Column2);
+    }
+  }
+  // console.log(nationNameList)
+
   return (
     <>
-      <nav className="flex justify-between space-x-5 sticky top-0 border-8 border-rose-400">
-        <img src={logo} />
-        <div className="content-center">
-          <NationOrItem />
+      <nav className="flex justify-between  sticky top-0 bg-slate-200 content-center font-mun">
+        {/* <img src={logo} className="w-20 h-20 ml-5 mt-2" /> */}
+        <img src={logo} className="w-32 h-32 ml-10" />
+
+        <div className="content-center flex items-center">
+          <NationOrItem stateHandler={stateHandler} />
         </div>
 
-        <div>
+        {/* {state === "Nation" ? ( */}
+        <div className="content-center flex items-center">
           <NationSelector />
+          <div className="flex flex-inline text-2xl ml-5">
+            <img src={src} onError={onErrorImg} className="w-11 h-8 mr-3" />
+            {nationNameList}
+          </div>
         </div>
 
-        <div>
+        {/* // ) : null} */}
+        {/* // {state === "Item" ? <ItemSelector /> : null} */}
+
+        <div className="flex flex-inline items-center text-2xl ml-5">
           <ViewPeriod />
         </div>
 
-        <div className="">
-          <img src={pdf} />
-          <img src={excel} />
+        <div className="flex justify-between items-center align-middle mr-10">
+          <Pdf />
+          <img src={excel} className="w-10 h-10" />
         </div>
       </nav>
     </>

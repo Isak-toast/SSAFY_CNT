@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';  // Uncaught Error: "category" is not a registered scale
 import { Bar } from 'react-chartjs-2'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -22,16 +22,33 @@ ChartJS.register(
     Legend
   );
 
-Chart.defaults.font.family = "munchebu.ttf"             // Chart 이내 글자체 통일
-function ExportTop5() {
-    let pickNation = '전세계'
+ChartJS.defaults.font.family = "munchebu"             // Chart 이내 글자체 통일
+ChartJS.defaults.font.size = 10             // Chart 이내 글자체 통일
+ChartJS.defaults.color = "black";
+function ImportTop5(props) {
+    let pickNation = props.alreadyClicked[6]
 
     // 정렬된 순서로 들어와야함 (Top1 -> Top5)
-    const labels = ['원유', '자동차부품', '의료용 기기', '향신료', '타코']    // Top5 품목
-    let values = [302000000000, 272000000000, 268000000000, 120000000000, 100000000]    // Top5 품목 수출량
-    values = values.map(function(x) {
-        return x / 1000000
-      });
+    let labels
+    let values
+
+    if (typeof props.alreadyClicked[5]['수입'] !== 'undefined' && props.alreadyClicked[5]['수입'] !== null) {
+        labels = Object.keys(props.alreadyClicked[5]['수입'])
+    } else {
+        labels = ['', '', '', '', '']
+    }
+
+    if (typeof props.alreadyClicked[5]['수입'] !== 'undefined' && props.alreadyClicked[5]['수입'] !== null) {
+        values = Object.values(props.alreadyClicked[5]['수입'])
+        values = values.map(function (value) {
+            return value.impdlrSum
+        })
+        values = values.map(function(x) {
+            return x / 1000000
+        });
+    } else {
+        values = [0, 0, 0, 0, 0]
+    }
     
     const horizontalBackgroundPlugin = {
         id: 'horizontalBackgroundPlugin',
@@ -62,7 +79,7 @@ function ExportTop5() {
     };
 
     
-    ChartJS.register(horizontalBackgroundPlugin)
+    // ChartJS.register(horizontalBackgroundPlugin)
 
     const options = {
         indexAxis: 'y',
@@ -109,25 +126,48 @@ function ExportTop5() {
         onClick: function (evt, element) {
             if (element.length > 0) {
                 setColorsHandler(element[0]['index'])
+                props.onSaveClickOrNot(data.labels[element[0]['index']])
             }
         }
     }
 
     const [colors, setColors] = useState(['rgba(240, 240, 240)',
-    'rgba(240, 240, 240)',
-    'rgba(240, 240, 240)',
-    'rgba(240, 240, 240)',
-    'rgba(240, 240, 240)'])
+                                        'rgba(240, 240, 240)',
+                                        'rgba(240, 240, 240)',
+                                        'rgba(240, 240, 240)',
+                                        'rgba(240, 240, 240)'])
 
-    const setColorsHandler = (props) => { 
+    const setColorsHandler = (idx) => { 
         const newColors = ['rgba(240, 240, 240)',
-        'rgba(240, 240, 240)',
-        'rgba(240, 240, 240)',
-        'rgba(240, 240, 240)',
-        'rgba(240, 240, 240)']
-        newColors[props] = 'rgba(54, 162, 235)'
+                            'rgba(240, 240, 240)',
+                            'rgba(240, 240, 240)',
+                            'rgba(240, 240, 240)',
+                            'rgba(240, 240, 240)']
+        newColors[idx] = 'rgba(54, 162, 235)'
         setColors(newColors)
     }
+    
+    useEffect(() => {
+        
+        if (props.alreadyClicked[1] === 1) {
+            const setColorsHandler = (idx) => { 
+                const newColors = ['rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)',
+                                    'rgba(240, 240, 240)']
+                newColors[idx] = 'rgba(54, 162, 235)'
+                setColors(newColors)
+            }
+        } else {
+            const newColors = ['rgba(240, 240, 240)',
+            'rgba(240, 240, 240)',
+            'rgba(240, 240, 240)',
+            'rgba(240, 240, 240)',
+            'rgba(240, 240, 240)']        
+            setColors(newColors) 
+        }
+    }, [props.alreadyClicked[1]]);
     
     const data = {
       labels,
@@ -150,7 +190,7 @@ function ExportTop5() {
     };
 
     return (
-        <div>
+        <div className='ml-3'>
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
                     <div className='mt-1 font-bold text-base text-gray-12'>{ pickNation }</div>                {/* 동적값으로 할당 해야함 */}               
@@ -161,9 +201,9 @@ function ExportTop5() {
                     <p className='ml-4 font-mun'>단위: 백만달러</p>
                 </div>
             </div>
-            <Bar options={options} data={data} width={400} height={300} />
+            <Bar options={options} data={data} width={350} height={280} />
         </div>
     )
   }
 
-export default ExportTop5;
+export default ImportTop5;

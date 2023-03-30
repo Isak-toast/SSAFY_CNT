@@ -1,6 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { useNavigate, useParams } from "react-router-dom";
+import Select from "react-select";
+import magnifier1 from "../../../../assets/magnifier1.png";
+
+// 오늘 날짜
+const today = new Date();
+// // 오늘 기준 년
+const todayYear = today.getFullYear();
+// // 오늘 기준 일
+const todayMonth = today.getMonth();
 
 const customStyles = {
   content: {
@@ -8,47 +17,220 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
+    height: "55%",
+    width: "25%",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
 };
 
-function ViewPeriod() {
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+// 오늘 년도 기준 10년전
+// const yearList = [
+//   { value: 2023, label: 2023 },
+//   { value: 2022, label: 2022 },
+//   { value: 2021, label: 2021 },
+//   { value: 2020, label: 2020 },
+//   { value: 2019, label: 2019 },
+// ];
+const yearList = [];
+for (let i = todayYear; i >= todayYear - 10; i = i - 1) {
+  {
+    yearList.push({ value: i, label: i });
+  }
+}
 
+// 올해 년도 기준, 월 표시
+// const todayYearMonthList = [
+//   { value: 1, label: 1 },
+//   { value: 2, label: 2 },
+//   { value: 3, label: 3 },
+// ];
+const todayYearMonthList = [];
+for (let i = 1; i <= todayMonth; i = i + 1) {
+  {
+    todayYearMonthList.push({ value: i, label: i });
+  }
+}
+
+// 1월 ~ 12월
+// const monthList = [
+//   { value: 1, label: 1 },
+//   { value: 2, label: 2 },
+//   { value: 3, label: 3 },
+//   { value: 4, label: 4 },
+//   { value: 5, label: 5 },
+//   { value: 6, label: 6 },
+//   { value: 7, label: 7 },
+//   { value: 8, label: 8 },
+//   { value: 9, label: 9 },
+//   { value: 10, label: 10 },
+//   { value: 11, label: 11 },
+//   { value: 12, label: 12 },
+// ];
+const monthList = [];
+for (let i = 1; i <= 12; i = i + 1) {
+  {
+    monthList.push({ value: i, label: i });
+  }
+}
+
+// 함수 시작
+function ViewPeriod() {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [IsOpen, setIsOpen] = useState(false);
+
+  // Modal을 Open하는 함수
   const openModal = () => {
     setIsOpen(true);
   };
 
-  const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
-  };
+  // const afterOpenModal = () => {
+  //   // references are now sync'd and can be accessed.
+  // };
 
+  // Modal을 Close하는 함수
   const closeModal = () => {
     setIsOpen(false);
   };
 
+  // 시작 연도 선택 함수
+  const [startYear, setStartYear] = useState();
+  const startYearHandler = (event) => {
+    setStartYear(event.value);
+  };
+
+  // 시작 월 선택 함수
+  const [startMonth, setStartMonth] = useState();
+  const startMonthHandler = (event) => {
+    setStartMonth(event.value);
+  };
+
+  // 조회 시작 기간
+  const startYM = {
+    startY: startYear,
+    startM: startMonth,
+  };
+
+  const searchStart = startYM.startY + "." + startYM.startM;
+  const searchStartNum = startYM.startY * 100 + startYM.startM;
+
+  // 종료 연도 선택 함수
+  const [endYear, setEndYear] = useState();
+  const endYearHandler = (event) => {
+    setEndYear(event.value);
+  };
+
+  // 종료 월 선택 함수
+  const [endMonth, setEndMonth] = useState();
+  const endMonthHandler = (event) => {
+    setEndMonth(event.value);
+  };
+
+  // 조회 종료 기간
+  const endYM = {
+    endY: endYear,
+    endM: endMonth,
+  };
+  // console.log(endYM);
+
+  // 조회 기간 표현
+  const searchEnd = endYM.endY + "." + endYM.endM;
+  const searchEndNum = endYM.endY * 100 + endYM.endM;
+
+  // 종료 연도 리스트(시작년도 이후로 부터)
+  const endYearList = [];
+  for (let i = todayYear; i >= startYM.startY; i--) {
+    endYearList.push({ value: i, label: i });
+  }
+
+  // 종료 월 리스트
+  const endMonthList = [];
+  // 시작 연도와 올해가 동일하면,
+  if (startYM.startY === todayYear) {
+    for (let i = startYM.startM; i <= todayMonth; i++) {
+      endMonthList.push({ value: i, label: i });
+    }
+  } else if (startYM.startY < todayYear && startYM.startY === endYM.endY) {
+    for (let i = startYM.startM; i <= 12; i++) {
+      endMonthList.push({ value: i, label: i });
+    }
+  } else if (startYM.startY < todayYear && endYM.endY === todayYear) {
+    for (let i = 1; i <= todayMonth; i++) {
+      endMonthList.push({ value: i, label: i });
+    }
+  } else if (startYM.startY < todayYear && startYM.startY < endYM.endY) {
+    for (let i = 1; i <= 12; i++) {
+      endMonthList.push({ value: i, label: i });
+    }
+  }
+
+  const [duration, setDuratinon] = useState("");
+
+  const setDurationHandler = () => {
+    setDuratinon(
+      (startYear * 100 + startMonth).toString() +
+        "-" +
+        (endYear * 100 + endMonth).toString()
+    );
+  };
+
+  // 최종제출시 에러 검토 후 duration 변경
+  const durationHandler = () => {
+    if (searchStartNum > searchEndNum) {
+      alert("조회시작기간이 조회종료기간보다 빠릅니다.");
+    } else {
+      setDurationHandler();
+    }
+  };
+
+  useEffect(() => {
+    navigate("/nation/" + params.nationCode + "/" + duration);
+  }, [duration]);
+  // 202203-202302
   return (
-    <div>
-      <button onClick={openModal}>Open Modal</button>
+    <div className="font-mun">
+      <button onClick={openModal} className="mr-5 inline-flex">
+        기간
+        <img src={magnifier1} className="w-8 h-8 ml-2" />
+      </button>
+      {params.duration.substring(0, 4) + '.' + params.duration.substring(4, 6) +
+          ' ~ ' + params.duration.substring(7, 11) + '.' + params.duration.substring(11, 13)}
       <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
+        ariaHideApp={false}
+        isOpen={IsOpen}
+        // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
+        {/* <button onClick={closeModal}>close</button> */}
+        <div className="font-mun flex justify-around items-center">
+          {/* <h2>시작 년/월</h2> */}
+          <h2 className="text-lg">시작 연월</h2>
+          <Select options={yearList} onChange={startYearHandler} placeholder={params.duration.substring(0, 4)} />
+          {startYM.startY === todayYear ? (
+            <Select options={todayYearMonthList} onChange={startMonthHandler} placeholder={params.duration.substring(5, 6)}/>
+          ) : (
+            <Select options={monthList} onChange={startMonthHandler} placeholder={params.duration.substring(5, 6)}/>
+          )}
+        </div>
+          
+        <br />
+        
+        <div className="font-mun flex justify-around items-center">
+          <h3 className="text-lg">종료 연월</h3>
+          <Select options={endYearList} onChange={endYearHandler} placeholder={params.duration.substring(7, 11)}/>
+          {endYM.endY === todayYear ? (
+            <Select options={endMonthList} onChange={endMonthHandler} placeholder={params.duration.substring(12, 13)}/>
+          ) : (
+            <Select options={endMonthList} onChange={endMonthHandler} placeholder={params.duration.substring(12, 13)}/>
+          )}
+        </div>
+        
+        <br />
+        <form className="font-mun flex justify-center text-lg">
+          <button className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1" onClick={durationHandler}>조회</button>
         </form>
       </Modal>
     </div>

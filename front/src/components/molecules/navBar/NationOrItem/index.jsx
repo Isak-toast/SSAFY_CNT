@@ -1,34 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function NationOrItem() {
-  const [checked, setChecked] = useState(true);
-
-  const isChecked = () => {
-    setChecked(true);
-  };
-
+function NationOrItem(props) {
+  const navigate = useNavigate();
+  const params = useParams();
   return (
     <>
-      <fieldset>
-        <div className="flex justify-between">
-          <input
-            id="nation"
-            className="peer/nation"
-            type="radio"
-            name="status"
-            defaultChecked
-            onClick={isChecked}
-          />
-          <label htmlFor="nation" className="peer-checked/nation:text-sky-500">
-            국가
-          </label>
+      <div className="font-mun align-middle">
+        <input
+          id="nation"
+          className="peer/nation"
+          type="radio"
+          name="status"
+          defaultChecked
+          onClick={() => {
+            props.stateHandler("Nation");
+          }}
+        />
+        <label
+          htmlFor="nation"
+          className="peer-checked/nation:text-sky-500 ml-2 text-2xl font-bold"
+        >
+          국가별
+        </label>
+      </div>
 
-          <input id="item" className="peer/item" type="radio" name="status" />
-          <label htmlFor="item" className="peer-checked/item:text-sky-500">
-            품목
-          </label>
-        </div>
-      </fieldset>
+      <div className="font-mun ml-10">
+        <input
+          id="item"
+          className="peer/item"
+          type="radio"
+          name="status"
+          onClick={() => {
+            props.stateHandler("Item");
+            navigate("/item/0000000000/" + params.duration);
+          }}
+        />
+        <label
+          htmlFor="item"
+          className="peer-checked/item:text-sky-500 ml-2 text-2xl font-bold"
+        >
+          품목별
+        </label>
+      </div>
     </>
   );
 }

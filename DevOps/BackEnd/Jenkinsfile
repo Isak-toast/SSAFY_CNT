@@ -1,0 +1,261 @@
+pipeline {
+    agent any
+    options {
+        gitLabConnection('gitlab-connection-ssafycnt')
+        gitlabBuilds(builds: ['Build', 'Deploy'])
+    }
+    
+
+    stages {
+        stage('Build') {
+            parallel{
+                stage('spring build'){
+                    when{
+                        anyOf{
+                            branch 'main';
+                            branch 'back_build'
+                        }
+                    }
+                    steps{
+                        updateGitlabCommitStatus name: 'spring build', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CI", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'spring build', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'spring build', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'spring build', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'spring build', state: 'success'
+                        }
+                    }
+                }
+                stage('ssafycnt-user-service'){
+                    when{
+                        branch 'ssafycnt-user-service'
+                    }
+                    steps {
+                        updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CI", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'success'
+                        }
+                    }
+                }
+                stage("ssafycnt-news-service") {
+                    when{
+                        branch 'ssafycnt-news-service'
+                    }
+                    steps{
+                        updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CI", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'success'
+                        }
+                    }
+                }
+                stage("ssafycnt-trade-service") {
+                    when{
+                        branch 'ssafycnt-trade-service'
+                    }
+                    steps{
+                        updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CI", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'success'
+                        }
+                    }
+                }
+            }
+            post {
+                failure {
+                    updateGitlabCommitStatus name: 'Build', state: 'failed'
+                }
+                unstable {
+                    updateGitlabCommitStatus name: 'Build', state: 'failed'
+                }
+                aborted {
+                    updateGitlabCommitStatus name: 'Build', state: 'canceled'
+                }
+                success {
+                    updateGitlabCommitStatus name: 'Build', state: 'success'
+                }
+            }
+        }
+        stage('Deploy') {
+            parallel{
+                stage('spring deploy'){
+                    when{
+                        anyOf{
+                            branch 'main';
+                            branch 'back_build'
+                        }
+                    }
+                    steps{
+                        updateGitlabCommitStatus name: 'spring deploy', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CD", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'spring deploy', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'spring deploy', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'spring deploy', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'spring deploy', state: 'success'
+                        }
+                    }
+                }
+                stage('ssafycnt-news-service'){
+                    when{
+                        branch 'ssafycnt-news-service'
+                    }
+                    steps {
+                        updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CD", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'ssafycnt-news-service', state: 'success'
+                        }
+                    }
+                }
+                stage("ssafycnt-user-service") {
+                    when{
+                        branch 'ssafycnt-user-service'
+                    }
+                    steps{
+                        updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CD", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'ssafycnt-user-service', state: 'success'
+                        }
+                    }
+                }
+                stage("ssafycnt-trade-service") {
+                    when{
+                        branch 'ssafycnt-trade-service'
+                    }
+                    steps{
+                        updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'running'
+                        build(
+                            job: "SSAFYCNT-Spring-CD", 
+                            parameters: [string(name:"BRANCH_NAME", value:"${env.BRANCH_NAME}")]
+                        )
+                    }
+                    post {
+                        failure {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'failed'
+                        }
+                        unstable {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'failed'
+                        }
+                        aborted {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'canceled'
+                        }
+                        success {
+                            updateGitlabCommitStatus name: 'ssafycnt-trade-service', state: 'success'
+                        }
+                    }
+                }
+            }
+            post {
+                failure {
+                    updateGitlabCommitStatus name: 'Deploy', state: 'failed'
+                }
+                unstable {
+                    updateGitlabCommitStatus name: 'Deploy', state: 'failed'
+                }
+                aborted {
+                    updateGitlabCommitStatus name: 'Deploy', state: 'canceled'
+                }
+                success {
+                    updateGitlabCommitStatus name: 'Deploy', state: 'success'
+                }
+            }
+        }
+    }
+}
