@@ -48,6 +48,12 @@ public class GraphController {
         return ResponseEntity.ok(new Row3ResponseDTO(list,startDate,endDate));
     }
 
+    @GetMapping("/trade/fourrow")
+    public ResponseEntity<?> searchFourRow(@RequestParam String startDate, @RequestParam String endDate) throws JsonProcessingException {
+        Map<String, Object> list = graphService.findFourRow(startDate,endDate);
+        return ResponseEntity.ok(list);
+    }
+
     private String Change(String Date) {
         String year = Date.substring(0,4);
         String month = Date.substring(4,6);

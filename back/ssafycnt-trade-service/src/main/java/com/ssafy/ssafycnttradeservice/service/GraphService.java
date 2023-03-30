@@ -236,22 +236,6 @@ public class GraphService {
     // import end
 
     public List<Map<String, Object>> findThreeRow(String startDate, String endDate) {
-//        public List<Map<String, Object>> findTwoRow(String statCd, String startDate, String endDate) {
-//            startDate = ChangeMinusOneMonth(startDate);
-//            endDate = Change(endDate);
-//            String tableName = statCd+"_trading";
-//            String sql = "select * from " + tableName + " where year between " +
-//                    startDate + " and " + endDate;
-//            List<Object[]> list = em.createNativeQuery(sql).getResultList();
-//            List<Graph> resultDtos = new ArrayList<>();
-//            for(int i=0;i< list.size();i++) {
-//                resultDtos.add(new Graph(list.get(i)));
-//            }
-//            Map<String, Object> expdlrChange = MakeExpDlrChange(resultDtos);
-//            Map<String, Object> exportTop = makeExportTop(resultDtos);
-//            Map<String, Object> importTop = makeImportTop(resultDtos);
-//            return Arrays.asList(expdlrChange,exportTop,importTop);
-//        }
         startDate = Change(startDate);
         endDate = Change(endDate);
         Long totalExpDlrSum = 0L;
@@ -273,24 +257,131 @@ public class GraphService {
         return Arrays.asList(exportDetail,importDetail);
     }
 
-    private Map<String, Object> makeImportDetail(Long totalImpDlrSum, Long totalImpWgtSum, String startDate, String endDate) {
-        return null;
-    }
-
-    private Map<String, Object> makeExportDetail(Long totalExpDlrSum, Long totalExpWgtSum, String startDate, String endDate) {
+    public Map<String, Object> findFourRow(String startDate, String endDate) {
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        Map<String, Object> map = new HashMap<>();
         for(String key : CdConstants.STATCDS.keySet()) {
+            Map<String, Object> mapPerStat = new HashMap<>();
             if (key.equals("ALL")) continue;
             String tableName = key + "_trading";
             String sql = "select * from " + tableName + " where year between " +
                     startDate + " and " + endDate;
             List<Object[]> list = em.createNativeQuery(sql).getResultList();
-            List<Graph> resultDtos = new ArrayList<>();
+            Long balpaymentsDlr = 0L;
+            Long expDlrSum = 0L;
+            Long impDlrSum = 0L;
             for (int i = 0; i < list.size(); i++) {
-                resultDtos.add(new Graph(list.get(i)));
-//            }
+                Graph temp = new Graph(list.get(i));
+                balpaymentsDlr+=temp.getBalpayments();
+                expDlrSum+=temp.getExpdlr();
+                impDlrSum+=temp.getImpdlr();
             }
+            if(expDlrSum==0&&impDlrSum==0) continue;
+            mapPerStat.put("nationName",CdConstants.STATCDS.get(key));
+            mapPerStat.put("balpaymentsDlr",balpaymentsDlr);
+            map.put(key,mapPerStat);
         }
-        return null;
+        return map;
     }
 
+    private Map<String, Object> makeImportDetail(Long totalImpDlrSum, Long totalImpWgtSum, String startDate, String endDate) {
+        Map<String, Object> importDetail = new HashMap<>();
+        for(String key : CdConstants.STATCDS.keySet()) {
+            Map<String, Object> importDetailPerStat = new HashMap<>();
+            if (key.equals("ALL")) continue;
+            String tableName = key + "_trading";
+            String sql = "select * from " + tableName + " where year between " +
+                    startDate + " and " + endDate;
+            List<Object[]> list = em.createNativeQuery(sql).getResultList();
+            Long impdlrSum = 0L;
+            Double impdlrRatio = null;
+            Long impwgtSum = 0L;
+            Double impwgtRatio = null;
+            for (int i = 0; i < list.size(); i++) {
+                Graph temp = new Graph(list.get(i));
+                impdlrSum+=temp.getImpdlr();
+                impwgtSum+=temp.getImpwgt();
+            }
+            if(impdlrSum==0L) continue;
+            impdlrRatio = impdlrSum.doubleValue()*100/totalImpDlrSum;
+            impwgtRatio = impwgtSum.doubleValue()*100/totalImpWgtSum;
+            importDetailPerStat.put("nationName",CdConstants.STATCDS.get(key));
+            importDetailPerStat.put("impdlrSum",impdlrSum);
+            importDetailPerStat.put("impdlrRatio",impdlrRatio);
+            importDetailPerStat.put("impwgtSum",impwgtSum);
+            importDetailPerStat.put("impwgtRatio",impwgtRatio);
+            importDetailPerStat.put("hsCode","전체품목");
+            importDetail.put(key,importDetailPerStat);
+        }
+        List<Map.Entry<String, Object>> resultDtos = new LinkedList<>(importDetail.entrySet());
+        resultDtos.sort(new Comparator<Map.Entry<String, Object>>() {
+            @Override
+            public int compare(Map.Entry<String, Object> o1, Map.Entry<String, Object> o2) {
+                Map<String, Object> hscdList1 = (Map<String, Object>)o1.getValue();
+                Long cost1 = (Long) hscdList1.get("impdlrSum");
+                Map<String, Object> hscdList2 = (Map<String, Object>)o2.getValue();
+                Long cost2 = (Long) hscdList2.get("impdlrSum");
+                return cost1 < cost2 ? 1 : -1;
+            }
+        });
+        Map<String, Object> sortedImportDetail = new LinkedHashMap<>();
+        int idx = 1;
+        for(Map.Entry<String, Object> entry : resultDtos) {
+            Map<String, Object> value = (Map<String, Object>)entry.getValue();
+            value.put("ranking",idx++);
+            sortedImportDetail.put(entry.getKey(), entry.getValue());
+        }
+        return sortedImportDetail;
+    }
+
+    private Map<String, Object> makeExportDetail(Long totalExpDlrSum, Long totalExpWgtSum, String startDate, String endDate) {
+        Map<String, Object> exportDetail = new HashMap<>();
+        for(String key : CdConstants.STATCDS.keySet()) {
+            Map<String, Object> exportDetailPerStat = new HashMap<>();
+            if (key.equals("ALL")) continue;
+            String tableName = key + "_trading";
+            String sql = "select * from " + tableName + " where year between " +
+                    startDate + " and " + endDate;
+            List<Object[]> list = em.createNativeQuery(sql).getResultList();
+            Long expdlrSum = 0L;
+            Double expdlrRatio = null;
+            Long expwgtSum = 0L;
+            Double expwgtRatio = null;
+            for (int i = 0; i < list.size(); i++) {
+                Graph temp = new Graph(list.get(i));
+                expdlrSum+=temp.getExpdlr();
+                expwgtSum+=temp.getExpwgt();
+            }
+            if(expdlrSum==0L) continue;
+            expdlrRatio = expdlrSum.doubleValue()*100/totalExpDlrSum;
+            expwgtRatio = expwgtSum.doubleValue()*100/totalExpWgtSum;
+            exportDetailPerStat.put("nationName",CdConstants.STATCDS.get(key));
+            exportDetailPerStat.put("expdlrSum",expdlrSum);
+            exportDetailPerStat.put("expdlrRatio",expdlrRatio);
+            exportDetailPerStat.put("expwgtSum",expwgtSum);
+            exportDetailPerStat.put("expwgtRatio",expwgtRatio);
+            exportDetailPerStat.put("hsCode","전체품목");
+            exportDetail.put(key,exportDetailPerStat);
+        }
+        List<Map.Entry<String, Object>> resultDtos = new LinkedList<>(exportDetail.entrySet());
+        resultDtos.sort(new Comparator<Map.Entry<String, Object>>() {
+            @Override
+            public int compare(Map.Entry<String, Object> o1, Map.Entry<String, Object> o2) {
+                Map<String, Object> hscdList1 = (Map<String, Object>)o1.getValue();
+                Long cost1 = (Long) hscdList1.get("expdlrSum");
+                Map<String, Object> hscdList2 = (Map<String, Object>)o2.getValue();
+                Long cost2 = (Long) hscdList2.get("expdlrSum");
+                return cost1 < cost2 ? 1 : -1;
+            }
+        });
+        Map<String, Object> sortedExportDetail = new LinkedHashMap<>();
+        int idx = 1;
+        for(Map.Entry<String, Object> entry : resultDtos) {
+            Map<String, Object> value = (Map<String, Object>)entry.getValue();
+            value.put("ranking",idx++);
+            sortedExportDetail.put(entry.getKey(), entry.getValue());
+        }
+        return sortedExportDetail;
+    }
 }
