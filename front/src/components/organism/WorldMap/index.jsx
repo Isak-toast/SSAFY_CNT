@@ -9,18 +9,18 @@ function WorldMap() {
   const [a, setA] = useState(params.nationCode);
   const navigate = useNavigate();
 
-  // const data1 = [
-  //   ["Country", "balnce"],
-  //   ["DE", -100],
-  //   ["US", -75],
-  //   ["BR", -50],
-  //   ["CA", -25],
-  //   ["FR", 0],
-  //   ["RU", 25],
-  //   ["CN", 50],
-  //   ["South Korea", 75],
-  //   ["JP", 100],
-  // ];
+  const data1 = [
+    ["Country", "balnce", "test"],
+    ["Germany", -100, 100],
+    ["United States", -75, 100],
+    ["BR", -50, 100],
+    ["CA", -25, 100],
+    ["FR", 0, 100],
+    ["RU", 25, 100],
+    ["CN", 50, 100],
+    ["Korea", 75, 100],
+    ["JApan", 100, 100],
+  ];
   const setAHandler = (e) => {
     setA(data[e][0]);
   };
@@ -31,11 +31,10 @@ function WorldMap() {
     const temp = [["Country", "무역수지 ($) "]];
     for (let i in data) {
       const item = [];
-      // console.log('!@#!@!#' + i)
-      console.log('!@#!@!#' + data[i]["nationName"])
       item.push(i);
       item.push(data[i]["balpaymentsLr"]);
       // item.push(data[i]["nationName"]);
+      // item.push(100);
       temp.push(item);
     }
 
@@ -66,9 +65,9 @@ function WorldMap() {
   }, [a]);
 
   const options = {
-    // backgroundColor: "81d4fa",
+    // backgroundColor: "81d4fa",  "008000"
     colorAxis: {
-      colors: ["008000"],
+      colors: ["265EAF"],
     },
     datalessRegionColor: "white",
     // forceIFrame: 20,
@@ -76,7 +75,13 @@ function WorldMap() {
     height: 550,
     width: 1200,
     // legend: "none",
-    tooltip: {textStyle:  {fontName: 'munchebu', fontSize: 12, bold: true}, showColorCode: true, isHtml: true, ignoreBounds: true, text: 'both'}
+    tooltip: {
+      textStyle: { fontName: "munchebu", fontSize: 12, bold: true },
+      showColorCode: true,
+      isHtml: true,
+      ignoreBounds: true,
+      text: "both",
+    },
     // sizeAxis: { minValue: 0, maxSize: 20 },
   };
 

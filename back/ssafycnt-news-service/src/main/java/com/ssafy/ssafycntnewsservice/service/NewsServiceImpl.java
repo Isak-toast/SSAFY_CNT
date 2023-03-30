@@ -50,9 +50,6 @@ public class NewsServiceImpl implements NewsService{
         List<NewsDto> crowlingResult = null;
         Document doc;
         for (int j = 0; j < 10; j++) {
-            if (crowlingData.size() < 10 * j) {
-                break;
-            }
             try {
                 doc = Jsoup.connect(URL + start_idx[j]).get();
                 Elements news_press = doc.select(".info_group .press");  // 신문사
@@ -71,15 +68,14 @@ public class NewsServiceImpl implements NewsService{
                             news_title.get(i).text(),
                             news_content.get(i).text(),
                             news_title.get(i).attr("abs:href"));
-                    if (!(crowlingData.contains(newsDto))) {
-                        crowlingData.add(newsDto);
-                    }
+                    crowlingData.add(newsDto);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             crowlingResult = new ArrayList<>(crowlingData);
         }
+        System.out.println(crowlingResult.size());
         return crowlingResult;
     }
     public String CurrentDateTime() {

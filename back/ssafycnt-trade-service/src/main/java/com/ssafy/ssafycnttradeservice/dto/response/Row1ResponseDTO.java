@@ -12,14 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor 
 public class Row1ResponseDTO {
-//    nationName: "전세계",
-//    period: "2022.03 ~ 2023.02",
-//    expdlrSum: 13131692232,
-//    impdlrSum: 6953342918,
-//    balpaymentsLr: 6178349314,
-//    expwgtSum: 9190234741,
-//    impwgtSum: 8040220371,
-//    balpaymentsWgt:	1150014370
     private String nationName;
     private String period;
     private Long expdlrSum;

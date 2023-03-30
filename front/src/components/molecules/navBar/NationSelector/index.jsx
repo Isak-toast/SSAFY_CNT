@@ -32,8 +32,8 @@ for (let i = 3; i < Code.국가코드.length; i++) {
   nationOptions.push({
     value: Code.국가코드[i].Column1 + " / " + Code.국가코드[i].Column2,
     label: (
-      <div className="flex flex-inline ">
-        <div className="w-10 h-10">
+      <div className="flex flex-inline items-center">
+        <div className="w-10 h-10 flex items-center">
           <img src={imgSrc} onError={onErrorImg} alt="" />
         </div>
         <div className="ml-3">{Code.국가코드[i].Column2}</div>
@@ -77,11 +77,11 @@ function NationSelector() {
   const styles = {
     control: base => ({
       ...base,
-      fontFamily: "munchebu"
+      fontFamily: "munchebu",
     }),
     menu: base => ({
       ...base,
-      fontFamily: "munchebu"
+      fontFamily: "munchebu",
     })
   };
 
@@ -107,7 +107,7 @@ function NationSelector() {
           styles={styles}
         />
 
-        <div className="mt-5 left-20px font-mun">
+        <div className="mt-5 left-20px font-mun flex justify-center">
           <button
             onClick={() => {
               closeModal();
@@ -115,14 +115,14 @@ function NationSelector() {
                 "/nation/" + nationState.nationCode + "/" + params.duration
               );
             }}
-            className="rounded hover:rounded-lg bg-blue-300 mr-3 p-1"
+            className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1"
           >
             확인
           </button>
 
           <button
             onClick={closeModal}
-            className="rounded hover:rounded-lg bg-red-300 mr-3 p-1"
+            className="rounded hover:rounded-lg bg-red-300 mr-3 pl-4 pr-4 pt-1 pb-1"
           >
             취소
           </button>

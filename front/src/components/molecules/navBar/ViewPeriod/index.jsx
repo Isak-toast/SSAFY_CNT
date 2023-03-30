@@ -11,6 +11,19 @@ const todayYear = today.getFullYear();
 // // 오늘 기준 일
 const todayMonth = today.getMonth();
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "55%",
+    width: "25%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 // 오늘 년도 기준 10년전
 // const yearList = [
 //   { value: 2023, label: 2023 },
@@ -188,50 +201,36 @@ function ViewPeriod() {
         isOpen={IsOpen}
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        // style={customStyles}
+        style={customStyles}
         contentLabel="Example Modal"
       >
-        <button onClick={closeModal}>close</button>
-        <div className="font-mun">
-          <h2>시작 년/월</h2>
-          <br />
-          <h3>시작 년도</h3>
-          <Select options={yearList} onChange={startYearHandler} />
-          <h3>시작 월</h3>
+        {/* <button onClick={closeModal}>close</button> */}
+        <div className="font-mun flex justify-around items-center">
+          {/* <h2>시작 년/월</h2> */}
+          <h2 className="text-lg">시작 연월</h2>
+          <Select options={yearList} onChange={startYearHandler} placeholder={params.duration.substring(0, 4)} />
           {startYM.startY === todayYear ? (
-            <Select options={todayYearMonthList} onChange={startMonthHandler} />
+            <Select options={todayYearMonthList} onChange={startMonthHandler} placeholder={params.duration.substring(5, 6)}/>
           ) : (
-            <Select options={monthList} onChange={startMonthHandler} />
+            <Select options={monthList} onChange={startMonthHandler} placeholder={params.duration.substring(5, 6)}/>
           )}
         </div>
+          
         <br />
-        <hr />
-        <br />
-        <div className="font-mun">
-          <h2>종료 년/월</h2>
-          <br />
-          <h3>종료 년도</h3>
-          <Select options={endYearList} onChange={endYearHandler} />
-          <h3>종료 월</h3>
+        
+        <div className="font-mun flex justify-around items-center">
+          <h3 className="text-lg">종료 연월</h3>
+          <Select options={endYearList} onChange={endYearHandler} placeholder={params.duration.substring(7, 11)}/>
           {endYM.endY === todayYear ? (
-            <Select options={endMonthList} onChange={endMonthHandler} />
+            <Select options={endMonthList} onChange={endMonthHandler} placeholder={params.duration.substring(12, 13)}/>
           ) : (
-            <Select options={endMonthList} onChange={endMonthHandler} />
+            <Select options={endMonthList} onChange={endMonthHandler} placeholder={params.duration.substring(12, 13)}/>
           )}
         </div>
-
+        
         <br />
-        <hr />
-        <br />
-
-        <div className="font-mun">
-          <h2>
-            조회기간 : {searchStart} ~ {searchEnd}
-          </h2>
-        </div>
-
-        <form>
-          <button onClick={durationHandler}>적용하기</button>
+        <form className="font-mun flex justify-center text-lg">
+          <button className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1" onClick={durationHandler}>조회</button>
         </form>
       </Modal>
     </div>

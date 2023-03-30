@@ -3,6 +3,31 @@ import { useNavigate, useParams } from "react-router-dom";
 import AsyncSelect from "react-select/async";
 import Modal from "react-modal";
 import Code from "../../../../assets/Code.json";
+import magnifier1 from "../../../../assets/magnifier1.png";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "60%",
+    width: "30%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+const styles = {
+  control: base => ({
+    ...base,
+    fontFamily: "munchebu",
+  }),
+  menu: base => ({
+    ...base,
+    fontFamily: "munchebu",
+  })
+};
 
 // vlaue에 codeColumn2 + " / " + codeColumn4 + " / " + codeColumn5과
 const itemOptions = [];
@@ -88,7 +113,7 @@ function ItemSelector() {
   const codeColumnHandler = (event) => {
     setCodeColumn(event.value);
   };
-  console.log(codeCoulmn.slice(0, 10));
+  // console.log(codeCoulmn.slice(0, 10));
   const allCodeColumn = {
     hsCode: codeCoulmn.split(" / ")[0],
     fourDigit: codeCoulmn.split(" / ")[1],
@@ -96,16 +121,17 @@ function ItemSelector() {
   };
 
   return (
-    <div>
-      <button onClick={openModal} className="rounded-full bg-blue-300">
-        품목 설정
+    <div className="font-mun">
+      <button onClick={openModal} className="text-2xl inline-flex">
+        품목
+        <img src={magnifier1} className="w-8 h-8 ml-2 mr-5" />
       </button>
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        // style={customStyles}
+        style={customStyles}
         contentLabel="Example Modal"
       >
         <AsyncSelect
@@ -116,39 +142,37 @@ function ItemSelector() {
           filterOption={null}
           placeholder="품목명이나 hsCode를 입력하세요."
           onChange={codeColumnHandler}
+          styles={styles}
         />
-        <br />
-        <br />
-        <h2>HS CODE</h2>
-        <div>{allCodeColumn.hsCode}</div>
-        <br />
-        <hr />
-        <br />
-        <h2>세번 4단위품명</h2>
-        <div>{allCodeColumn.fourDigit}</div>
-        <br />
-        <hr />
-        <br />
-        <h2>세번 10단위품명</h2>
-        <div>{allCodeColumn.tenDigit}</div>
-        <div className="mt-5 left-20px">
-          <button
-            onClick={() => {
-              closeModal();
-              navigate(
-                "/item/" + codeCoulmn.slice(0, 10) + "/" + params.duration
-              );
-            }}
-            className="rounded hover:rounded-lg bg-blue-300 mr-3"
-          >
-            확인
-          </button>
-          <button
-            onClick={closeModal}
-            className="rounded hover:rounded-lg bg-red-300 mr-3"
-          >
-            취소
-          </button>
+        <div className="font-mun">
+          <br />
+          <h2 className="font-semibold">HS CODE</h2>
+          <div>{allCodeColumn.hsCode}</div>
+          <br />
+          <h2 className="font-semibold">세번 4단위품명</h2>
+          <div>{allCodeColumn.fourDigit}</div>
+          <br />
+          <h2 className="font-semibold">세번 10단위품명</h2>
+          <div>{allCodeColumn.tenDigit}</div>
+          <div className="mt-5 left-20px flex justify-center">
+            <button
+              onClick={() => {
+                closeModal();
+                navigate(
+                  "/item/" + codeCoulmn.slice(0, 10) + "/" + params.duration
+                );
+              }}
+              className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1"
+            >
+              확인
+            </button>
+            <button
+              onClick={closeModal}
+              className="rounded hover:rounded-lg bg-red-300 mr-3 pl-4 pr-4 pt-1 pb-1"
+            >
+              취소
+            </button>
+          </div>
         </div>
       </Modal>
       <div></div>
