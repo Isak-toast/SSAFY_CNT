@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://ssafycnt.site")
+@CrossOrigin(origins = {"http://ssafycnt.site", "http://localhost:5173" })
 public class NewsController {
     private final NewsService newsService;
     private final MiningService miningService;
@@ -25,5 +25,4 @@ public class NewsController {
         List<NewsDto> newsdata = newsService.getNewsData(country, item, startDate, endDate);
         return miningService.getMiningData(newsdata);
     }
-
 }
