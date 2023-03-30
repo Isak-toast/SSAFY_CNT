@@ -234,4 +234,63 @@ public class GraphService {
     }
 
     // import end
+
+    public List<Map<String, Object>> findThreeRow(String startDate, String endDate) {
+//        public List<Map<String, Object>> findTwoRow(String statCd, String startDate, String endDate) {
+//            startDate = ChangeMinusOneMonth(startDate);
+//            endDate = Change(endDate);
+//            String tableName = statCd+"_trading";
+//            String sql = "select * from " + tableName + " where year between " +
+//                    startDate + " and " + endDate;
+//            List<Object[]> list = em.createNativeQuery(sql).getResultList();
+//            List<Graph> resultDtos = new ArrayList<>();
+//            for(int i=0;i< list.size();i++) {
+//                resultDtos.add(new Graph(list.get(i)));
+//            }
+//            Map<String, Object> expdlrChange = MakeExpDlrChange(resultDtos);
+//            Map<String, Object> exportTop = makeExportTop(resultDtos);
+//            Map<String, Object> importTop = makeImportTop(resultDtos);
+//            return Arrays.asList(expdlrChange,exportTop,importTop);
+//        }
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        Long totalExpDlrSum = 0L;
+        Long totalExpWgtSum = 0L;
+        Long totalImpDlrSum = 0L;
+        Long totalImpWgtSum = 0L;
+        String Asql = "select * from " + "ALL_trading" + " where year between " +
+                    startDate + " and " + endDate;
+        List<Object[]> Alist = em.createNativeQuery(Asql).getResultList();
+        for(int i=0;i< Alist.size();i++) {
+            Graph temp = new Graph(Alist.get(i));
+            totalExpDlrSum+=temp.getExpdlr();
+            totalExpWgtSum+=temp.getExpwgt();
+            totalImpDlrSum+=temp.getImpdlr();
+            totalImpWgtSum+=temp.getImpwgt();
+        }
+        Map<String, Object> exportDetail = makeExportDetail(totalExpDlrSum,totalExpWgtSum,startDate,endDate);
+        Map<String, Object> importDetail = makeImportDetail(totalImpDlrSum,totalImpWgtSum,startDate,endDate);
+        return Arrays.asList(exportDetail,importDetail);
+    }
+
+    private Map<String, Object> makeImportDetail(Long totalImpDlrSum, Long totalImpWgtSum, String startDate, String endDate) {
+        return null;
+    }
+
+    private Map<String, Object> makeExportDetail(Long totalExpDlrSum, Long totalExpWgtSum, String startDate, String endDate) {
+        for(String key : CdConstants.STATCDS.keySet()) {
+            if (key.equals("ALL")) continue;
+            String tableName = key + "_trading";
+            String sql = "select * from " + tableName + " where year between " +
+                    startDate + " and " + endDate;
+            List<Object[]> list = em.createNativeQuery(sql).getResultList();
+            List<Graph> resultDtos = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                resultDtos.add(new Graph(list.get(i)));
+//            }
+            }
+        }
+        return null;
+    }
+
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.ssafycnttradeservice.domain.Graph;
 import com.ssafy.ssafycnttradeservice.dto.response.Row1ResponseDTO;
 import com.ssafy.ssafycnttradeservice.dto.response.Row2ResponseDTO;
+import com.ssafy.ssafycnttradeservice.dto.response.Row3ResponseDTO;
 import com.ssafy.ssafycnttradeservice.service.GraphService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
+@CrossOrigin(origins = {"http://ssafycnt.site", "http://localhost:5173" })
 public class GraphController {
     private final GraphService graphService;
 
@@ -36,6 +38,14 @@ public class GraphController {
         startDate = Change(startDate);
         endDate = Change(endDate);
         return ResponseEntity.ok(new Row2ResponseDTO(list,statCd,startDate,endDate));
+    }
+
+    @GetMapping("/trade/threerow")
+    public ResponseEntity<?> searchThreeRow(@RequestParam String startDate, @RequestParam String endDate) throws JsonProcessingException {
+        List<Map<String, Object>> list = graphService.findThreeRow(startDate,endDate);
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        return ResponseEntity.ok(new Row3ResponseDTO(list,startDate,endDate));
     }
 
     private String Change(String Date) {
