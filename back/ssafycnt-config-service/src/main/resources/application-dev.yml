@@ -17,9 +17,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Isak-toast/ssafycnt-config-prod.git
-        native:
-          search-locations: file:///C:/Users/SSAFY/Desktop/config-repo
+          uri: https://github.com/jungboke/ssafycnt-config-dev
+#        native:
+#          search-locations: file:///C:/Users/SSAFY/Desktop/config-repo
   config:
     use-legacy-processing: true
 management:

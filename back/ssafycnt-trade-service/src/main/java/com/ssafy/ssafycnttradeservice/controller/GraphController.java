@@ -2,8 +2,8 @@ package com.ssafy.ssafycnttradeservice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.ssafycnttradeservice.domain.Graph;
-import com.ssafy.ssafycnttradeservice.dto.request.Row1RequestDTO;
 import com.ssafy.ssafycnttradeservice.dto.response.Row1ResponseDTO;
+import com.ssafy.ssafycnttradeservice.dto.response.Row2ResponseDTO;
 import com.ssafy.ssafycnttradeservice.service.GraphService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,10 +20,43 @@ import java.util.List;
 public class GraphController {
     private final GraphService graphService;
 
-    @GetMapping("/trade/onelow")
-    public ResponseEntity<?> searchDataByCountry(@RequestParam String statCd, @RequestParam String startDate,
+    @GetMapping("/trade/onerow")
+    public ResponseEntity<?> searchOneRow(@RequestParam String statCd, @RequestParam String startDate,
                                                  @RequestParam String endDate) throws JsonProcessingException {
-        List<Graph> list = graphService.findDataByCountry(statCd,startDate,endDate);
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        List<Graph> list = graphService.findOneRow(statCd,startDate,endDate);
         return ResponseEntity.ok(new Row1ResponseDTO(list,statCd,startDate,endDate));
+    }
+
+    @GetMapping("/trade/tworow")
+    public ResponseEntity<?> searchTwoRow(@RequestParam String statCd, @RequestParam String startDate,
+                                                 @RequestParam String endDate) throws JsonProcessingException {
+        startDate = ChangeMinusOneMonth(startDate);
+        endDate = Change(endDate);
+        List<Map<String, Object>> list = graphService.findTwoRow(statCd,startDate,endDate);
+        return ResponseEntity.ok(new Row2ResponseDTO(list,statCd,startDate,endDate));
+    }
+
+    private String Change(String Date) {
+        String year = Date.substring(0,4);
+        String month = Date.substring(4,6);
+        String result = year+"."+month;
+        return result;
+    }
+
+    private String ChangeMinusOneMonth(String Date) {
+        Integer year = Integer.parseInt(Date.substring(0,4));
+        Integer month = Integer.parseInt(Date.substring(4,6));
+        month -= 1;
+        if(month==0) {
+            year -= 1;
+            month = 12;
+        }
+        String yearStr = year.toString();
+        String monthStr = month.toString();
+        if(monthStr.length()==1) monthStr = new String("0"+monthStr);
+        String result = yearStr+"."+monthStr;
+        return result;
     }
 }
