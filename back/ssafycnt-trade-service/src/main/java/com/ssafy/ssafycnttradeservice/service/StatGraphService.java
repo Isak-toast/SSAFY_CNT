@@ -13,10 +13,10 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class GraphService {
+public class StatGraphService {
     @PersistenceContext
     private EntityManager em;
-    public List<Graph> findOneRow(String statCd, String startDate, String endDate) {
+    public List<Graph> findOneRowPerStat(String statCd, String startDate, String endDate) {
         startDate = Change(startDate);
         endDate = Change(endDate);
         String tableName = statCd+"_trading";
@@ -30,7 +30,7 @@ public class GraphService {
         return resultDtos;
     }
 
-    public List<Map<String, Object>> findTwoRow(String statCd, String startDate, String endDate) {
+    public List<Map<String, Object>> findTwoRowPerStat(String statCd, String startDate, String endDate) {
         startDate = ChangeMinusOneMonth(startDate);
         endDate = Change(endDate);
         String tableName = statCd+"_trading";
@@ -52,6 +52,56 @@ public class GraphService {
         String month = Date.substring(4,6);
         String result = year+"."+month;
         return result;
+    }
+
+    public List<Map<String, Object>> findThreeRowPerStat(String startDate, String endDate) {
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        Long totalExpDlrSum = 0L;
+        Long totalExpWgtSum = 0L;
+        Long totalImpDlrSum = 0L;
+        Long totalImpWgtSum = 0L;
+        String Asql = "select * from " + "ALL_trading" + " where year between " +
+                startDate + " and " + endDate;
+        List<Object[]> Alist = em.createNativeQuery(Asql).getResultList();
+        for(int i=0;i< Alist.size();i++) {
+            Graph temp = new Graph(Alist.get(i));
+            totalExpDlrSum+=temp.getExpdlr();
+            totalExpWgtSum+=temp.getExpwgt();
+            totalImpDlrSum+=temp.getImpdlr();
+            totalImpWgtSum+=temp.getImpwgt();
+        }
+        Map<String, Object> exportDetail = makeExportDetail(totalExpDlrSum,totalExpWgtSum,startDate,endDate);
+        Map<String, Object> importDetail = makeImportDetail(totalImpDlrSum,totalImpWgtSum,startDate,endDate);
+        return Arrays.asList(exportDetail,importDetail);
+    }
+
+    public Map<String, Object> findZeroRowPerStat(String startDate, String endDate) {
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        Map<String, Object> map = new HashMap<>();
+        for(String key : CdConstants.STATCDS.keySet()) {
+            Map<String, Object> mapPerStat = new HashMap<>();
+            if (key.equals("ALL")) continue;
+            String tableName = key + "_trading";
+            String sql = "select * from " + tableName + " where year between " +
+                    startDate + " and " + endDate;
+            List<Object[]> list = em.createNativeQuery(sql).getResultList();
+            Long balpaymentsDlr = 0L;
+            Long expDlrSum = 0L;
+            Long impDlrSum = 0L;
+            for (int i = 0; i < list.size(); i++) {
+                Graph temp = new Graph(list.get(i));
+                balpaymentsDlr+=temp.getBalpayments();
+                expDlrSum+=temp.getExpdlr();
+                impDlrSum+=temp.getImpdlr();
+            }
+            if(expDlrSum==0&&impDlrSum==0) continue;
+            mapPerStat.put("nationName",CdConstants.STATCDS.get(key));
+            mapPerStat.put("balpaymentsDlr",balpaymentsDlr);
+            map.put(key,mapPerStat);
+        }
+        return map;
     }
 
     private String ChangeMinusOneMonth(String Date) {
@@ -234,56 +284,6 @@ public class GraphService {
     }
 
     // import end
-
-    public List<Map<String, Object>> findThreeRow(String startDate, String endDate) {
-        startDate = Change(startDate);
-        endDate = Change(endDate);
-        Long totalExpDlrSum = 0L;
-        Long totalExpWgtSum = 0L;
-        Long totalImpDlrSum = 0L;
-        Long totalImpWgtSum = 0L;
-        String Asql = "select * from " + "ALL_trading" + " where year between " +
-                    startDate + " and " + endDate;
-        List<Object[]> Alist = em.createNativeQuery(Asql).getResultList();
-        for(int i=0;i< Alist.size();i++) {
-            Graph temp = new Graph(Alist.get(i));
-            totalExpDlrSum+=temp.getExpdlr();
-            totalExpWgtSum+=temp.getExpwgt();
-            totalImpDlrSum+=temp.getImpdlr();
-            totalImpWgtSum+=temp.getImpwgt();
-        }
-        Map<String, Object> exportDetail = makeExportDetail(totalExpDlrSum,totalExpWgtSum,startDate,endDate);
-        Map<String, Object> importDetail = makeImportDetail(totalImpDlrSum,totalImpWgtSum,startDate,endDate);
-        return Arrays.asList(exportDetail,importDetail);
-    }
-
-    public Map<String, Object> findFourRow(String startDate, String endDate) {
-        startDate = Change(startDate);
-        endDate = Change(endDate);
-        Map<String, Object> map = new HashMap<>();
-        for(String key : CdConstants.STATCDS.keySet()) {
-            Map<String, Object> mapPerStat = new HashMap<>();
-            if (key.equals("ALL")) continue;
-            String tableName = key + "_trading";
-            String sql = "select * from " + tableName + " where year between " +
-                    startDate + " and " + endDate;
-            List<Object[]> list = em.createNativeQuery(sql).getResultList();
-            Long balpaymentsDlr = 0L;
-            Long expDlrSum = 0L;
-            Long impDlrSum = 0L;
-            for (int i = 0; i < list.size(); i++) {
-                Graph temp = new Graph(list.get(i));
-                balpaymentsDlr+=temp.getBalpayments();
-                expDlrSum+=temp.getExpdlr();
-                impDlrSum+=temp.getImpdlr();
-            }
-            if(expDlrSum==0&&impDlrSum==0) continue;
-            mapPerStat.put("nationName",CdConstants.STATCDS.get(key));
-            mapPerStat.put("balpaymentsDlr",balpaymentsDlr);
-            map.put(key,mapPerStat);
-        }
-        return map;
-    }
 
     private Map<String, Object> makeImportDetail(Long totalImpDlrSum, Long totalImpWgtSum, String startDate, String endDate) {
         Map<String, Object> importDetail = new HashMap<>();

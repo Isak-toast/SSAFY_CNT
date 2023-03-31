@@ -1,4 +1,4 @@
-package com.ssafy.ssafycnttradeservice.dto.response;
+package com.ssafy.ssafycnttradeservice.dto.response.stat;
 
 import com.ssafy.ssafycnttradeservice.constants.CdConstants;
 import com.ssafy.ssafycnttradeservice.domain.Graph;
@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor 
-public class Row1ResponseDTO {
+public class StatRow1ResponseDTO {
     private String nationName;
     private String period;
     private Long expdlrSum;
@@ -20,7 +20,7 @@ public class Row1ResponseDTO {
     private Long expwgtSum;
     private Long impwgtSum;
     private Long balpaymentsWgt;
-    public Row1ResponseDTO(List<Graph> list, String statCd, String startDate, String endDate) {
+    public StatRow1ResponseDTO(List<Graph> list, String statCd, String startDate, String endDate) {
         this.nationName = CdConstants.STATCDS.get(statCd);
         this.period = startDate + " ~ " + endDate;
         this.expdlrSum = 0L; this.impdlrSum = 0L; this.balpaymentsDlr = 0L;

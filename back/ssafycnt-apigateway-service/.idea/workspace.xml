@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="" />
+    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/constants/CdConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/constants/CdConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/controller/GraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/controller/GraphController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/request/Row1RequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row1ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow1ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row2ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow2ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row3ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow3ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row4ResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/GraphService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/StatGraphService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +30,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ssafycnt-apigateway-service" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -57,7 +72,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Sub_1/github/S08P22B308/back/ssafycnt-apigateway-service/src/main/resources/ssl",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/S08P22B308/back/ssafycnt-apigateway-service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,7 +80,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "spring.configuration.checksum": "bb79899f47f15214ae877aed1020bd66",
+    "spring.configuration.checksum": "28ac49bea78cd1ce2ddc3336e1c9e7aa",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -104,6 +119,7 @@
       <workItem from="1679735602883" duration="2469000" />
       <workItem from="1679966019071" duration="1506000" />
       <workItem from="1679969504779" duration="2470000" />
+      <workItem from="1680235859120" duration="983000" />
     </task>
     <servers />
   </component>
