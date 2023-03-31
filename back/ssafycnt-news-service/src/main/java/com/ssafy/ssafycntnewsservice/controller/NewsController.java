@@ -4,10 +4,7 @@ import com.ssafy.ssafycntnewsservice.dto.NewsDto;
 import com.ssafy.ssafycntnewsservice.service.MiningService;
 import com.ssafy.ssafycntnewsservice.service.NewsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"http://ssafycnt.site", "http://localhost:5173" })
 public class NewsController {
     private final NewsService newsService;
     private final MiningService miningService;
@@ -27,5 +25,4 @@ public class NewsController {
         List<NewsDto> newsdata = newsService.getNewsData(country, item, startDate, endDate);
         return miningService.getMiningData(newsdata);
     }
-
 }

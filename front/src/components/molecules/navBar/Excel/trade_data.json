@@ -1,0 +1,32 @@
+{
+    "trade_data": [
+      {
+        "year": 2023,
+        "country": "United States",
+        "import": 2500000000,
+        "export": 3000000000,
+        "balance": 500000000
+      },
+      {
+        "year": 2023,
+        "country": "China",
+        "import": 2000000000,
+        "export": 3500000000,
+        "balance": 1500000000
+      },
+      {
+        "year": 2023,
+        "country": "Germany",
+        "import": 1500000000,
+        "export": 1800000000,
+        "balance": 300000000
+      },
+      {
+        "year": 2023,
+        "country": "Japan",
+        "import": 1200000000,
+        "export": 1600000000,
+        "balance": 400000000
+      }
+    ]
+  }

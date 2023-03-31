@@ -48,7 +48,7 @@ function ExportTop5(props) {
   ) {
     values = Object.values(props.alreadyClicked[5]["수출"]);
     values = values.map(function (value) {
-      return value.exppdlrSum;
+      return value.expdlrSum;
     });
     values = values.map(function (x) {
       return x / 1000000;

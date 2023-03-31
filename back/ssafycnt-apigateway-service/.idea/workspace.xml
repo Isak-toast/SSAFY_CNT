@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="" />
+    <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/constants/CdConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/constants/CdConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/controller/GraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/controller/GraphController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/request/Row1RequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row1ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow1ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row2ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow2ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row3ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow3ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row4ResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/GraphService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/StatGraphService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +30,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ssafycnt-apigateway-service" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -48,27 +63,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Sub_1/github/S08P22B308/back/ssafycnt-apigateway-service/src/main/resources/ssl&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;bb79899f47f15214ae877aed1020bd66&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/S08P22B308/back/ssafycnt-apigateway-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "spring.configuration.checksum": "28ac49bea78cd1ce2ddc3336e1c9e7aa",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Sub_1\github\S08P22B308\back\ssafycnt-apigateway-service\src\main\resources\ssl" />
@@ -104,6 +119,7 @@
       <workItem from="1679735602883" duration="2469000" />
       <workItem from="1679966019071" duration="1506000" />
       <workItem from="1679969504779" duration="2470000" />
+      <workItem from="1680235859120" duration="983000" />
     </task>
     <servers />
   </component>

@@ -35,21 +35,30 @@ function TrendItems(props) {
 
     // 정렬된 순서로 들어와야함 (Top1 -> Top5)
     if (Object.keys(props.anyItem[7]).length === 3) {
+        console.log(')))))))))))))))*********')
         labels = Object.keys(props.anyItem[7]).map(v => {
-            if (v != 'changeRate') {
+            if (v !== 'changeRate') {
                 return v
             }
         }).filter(element => element)
         values = Object.values(props.anyItem[7]).map(v => {
-            if (typeof(v) !== 'object') {
+            if (typeof(v) != 'object') {
                 return v
             }
         }).filter(element => element)
         changeRate = props.anyItem[7]['changeRate']
     } else {
-        labels = Object.keys(props.anyItem[7])    // Top5 품목
-        values = Object.values(props.anyItem[7])    // Top5 품목 수출량
-        console.log(props.anyItem[7])
+        labels = Object.keys(props.anyItem[7]).map(v => {
+            if (v !== 'changeRate') {
+                return v
+            }
+        }).filter(element => element)
+        values = Object.values(props.anyItem[7]).map(v => {
+            if (typeof(v) != 'object') {
+                return v
+            }
+        }).filter(element => element)
+        changeRate = props.anyItem[7]['changeRate']
     }
 
     values = values.map(function(x) {
@@ -106,7 +115,11 @@ function TrendItems(props) {
         <div className='mr-3'>
             <div className='flex justify-between items-center ml-2 text-left mb-3'>
                 <div>
-                    <div className='mt-1 font-bold text-base text-gray-12'>{ pickItem }</div>               
+                    <div data-tooltip-target="tooltip-top" data-tooltip-placement="top" className='mt-1 font-bold text-base text-gray-12 w-40 truncate '>{ pickItem }</div>               
+                    <div id="tooltip-default" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Tooltip content
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                     <div className='mt-1 font-bold text-xl font-mun'>{imOrExport} 추세</div>
                 </div>
                 <div className='flex w-40 h-8 justify-center items-center bg-[#f3f4f6] font-bold text-xs'>

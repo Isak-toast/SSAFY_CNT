@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import magnifier1 from "../../../../assets/magnifier1.png";
 
 // 오늘 날짜
 const today = new Date();
@@ -9,6 +10,19 @@ const today = new Date();
 const todayYear = today.getFullYear();
 // // 오늘 기준 일
 const todayMonth = today.getMonth();
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "40%",
+    width: "25%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 // 오늘 년도 기준 10년전
 // const yearList = [
@@ -65,10 +79,12 @@ function ViewPeriodI() {
   const params = useParams();
   const navigate = useNavigate();
   const [IsOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState(false);
 
   // Modal을 Open하는 함수
   const openModal = () => {
     setIsOpen(true);
+    setSearch(false);
   };
 
   // const afterOpenModal = () => {
@@ -109,8 +125,10 @@ function ViewPeriodI() {
 
   // 종료 월 선택 함수
   const [endMonth, setEndMonth] = useState();
+
   const endMonthHandler = (event) => {
     setEndMonth(event.value);
+    setSearch(true);
   };
 
   // 조회 종료 기간
@@ -176,58 +194,88 @@ function ViewPeriodI() {
 
   return (
     <div>
-      <button onClick={openModal} className="rounded-full bg-blue-300">
-        기간 설정
+      <button onClick={openModal} className="mr-5 inline-flex">
+        기간
+        <img src={magnifier1} className="w-8 h-8 ml-2" />
       </button>
-      <div>{params.duration}</div>
+      {params.duration.substring(0, 4) +
+        "." +
+        params.duration.substring(4, 6) +
+        " ~ " +
+        params.duration.substring(7, 11) +
+        "." +
+        params.duration.substring(11, 13)}
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        // style={customStyles}
+        style={customStyles}
         contentLabel="Example Modal"
       >
-        <button onClick={closeModal}>close</button>
-        <div>
-          <h2>시작 년/월</h2>
-          <br />
-          <h3>시작 년도</h3>
-          <Select options={yearList} onChange={startYearHandler} />
-          <h3>시작 월</h3>
+        {/* <button onClick={closeModal}>close</button> */}
+        <div className="font-mun flex justify-around items-center">
+          <h2 className="text-lg">시작 연월</h2>
+          <Select
+            options={yearList}
+            onChange={startYearHandler}
+            placeholder="연"
+          />
           {startYM.startY === todayYear ? (
-            <Select options={todayYearMonthList} onChange={startMonthHandler} />
+            <Select
+              options={todayYearMonthList}
+              onChange={startMonthHandler}
+              placeholder="월"
+            />
           ) : (
-            <Select options={monthList} onChange={startMonthHandler} />
+            <Select
+              options={monthList}
+              onChange={startMonthHandler}
+              placeholder="월"
+            />
           )}
         </div>
+
         <br />
-        <hr />
-        <br />
-        <div>
-          <h2>종료 년/월</h2>
-          <br />
-          <h3>종료 년도</h3>
-          <Select options={endYearList} onChange={endYearHandler} />
-          <h3>종료 월</h3>
+
+        <div className="font-mun flex justify-around items-center">
+          <h3 className="text-lg">종료 연월</h3>
+          <Select
+            options={endYearList}
+            onChange={endYearHandler}
+            placeholder="연"
+          />
           {endYM.endY === todayYear ? (
-            <Select options={endMonthList} onChange={endMonthHandler} />
+            <Select
+              options={endMonthList}
+              onChange={endMonthHandler}
+              placeholder="월"
+            />
           ) : (
-            <Select options={endMonthList} onChange={endMonthHandler} />
+            <Select
+              options={endMonthList}
+              onChange={endMonthHandler}
+              placeholder="월"
+            />
           )}
         </div>
 
         <br />
-        <hr />
-        <br />
 
-        <div>
-          <h2>
-            조회기간 : {searchStart} ~ {searchEnd}
-          </h2>
-        </div>
-
-        <button onClick={durationHandler}>적용하기</button>
+        <form className="font-mun flex justify-center text-lg">
+          {search === true ? (
+            <button
+              className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1"
+              onClick={durationHandler}
+            >
+              조회
+            </button>
+          ) : (
+            <div className="rounded  bg-gray-300 mr-3 pl-4 pr-4 pt-1 pb-1">
+              조회
+            </div>
+          )}
+        </form>
       </Modal>
     </div>
   );

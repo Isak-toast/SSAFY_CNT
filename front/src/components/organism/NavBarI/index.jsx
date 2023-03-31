@@ -25,27 +25,27 @@ function NavBarI() {
 
   return (
     <>
-      <nav className="flex justify-between  sticky top-0 bg-slate-200 content-center">
-        <img src={logo} className="w-20 h-20 ml-5 mt-2" />
+      <nav className="flex justify-between  sticky top-0 bg-slate-200 content-center font-mun">
+        <img src={logo} className="w-32 h-32 ml-10" />
 
-        <div className="content-center mt-4">
+        <div className="content-center flex items-center">
           <NationOrItemI stateHandler={stateHandler} />
         </div>
 
         {/* {state === "Nation" ? ( */}
-        <div className="mt-5">
-          {params.hsCode}
+        <div className="content-center flex items-center text-2xl">
           <ItemSelector />
+          {params.hsCode}
         </div>
 
         {/* // ) : null} */}
         {/* // {state === "Item" ? <ItemSelector /> : null} */}
 
-        <div className="mt-5">
+        <div className="flex flex-inline items-center text-2xl ml-5">
           <ViewPeriodI />
         </div>
 
-        <div className="flex justify-between align-middle mr-5 mt-4">
+        <div className="flex justify-between items-center align-middle mr-10">
           <img src={pdf} className="w-10 h-10 mr-5" />
           <img src={excel} className="w-10 h-10" />
         </div>

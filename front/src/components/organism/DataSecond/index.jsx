@@ -55,14 +55,14 @@ import axios from "axios";
 function DataSecond() {
   const params = useParams();
   const [currentState, changeState] = useState([0, 0, '모든 품목', '수출', [], {}, '전세계', {}]); // initialize the state with an empty array
-
+  // http://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/tworow?statCd=US&startDate=202201&endDate=202203
   useEffect(() => {
     axios
       .get(
-        "https://98320413-724a-44ba-a0b5-9b226001b6d6.mock.pstmn.io/api/trade/country/data2?" +
-          "statcd=" + params.nationCode + "&" +
-          "startDate=" + params.duration.substr(0,6) + "&" +
-          "endDate=" + params.duration.substr(7,12)
+        "http://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/tworow?" +
+          "statCd=" + params.nationCode + "&" +
+          "startDate=" + params.duration.substring(0,6) + "&" +
+          "endDate=" + params.duration.substring(7,13)
       )
       .then((response) => {
         const firstExportData = response.data.expdlrChange;
