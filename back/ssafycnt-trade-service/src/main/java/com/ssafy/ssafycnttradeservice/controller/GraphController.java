@@ -3,6 +3,7 @@ package com.ssafy.ssafycnttradeservice.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.ssafycnttradeservice.domain.Graph;
 import com.ssafy.ssafycnttradeservice.dto.response.item.ItemRow1ResponseDTO;
+import com.ssafy.ssafycnttradeservice.dto.response.item.ItemRow2ResponseDTO;
 import com.ssafy.ssafycnttradeservice.dto.response.stat.StatRow1ResponseDTO;
 import com.ssafy.ssafycnttradeservice.dto.response.stat.StatRow2ResponseDTO;
 import com.ssafy.ssafycnttradeservice.dto.response.stat.StatRow3ResponseDTO;
@@ -20,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://ssafycnt.site", "http://localhost:5173" })
+@CrossOrigin(origins = {"https://ssafycnt.site", "http://localhost:5173" })
 public class GraphController {
     private final StatGraphService statGraphService;
     private final ItemGraphService itemGraphService;
@@ -67,6 +68,17 @@ public class GraphController {
         startDate = Change(startDate);
         endDate = Change(endDate);
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/trade/item/tworow")
+    public ResponseEntity<?> searchTwoRowPerItem(@RequestParam String item,
+                                                 @RequestParam String startDate,
+                                                 @RequestParam String endDate) throws JsonProcessingException {
+        List<Map<String, Object>> list = itemGraphService.findTwoRowPerItem(item,startDate,endDate);
+        startDate = Change(startDate);
+        endDate = Change(endDate);
+        item = item.substring(0,4);
+        return ResponseEntity.ok(new ItemRow2ResponseDTO(list,item,startDate,endDate));
     }
 
     @GetMapping("/trade/item/threerow")

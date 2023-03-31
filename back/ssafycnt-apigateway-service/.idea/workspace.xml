@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4a6f5957-1b05-4d67-9b79-3efc053bda98" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/constants/CdConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/constants/CdConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/controller/GraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/controller/GraphController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/request/Row1RequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row1ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow1ResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row2ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow2ResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row3ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/stat/StatRow3ResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/dto/response/Row4ResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/GraphService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/StatGraphService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/ItemGraphService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ssafycnt-trade-service/src/main/java/com/ssafy/ssafycnttradeservice/service/ItemGraphService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
