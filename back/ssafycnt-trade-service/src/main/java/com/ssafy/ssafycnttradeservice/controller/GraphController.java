@@ -82,9 +82,10 @@ public class GraphController {
     }
 
     @GetMapping("/trade/item/threerow")
-    public ResponseEntity<?> searchOneRowPerItem(@RequestParam String startDate,
-                                                 @RequestParam String endDate) throws JsonProcessingException {
-        List<Map<String, Object>> list = itemGraphService.findThreeRowPerItem(startDate,endDate);
+    public ResponseEntity<?> searchThreeRowPerItem(@RequestParam String item,
+                                                   @RequestParam String startDate,
+                                                   @RequestParam String endDate) throws JsonProcessingException {
+        List<Map<String, Object>> list = itemGraphService.findThreeRowPerItem(item,startDate,endDate);
         startDate = Change(startDate);
         endDate = Change(endDate);
         return ResponseEntity.ok(new ItemRow1ResponseDTO(list,startDate,endDate));
