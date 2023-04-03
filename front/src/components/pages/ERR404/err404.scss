@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo');
+
+body { 
+  font-family: Baloo;
+  background: #EEE;
+}
+.alert {
+    flex: 1 1 100%;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    line-height: normal;
+    padding: 5px 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+    transition-property: all;
+    transition-duration: .15s;
+    font-weight: 400;
+    font-size: 17px;
+    color: #6b7c93;
+    margin-bottom: 10px;
+    height: auto;
+    min-height: 100px;
+}
+
+.alert--inverted {
+  color: #FFF;
+  background-color: #fdd760;
+}
+
+.alert--inverted .alert__icon {
+  background-color: #FFF;
+  color: #fdd760;
+}
+.alert:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 35px rgba(50,50,93,.1), 0 8px 15px rgba(0,0,0,.07);
+}
+.alert__icon {
+ background-color: #fdd760;
+ border-radius: 100%;
+ width: 100%;
+ padding: 0px 10px;
+ color: #FFF;
+ text-align: center;
+ font-size: 15px;
+ margin-right: 5px;
+
+}
+
+.animation--boom {
+    animation-name: boom;
+    animation-duration: 1s;
+}
+
+
+@keyframes boom {
+    from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  10%, 20% {
+    transform: scale3d(.98, .98, .98) rotate3d(0, 0, 1, -1deg);
+  }
+
+  30%, 50%, 70%, 90% {
+    transform: scale3d(1.0, 1.0, 1.0) rotate3d(0, 0, 1, 1deg);
+  }
+
+  40%, 60%, 80% {
+    transform: scale3d(1.0, 1.0, 1.0) rotate3d(0, 0, 1, -1deg);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.animation--shake {
+  animation-name: shake;
+  animation-duration: 1s;
+}
+
+
+@keyframes shake {
+  from {
+    
+    transform: none;
+  }
+
+  15% {
+    transform: translate3d(-2%, 0, 0);
+  }
+
+  30% {
+    transform: translate3d(2%, 0, 0);
+  }
+
+  45% {
+    transform: translate3d(-2%, 0, 0);
+  }
+
+  60% {
+    transform: translate3d(2%, 0, 0);
+  }
+
+  75% {
+    transform: translate3d(0%, 0, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}

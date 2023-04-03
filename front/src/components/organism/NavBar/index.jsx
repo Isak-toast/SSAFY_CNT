@@ -75,7 +75,8 @@ function NavBar(props) {
           <Excel apiData={props.apiData} />
         </div>
 
-        <div><button onClick={() => {
+        <div>
+          <button onClick={() => {
           navigate("/login")
         }}>Login </button> </div>
       </nav>
