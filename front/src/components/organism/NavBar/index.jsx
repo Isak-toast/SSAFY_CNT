@@ -73,12 +73,12 @@ function NavBar(props) {
         <div className="flex justify-between items-center align-middle mr-10">
           <Pdf />
           <Excel apiData={props.apiData} />
+          <div className="ml-10">
+            <button onClick={() => {
+            navigate("/login")
+          }}>  로그인</button> </div>
         </div>
 
-        <div>
-          <button onClick={() => {
-          navigate("/login")
-        }}>Login </button> </div>
       </nav>
     </>
   );

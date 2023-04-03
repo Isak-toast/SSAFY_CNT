@@ -9,7 +9,7 @@ function Signup(props) {
     <>
     <div className="z-30 sticky top-0">
       <nav className="flex justify-between  sticky top-0 bg-slate-200 content-center font-mun">
-      <button
+        <button
           onClick={() => {
             navigate("/nation/ALL/202203-202302");
           }}
@@ -34,7 +34,9 @@ function Signup(props) {
         <label>
           <input type="password" placeholder=" 비밀번호 확인"/>
         </label>
-        <button class="red" type="button"><i class="icon ion-md-lock"></i>가입하기</button>
+        <button onClick={() => {
+            navigate("/err404");
+          }} class="red" type="button"><i class="icon ion-md-lock"></i>가입하기</button>
         <button onClick={() => {
             navigate("/login");
           }} class="red signup" type="button"><i class="icon ion-md-lock"></i>로그인</button>

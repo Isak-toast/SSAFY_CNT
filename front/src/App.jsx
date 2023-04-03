@@ -25,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/err404" element={<Err404 />} />
+        <Route path="/*" element={<Err404 />} />
       </Routes>
 
       {/* {nationOrItem === "nation" ? (

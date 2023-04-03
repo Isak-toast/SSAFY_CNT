@@ -16,6 +16,13 @@ function err404() {
         >
           <img src={logo} className="w-32 h-32 ml-10" />
         </button>
+        <div className="content-center flex items-center m-10">
+          <div>
+              <button onClick={() => {
+              navigate("/login")
+            }}>  로그인</button> 
+          </div>
+        </div>
       </nav>
     </div>
 

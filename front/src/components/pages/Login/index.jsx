@@ -10,13 +10,14 @@ function Login(props) {
     <>
     <div className="z-30 sticky top-0">
       <nav className="flex justify-between  sticky top-0 bg-slate-200 content-center font-mun">
-      <button
-          onClick={() => {
-            navigate("/nation/ALL/202203-202302");
-          }}
-        >
+        <button
+            onClick={() => {
+              navigate("/nation/ALL/202203-202302");
+            }}
+          >
           <img src={logo} className="w-32 h-32 ml-10" />
         </button>
+      
       </nav>
     </div>
     <div class="loginForm">
