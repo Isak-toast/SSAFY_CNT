@@ -52,26 +52,28 @@ public class NewsServiceImpl implements NewsService{
         for (int j = 0; j < 10; j++) {
             try {
                 doc = Jsoup.connect(URL + start_idx[j]).get();
-                Elements news_press = doc.select(".info_group .press");  // 신문사
-                Elements news_info = doc.select(".info_group >span");    // 시간
-                Elements news_title = doc.select(".news_tit");           // 제목
-                Elements news_content = doc.select(".dsc_wrap a");       // 내용
-                int n = 0;
-                for (int i = 0; i < news_press.size(); i++) {
-                    if (news_info.size() > 10) {
-                        if (news_info.get(i + n).text().contains("전") || news_info.get(i + n).text().contains(".")) {
-                        } else {n++;}
-                    }
-                    NewsDto newsDto = new NewsDto(
-                            news_press.get(i).text(),
-                            news_info.get(i + n).text(),
-                            news_title.get(i).text(),
-                            news_content.get(i).text(),
-                            news_title.get(i).attr("abs:href"));
-                    crowlingData.add(newsDto);
-                }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
+                System.out.println("Skipping page " + (j+1) + "...");
+                continue;
+            }
+            Elements news_press = doc.select(".info_group .press");  // 신문사
+            Elements news_info = doc.select(".info_group >span");    // 시간
+            Elements news_title = doc.select(".news_tit");           // 제목
+            Elements news_content = doc.select(".dsc_wrap a");       // 내용
+            int n = 0;
+            for (int i = 0; i < news_press.size(); i++) {
+                if (news_info.size() > 10) {
+                    if (news_info.get(i + n).text().contains("전") || news_info.get(i + n).text().contains(".")) {
+                    } else {n++;}
+                }
+                NewsDto newsDto = new NewsDto(
+                        news_press.get(i).text(),
+                        news_info.get(i + n).text(),
+                        news_title.get(i).text(),
+                        news_content.get(i).text(),
+                        news_title.get(i).attr("abs:href"));
+                crowlingData.add(newsDto);
             }
             crowlingResult = new ArrayList<>(crowlingData);
         }
