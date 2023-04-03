@@ -11,6 +11,7 @@ import unImg from "./../../../../assets/nationalFlags/UN.png";
 import Code from "../../../assets/Code.json";
 import Excel from "../../molecules/navBar/Excel";
 import axios from "axios";
+import Login from "../../pages/Login";
 
 function NavBar(props) {
   const navigate = useNavigate();
@@ -73,6 +74,10 @@ function NavBar(props) {
           <Pdf />
           <Excel apiData={props.apiData} />
         </div>
+
+        <div><button onClick={() => {
+          navigate("/login")
+        }}>Login </button> </div>
       </nav>
     </>
   );
