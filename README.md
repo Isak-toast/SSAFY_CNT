@@ -9,11 +9,11 @@
 - 수출입 의존도 현황 파악
 - 품목, 국가별 수출입 추세 확인
 - 기간별 특정 이슈에 대한 원인 확인
-> <span style="color:red"><b>사전 이슈 점검 -> 안정적인 공급망 확보 <br/>-> 회사 매출 극대화</b></span>
+> <span style="color:red"><b>사전 이슈 점검 -> 안정적인 공급망 확보 -> 회사 매출 극대화</b></span>
 
 <br />
 
-#  :wave:특장점
+##  ❗ 특장점
 
 - 누적 수출입 데이터 <span style="color:red"><b>8억 개</b></span> 이상
 - 신규 생성 데이터 매월 <span style="color:red"><b>650만 개</b></span> <br>
@@ -30,7 +30,7 @@
 
 <br />
 
-# 배포 주소 : [🚢싸피물산](https://ssafycnt.siste) : https://ssafycnt.siste
+# 배포 주소 : [🚢싸피물산](https://ssafycnt.site) : https://ssafycnt.site
 <br />
 
 ## 🔨 주요 기술
@@ -76,12 +76,12 @@
 
 | 이름        | 담당 영역      |
 | --------- | ---------- |
-| 김관섭<br>팀장 | - FrontEnd |
-| 엄희원<br>   | - FrontEnd |
-| 장준호<br>   | - FrontEnd |
-| 김진희<br>   | - BackEnd  |
-| 김이삭<br>   | - BackEnd  |
-| 백승범<br>   | - BackEnd |
+| 김관섭<br>팀장 | FrontEnd |
+| 엄희원<br>   | FrontEnd |
+| 장준호<br>   | FrontEnd |
+| 김진희<br>   | BackEnd  |
+| 김이삭<br>   | BackEnd  |
+| 백승범<br>   | BackEnd  |
 <br/>
 
 ```
