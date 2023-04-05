@@ -83,10 +83,16 @@ function ImportTop5(props) {
 
     const options = {
         indexAxis: 'y',
+
         plugins: {
                     tooltip: {
-                        enabled: false        // 그래프 호버시, 모달창 안나오게 하기
-                    },
+                        enabled: true,        // 그래프 호버시, 모달창 안나오게 하기
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                return tooltipItem.dataset.data[tooltipItem.dataIndex].toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            },
+                        },
+                },
                     legend: {               // 범례 스타일링
                         display: false,
                     },
@@ -120,6 +126,11 @@ function ImportTop5(props) {
                 grid: {
                     display: false,
                 },
+                ticks: {
+                    callback: function (value) {
+                      return this.getLabelForValue(value).substring(0, 6)
+                    }
+                  }
             },
         },
         
@@ -183,7 +194,7 @@ function ImportTop5(props) {
                 anchor:'end',
                 align: 'end',
                 color: 'black',
-                formatter: function(value) { return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") },
+                formatter: function(value) { return value.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") },
             },
         },
       ],
@@ -193,7 +204,7 @@ function ImportTop5(props) {
         <div className='ml-3'>
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
-                    <div className='mt-1 font-bold text-base text-gray-12'>{ pickNation }</div>                {/* 동적값으로 할당 해야함 */}               
+                    <div className='mt-1 font-bold text-base text-gray-12 font-mun'>{ pickNation }</div>                {/* 동적값으로 할당 해야함 */}               
                     <div className='mt-1 font-bold text-xl font-mun'>수입 Top 5</div>
                 </div>
                 <div className='flex w-40 h-8 justify-center items-center bg-[#f3f4f6] font-bold text-xs'>

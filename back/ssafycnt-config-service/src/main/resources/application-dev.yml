@@ -5,21 +5,20 @@ spring:
   application:
     name: ssafycnt-config-service
   rabbitmq:
-   host: 127.0.0.1
-   port: 5672
-   username: guest
-   password: guest
-  profiles:
-    active: native
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     refresh:
       extra-refreshable: com.zaxxer.hikari.HikariDataSource
     config:
       server:
         git:
-          uri: https://github.com/jungboke/ssafycnt-config-dev
-#        native:
-#          search-locations: file:///C:/Users/SSAFY/Desktop/config-repo
+          uri: https://github.com/Isak-toast/ssafycnt-config-dev.git
+
+  #        native:
+#          search-locations: file:///C:/Users/SSAFY/Desktop/ssafycnt-config-dev
   config:
     use-legacy-processing: true
 management:

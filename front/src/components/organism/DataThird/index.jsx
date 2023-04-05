@@ -4,17 +4,27 @@ import Table from "../../molecules/dataThird/Table";
 import { AvatarCell } from "../../molecules/dataThird/Table";
 import ExportImportToggle from "../../molecules/dataThird/ExportImportToggle";
 import axios from "axios";
+import codeName from "../../../assets/nationNameToCode.json";
+import { useRecoilState } from "recoil";
+import { excelState3 } from "../../../states/Excel";
+import html2canvas from "html2canvas";
+import { data3ImgAtom } from "../../../states/recoilPdfState";
+import { excelDisabled } from "../../../states/Excel";
 
 function DataThird() {
   const [exportImportState, setExportImportState] = useState(true);
   const params = useParams();
   const duration = params.duration;
+  const [isLoading, setIsLoading] = useState(true);
+  const [excelData, setExcelData] = useRecoilState(excelState3);
+  const [data3Img, setData3Img] = useRecoilState(data3ImgAtom);
+  const [disable, setDisable] = useRecoilState(excelDisabled);
 
   const exColumns = useMemo(() => [
     { accessor: "ranking", Header: "순위" },
     {
       accessor: "nationCode",
-      Header: "국가코드",
+      Header: "국가명",
       Cell: AvatarCell,
     },
     { accessor: "duration", Header: "조회기준" },
@@ -29,7 +39,7 @@ function DataThird() {
     { accessor: "ranking", Header: "순위" },
     {
       accessor: "nationCode",
-      Header: "국가코드",
+      Header: "국가명",
       Cell: AvatarCell,
     },
     { accessor: "duration", Header: "조회기준" },
@@ -48,24 +58,40 @@ function DataThird() {
       data["importDetail"][objKey]["nationCode"] = objKey;
       data["importDetail"][objKey]["duration"] = data["period"];
 
+      if (data["importDetail"][objKey]["impdlrRatio"] === 0) {
+        data["importDetail"][objKey]["impdlrRatio"] = "0.0";
+      }
+
       let num = data["importDetail"][objKey]["impdlrRatio"]
         .toString()
         .split(".");
 
-      data["importDetail"][objKey]["impdlrRatio"] =
-        num[0] + "." + num[1].slice(0, 1);
+      if (num != 100) {
+        data["importDetail"][objKey]["impdlrRatio"] =
+          num[0] + "." + num[1].slice(0, 1);
+      }
 
-      num = data["importDetail"][objKey]["impwgtRatio"].toString().split(".");
+      if (data["importDetail"][objKey]["impwgtRatio"] === 0) {
+        data["importDetail"][objKey]["impwgtRatio"] = "0.0";
+      }
 
-      data["importDetail"][objKey]["impwgtRatio"] =
-        num[0] + "." + num[1].slice(0, 1);
+      const a = data["importDetail"][objKey]["impwgtRatio"]
+        .toString()
+        .split(".");
 
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      if (a != 100) {
+        data["importDetail"][objKey]["impwgtRatio"] =
+          a[0] + "." + a[1].slice(0, 1);
+      }
+
       num = data["importDetail"][objKey]["impdlrSum"].toLocaleString();
       data["importDetail"][objKey]["impdlrSum"] = num;
 
       num = data["importDetail"][objKey]["impwgtSum"].toLocaleString();
       data["importDetail"][objKey]["impwgtSum"] = num;
+
+      data["importDetail"][objKey]["nationCode"] =
+        codeName[data["importDetail"][objKey]["nationCode"]];
 
       temp.push(data["importDetail"][objKey]);
     }
@@ -81,24 +107,40 @@ function DataThird() {
       data["exportDetail"][objKey]["nationCode"] = objKey;
       data["exportDetail"][objKey]["duration"] = data["period"];
 
+      if (data["exportDetail"][objKey]["expdlrRatio"] === 0) {
+        data["exportDetail"][objKey]["expdlrRatio"] = "0.0";
+      }
+
       let num = data["exportDetail"][objKey]["expdlrRatio"]
         .toString()
         .split(".");
 
-      data["exportDetail"][objKey]["expdlrRatio"] =
-        num[0] + "." + num[1].slice(0, 1);
+      if (num != 100) {
+        data["exportDetail"][objKey]["expdlrRatio"] =
+          num[0] + "." + num[1].slice(0, 1);
+      }
 
-      num = data["exportDetail"][objKey]["expwgtRatio"].toString().split(".");
+      if (data["exportDetail"][objKey]["expwgtRatio"] === 0) {
+        data["exportDetail"][objKey]["expwgtRatio"] = "0.0";
+      }
 
-      data["exportDetail"][objKey]["expwgtRatio"] =
-        num[0] + "." + num[1].slice(0, 1);
+      const a = data["exportDetail"][objKey]["expwgtRatio"]
+        .toString()
+        .split(".");
 
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      if (a != 100) {
+        data["exportDetail"][objKey]["expwgtRatio"] =
+          a[0] + "." + a[1].slice(0, 1);
+      }
+
       num = data["exportDetail"][objKey]["expdlrSum"].toLocaleString();
       data["exportDetail"][objKey]["expdlrSum"] = num;
 
       num = data["exportDetail"][objKey]["expwgtSum"].toLocaleString();
       data["exportDetail"][objKey]["expwgtSum"] = num;
+
+      data["exportDetail"][objKey]["nationCode"] =
+        codeName[data["exportDetail"][objKey]["nationCode"]];
 
       temp.push(data["exportDetail"][objKey]);
     }
@@ -106,20 +148,28 @@ function DataThird() {
     setExData(temp);
   };
 
-  ///////여기에서 axios 쓴다
   useEffect(() => {
+    setDisable(true);
     axios
       .get(
-        "https://98320413-724a-44ba-a0b5-9b226001b6d6.mock.pstmn.io/api/trade/country/data3?" +
+        "https://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/threerow?" +
           "startDate=" +
           params.duration.substring(0, 6) +
           "&" +
           "endDate=" +
-          params.duration.substring(7, 12)
+          params.duration.substring(7, 13)
       )
       .then((response) => {
         exDataHandler(response.data);
         imDataHandler(response.data);
+        setIsLoading(false);
+        setExcelData(response.data);
+        const input = document.getElementById("data3ImgHandler");
+        html2canvas(input).then((canvas) => {
+          let data3 = canvas.toDataURL("image/png");
+          setData3Img(data3);
+          setDisable(false);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -130,59 +180,50 @@ function DataThird() {
     setExportImportState(!exportImportState);
   };
 
-  // const data = useMemo(
-  //   () =>
-  //     Array(100)
-  //       .fill()
-  //       .map(() => ({
-  //         ranking: faker.datatype.number({ min: 1, max: 10 }),
-  //         nationCode: faker.address.countryCode(),
-  //         // imgSrc:
-  //         //   "./../../../../../assets/nationalFlags/" +
-  //         //   faker.address.countryCode() +
-  //         //   ".gif",
-  //         duration: "2022.3 - 2023.3",
-  //         expdlrSum: faker.commerce.price(0, 100000000, 0, "$"),
-  //         expdlrRatio: "11%",
-  //         expwgtSum: faker.datatype.number({ min: 100000 }),
-  //         expwgtRatio: "11%",
-  //         hsCode: "전체품목",
-  //       })),
-  //   []
-  // );
-
   return (
     <>
       <hr className="mt-3"></hr>
-      <div onClick={exportImportStateHandler} className="mt-5 left-0">
-        <ExportImportToggle
-          exportImportState={exportImportState}
-          params={params}
-        />
-      </div>
-      <div className="min-h-screen mt-5  text-gray-900">
-        <main className="mx-10 my-5">
-          {/* mx-auto px-4 sm:px-6 lg:px-8 pt-4  */}
+      {isLoading && (
+        <div className="mb-40 h-96">
+          <div className="relative flex h-10 w-10 ml-96 mt-10 pt-60 ">
+            <div className="animate-ping absolute h-24 w-24 rounded-full bg-sky-400 opacity-75"></div>
+            <div className="relative  rounded-full bg-sky-500"></div>
+          </div>
+          <span className="text-5xl font-mun  mt-90">상세정보 로딩중...</span>
+        </div>
+      )}
 
-          {exportImportState === true ? (
-            <div className="mt-2">
-              <Table
-                columns={exColumns}
-                data={exData}
-                exportImportState={exportImportState}
-              />
-            </div>
-          ) : (
-            <div className="mt-2">
-              <Table
-                columns={imColumns}
-                data={imData}
-                exportImportState={exportImportState}
-              />
-            </div>
-          )}
-        </main>
-      </div>
+      {!isLoading && (
+        <div>
+          <div onClick={exportImportStateHandler} className="mt-5 left-0">
+            <ExportImportToggle
+              exportImportState={exportImportState}
+              params={params}
+            />
+          </div>
+          <div className=" mt-5  text-gray-900" id="data3ImgHandler">
+            <main className="mx-10 my-5">
+              {exportImportState === true ? (
+                <div className="mt-2">
+                  <Table
+                    columns={exColumns}
+                    data={exData}
+                    exportImportState={exportImportState}
+                  />
+                </div>
+              ) : (
+                <div className="mt-2">
+                  <Table
+                    columns={imColumns}
+                    data={imData}
+                    exportImportState={exportImportState}
+                  />
+                </div>
+              )}
+            </main>
+          </div>
+        </div>
+      )}
     </>
   );
 }

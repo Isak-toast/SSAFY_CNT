@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import Code from "../../../assets/Code.json";
 import News from "../../molecules/newsTextMining/News";
 import TextMining from "../../molecules/newsTextMining/TextMining";
+import { useRecoilState } from "recoil";
+import { textMiningImgAtom } from "../../../states/recoilPdfState";
+import html2canvas from "html2canvas";
 
 function NewsTextMining() {
   const params = useParams();
@@ -39,9 +42,11 @@ function NewsTextMining() {
     paramsDuration.substring(7, 11) + "." + paramsDuration.substring(11, 13);
   // console.log(startDate, endDate);
 
+  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
+
   // newsUrl 요청
   const newsUrl =
-    "http://ssafycnt.site:8000/ssafycnt-news-service/api/news?" +
+    "https://ssafycnt.site:8000/ssafycnt-news-service/api/news?" +
     "country=" +
     country +
     "&item=" +
@@ -53,7 +58,7 @@ function NewsTextMining() {
 
   // textMiningUrl 요청
   const textMiningUrl =
-    "http://ssafycnt.site:8000/ssafycnt-news-service/api/news/mining?" +
+    "https://ssafycnt.site:8000/ssafycnt-news-service/api/news/mining?" +
     "country=" +
     country +
     "&item=" +
@@ -63,12 +68,20 @@ function NewsTextMining() {
     endDate;
 
   const [newsData, setNewsData] = useState([]);
+  // console.log(newsData);
   const [textData, setTextData] = useState([]);
   // console.log(textData);
 
   useEffect(() => {
     axios.get(newsUrl).then((response) => setNewsData(response.data));
-    axios.get(textMiningUrl).then((response) => setTextData(response.data));
+    axios.get(textMiningUrl).then((response) => {
+      setTextData(response.data);
+      const input = document.getElementById("textMiningImgHadler");
+      html2canvas(input).then((canvas) => {
+        const textMining = canvas.toDataURL("image/png");
+        setTextMiningImg(textMining);
+      });
+    });
   }, [params]);
 
   const textDataKeys = Object.keys(textData);
@@ -81,10 +94,9 @@ function NewsTextMining() {
     // console.log(wordString);
     textDataInfo.push({
       text: wordString,
-      value: textData[wordString].length * 1000,
+      value: textData[wordString].length * 300,
     });
   }
-  // console.log(textDataInfo);
 
   // TextMining 단어 클릭 시 해당 단어 저장
   // But, 단어 클릭 시 TextMining 구조가 재배치
@@ -101,7 +113,7 @@ function NewsTextMining() {
   const nothingHandler = (event) => {
     setSelectedWord("");
   };
-  console.log(selectedWord);
+  // console.log(selectedWord);
 
   // console.log(textData[selectedWord]);
 
@@ -110,7 +122,6 @@ function NewsTextMining() {
     // for (let i = 0; i < newsData.length; i++) {
     //   selectedWordNewsData.push(newsData[i]);
     // }
-    // console.log(selectedWordNewsData);
   } else {
     for (let i = 0; i < textData[selectedWord].length; i++) {
       selectedWordNewsData.push(textData[selectedWord][i]);
@@ -119,17 +130,27 @@ function NewsTextMining() {
   // console.log(selectedWordNewsData);
 
   return (
-    <div class="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2">
-      <News
-        newsData={newsData}
-        selectedWord={selectedWord}
-        selectedWordNewsData={selectedWordNewsData}
-      />
-      <TextMining
-        textDataInfo={textDataInfo}
-        wordClickHandler={wordClickHandler}
-        nothingHandler={nothingHandler}
-      />
+    <div className="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2">
+      <div
+        className="overflow-y-scroll scrollbar-hide bg-gray-300 mt-10"
+        style={{ height: "600px" }}
+      >
+        <News
+          newsData={newsData}
+          selectedWord={selectedWord}
+          selectedWordNewsData={selectedWordNewsData}
+        />
+      </div>
+
+      <div id="textMiningImgHadler">
+        {/* <div>선택 단어 : {selectedWord}</div> */}
+        <TextMining
+          textDataInfo={textDataInfo}
+          wordClickHandler={wordClickHandler}
+          nothingHandler={nothingHandler}
+          selectedWord={selectedWord}
+        />
+      </div>
     </div>
   );
 }

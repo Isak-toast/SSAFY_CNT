@@ -16,7 +16,7 @@ function Button({ children, className, ...rest }) {
     <button
       type="button"
       className={classNames(
-        "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50",
+        "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 font-mun",
         className
       )}
       {...rest}
@@ -43,7 +43,7 @@ function PageButton({ children, className, ...rest }) {
 
 function Table({ columns, data, exportImportState }) {
   function frameColor(exportImportState) {
-    return exportImportState ? "bg-red-300" : "bg-blue-300";
+    return exportImportState ? "bg-gray-300" : "bg-gray-300";
   }
 
   const {
@@ -65,7 +65,7 @@ function Table({ columns, data, exportImportState }) {
 
   return (
     <>
-      <div className="mt-2 flex flex-col">
+      <div className="mt-2 flex flex-col font-mun">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -111,7 +111,7 @@ function Table({ columns, data, exportImportState }) {
                             <td
                               {...cell.getCellProps()}
                               role="cell"
-                              className="px-6 py-4 whitespace-nowrap"
+                              className=" py-4 whitespace-nowrap "
                             >
                               {cell.render("Cell")}
                             </td>
@@ -233,8 +233,8 @@ const onErrorImg = (e) => {
 export function NAtionFlag({ value }) {
   const imgSrc = "./../../../../../assets/nationalFlags/" + value + ".gif";
   return (
-    <div className="flex items-center justify-items-center">
-      <div className="flex-shrink-0 h-10 w-10">
+    <div className="flex items-center ">
+      <div className="flex-shrink-0 h-10 w-10 ml-5">
         <img className="mt-2 h-7 w-10 " src={imgSrc} onError={onErrorImg} />
       </div>
       <div className="ml-3">

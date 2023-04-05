@@ -11,14 +11,19 @@ const todayYear = today.getFullYear();
 // // 오늘 기준 일
 const todayMonth = today.getMonth();
 
-// 오늘 년도 기준 10년전
-// const yearList = [
-//   { value: 2023, label: 2023 },
-//   { value: 2022, label: 2022 },
-//   { value: 2021, label: 2021 },
-//   { value: 2020, label: 2020 },
-//   { value: 2019, label: 2019 },
-// ];
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "40%",
+    width: "25%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const yearList = [];
 for (let i = todayYear; i >= todayYear - 10; i = i - 1) {
   {
@@ -26,12 +31,6 @@ for (let i = todayYear; i >= todayYear - 10; i = i - 1) {
   }
 }
 
-// 올해 년도 기준, 월 표시
-// const todayYearMonthList = [
-//   { value: 1, label: 1 },
-//   { value: 2, label: 2 },
-//   { value: 3, label: 3 },
-// ];
 const todayYearMonthList = [];
 for (let i = 1; i <= todayMonth; i = i + 1) {
   {
@@ -39,21 +38,6 @@ for (let i = 1; i <= todayMonth; i = i + 1) {
   }
 }
 
-// 1월 ~ 12월
-// const monthList = [
-//   { value: 1, label: 1 },
-//   { value: 2, label: 2 },
-//   { value: 3, label: 3 },
-//   { value: 4, label: 4 },
-//   { value: 5, label: 5 },
-//   { value: 6, label: 6 },
-//   { value: 7, label: 7 },
-//   { value: 8, label: 8 },
-//   { value: 9, label: 9 },
-//   { value: 10, label: 10 },
-//   { value: 11, label: 11 },
-//   { value: 12, label: 12 },
-// ];
 const monthList = [];
 for (let i = 1; i <= 12; i = i + 1) {
   {
@@ -66,15 +50,13 @@ function ViewPeriod() {
   const params = useParams();
   const navigate = useNavigate();
   const [IsOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState(false);
 
   // Modal을 Open하는 함수
   const openModal = () => {
     setIsOpen(true);
+    setSearch(false);
   };
-
-  // const afterOpenModal = () => {
-  //   // references are now sync'd and can be accessed.
-  // };
 
   // Modal을 Close하는 함수
   const closeModal = () => {
@@ -112,6 +94,7 @@ function ViewPeriod() {
   const [endMonth, setEndMonth] = useState();
   const endMonthHandler = (event) => {
     setEndMonth(event.value);
+    setSearch(true);
   };
 
   // 조회 종료 기간
@@ -119,7 +102,6 @@ function ViewPeriod() {
     endY: endYear,
     endM: endMonth,
   };
-  // console.log(endYM);
 
   // 조회 기간 표현
   const searchEnd = endYM.endY + "." + endYM.endM;
@@ -174,64 +156,87 @@ function ViewPeriod() {
   useEffect(() => {
     navigate("/nation/" + params.nationCode + "/" + duration);
   }, [duration]);
-  // 202203-202302
+
   return (
     <div className="font-mun">
       <button onClick={openModal} className="mr-5 inline-flex">
         기간
         <img src={magnifier1} className="w-8 h-8 ml-2" />
       </button>
-      {params.duration.substring(0, 4) + '.' + params.duration.substring(4, 6) +
-          ' ~ ' + params.duration.substring(7, 11) + '.' + params.duration.substring(11, 13)}
+      {params.duration.substring(0, 4) +
+        "." +
+        params.duration.substring(4, 6) +
+        " ~ " +
+        params.duration.substring(7, 11) +
+        "." +
+        params.duration.substring(11, 13)}
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
-        // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        // style={customStyles}
+        style={customStyles}
         contentLabel="Example Modal"
       >
-        <button onClick={closeModal}>close</button>
-        <div className="font-mun">
-          <h2>시작 년/월</h2>
-          <br />
-          <h3>시작 년도</h3>
-          <Select options={yearList} onChange={startYearHandler} />
-          <h3>시작 월</h3>
+        <div className="font-mun flex justify-around items-center">
+          <h2 className="text-lg">시작 연월</h2>
+          <Select
+            options={yearList}
+            onChange={startYearHandler}
+            placeholder="연"
+          />
           {startYM.startY === todayYear ? (
-            <Select options={todayYearMonthList} onChange={startMonthHandler} />
+            <Select
+              options={todayYearMonthList}
+              onChange={startMonthHandler}
+              placeholder="월"
+            />
           ) : (
-            <Select options={monthList} onChange={startMonthHandler} />
+            <Select
+              options={monthList}
+              onChange={startMonthHandler}
+              placeholder="월"
+            />
           )}
         </div>
+
         <br />
-        <hr />
-        <br />
-        <div className="font-mun">
-          <h2>종료 년/월</h2>
-          <br />
-          <h3>종료 년도</h3>
-          <Select options={endYearList} onChange={endYearHandler} />
-          <h3>종료 월</h3>
+
+        <div className="font-mun flex justify-around items-center">
+          <h3 className="text-lg">종료 연월</h3>
+          <Select
+            options={endYearList}
+            onChange={endYearHandler}
+            placeholder="연"
+          />
           {endYM.endY === todayYear ? (
-            <Select options={endMonthList} onChange={endMonthHandler} />
+            <Select
+              options={endMonthList}
+              onChange={endMonthHandler}
+              placeholder="월"
+            />
           ) : (
-            <Select options={endMonthList} onChange={endMonthHandler} />
+            <Select
+              options={endMonthList}
+              onChange={endMonthHandler}
+              placeholder="월"
+            />
           )}
         </div>
 
         <br />
-        <hr />
-        <br />
-
-        <div className="font-mun">
-          <h2>
-            조회기간 : {searchStart} ~ {searchEnd}
-          </h2>
-        </div>
-
-        <form>
-          <button onClick={durationHandler}>적용하기</button>
+        <form className="font-mun flex justify-center text-lg ">
+          {search === true ? (
+            <button
+              className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1"
+              onClick={durationHandler}
+            >
+              조회
+            </button>
+          ) : (
+            <div className="rounded  bg-gray-300 mr-3 pl-4 pr-4 pt-1 pb-1">
+              조회
+            </div>
+          )}
         </form>
       </Modal>
     </div>
