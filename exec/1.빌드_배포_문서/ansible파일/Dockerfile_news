@@ -1,0 +1,10 @@
+FROM anapsix/alpine-java
+LABEL org.opencontainers.image.authors="isakggong@gmail.com"
+
+ARG BIN_BASE=/jarfiles
+VOLUME /tmp
+
+COPY $BIN_BASE/ssafycnt-news-service-0.0.1-SNAPSHOT.jar NewsService.jar
+
+# ENTRYPOINT [ "java", "-jar", "NewsService.jar"]
+ENTRYPOINT [ "java", "-jar", "NewsService.jar", "--spring.profiles.active=prod"]

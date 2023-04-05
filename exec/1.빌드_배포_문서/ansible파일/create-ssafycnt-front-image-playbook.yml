@@ -1,0 +1,40 @@
+- hosts: ansible
+#   become: true
+
+  # create docker images
+  tasks:
+# remove images
+  - name: remove the frontend image 
+    command: docker rmi isakggong/react:ssafycnt-1.0
+    ignore_errors: yes
+      
+  # create - push - remove
+  - name: create the frontend image
+    command: docker build . -f ssafycnt/Dockerfile_react -t isakggong/react:ssafycnt-1.0
+
+  - name: push the react image on Dockerhub
+    command: docker push isakggong/react:ssafycnt-1.0   
+
+  - name: remove the react image on local
+    command: docker rmi isakggong/react:ssafycnt-1.0   
+    ignore_errors: yes
+
+  - name: remove anonymous docker image
+    # command: docker rmi $(docker images -f "dangling=true" -q)
+    command: docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+    ignore_errors: yes
+      
+  # - name: remove docker image prune
+  #   command: docker image prune -f
+  #   ignore_errors: yes
+  #   tags:  
+  #     - main
+  #     
+  # - name: remove docker image prune
+  #   command: sudo docker system prune --volumes
+  #   ignore_errors: yes
+  #   tags:  
+  #     - main
+  #     
+
+

@@ -1,0 +1,191 @@
+- hosts: ansible
+#   become: true
+
+  # create docker images
+  tasks:
+# remove images
+  - name: remove the config image from the ansible server
+    command: docker rmi isakggong/config-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+  - name: remove the discovery image from the ansible server
+    command: docker rmi isakggong/discovery-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+  - name: remove the apigateway image from the ansible server
+    command: docker rmi isakggong/apigateway-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+  - name: remove the news image from the ansible server
+    command: docker rmi isakggong/news-server:ssafycnt-1.0   
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+  - name: remove the user image from the ansible server
+    command: docker rmi isakggong/user-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+  - name: remove the trade image from the ansible server
+    command: docker rmi isakggong/trade-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+
+  # create - push - remove
+  - name: create a config server image with deployed jar file
+    command: docker build . -f ssafycnt/Dockerfile_config -t isakggong/config-server:ssafycnt-1.0
+    tags: 
+      - main
+      - back_build
+      
+  - name: push the config image on Docker Hub
+    command: docker push isakggong/config-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      
+  - name: remove the config image from the ansible server
+    command: docker rmi isakggong/config-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+
+  - name: create a discovery server docker image with deployed jar file
+    command: docker build . -f ssafycnt/Dockerfile_discovery -t isakggong/discovery-server:ssafycnt-1.0
+    tags: 
+      - main
+      - back_build
+      
+  - name: push the discovery image on Docker Hub
+    command: docker push isakggong/discovery-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      
+  - name: remove the discovery image from the ansible server
+    command: docker rmi isakggong/discovery-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+
+  - name: create a apigateway server docker image with deployed jar file
+    command: docker build . -f ssafycnt/Dockerfile_apigateway -t isakggong/apigateway-server:ssafycnt-1.0
+    tags: 
+      - main
+      - back_build
+      
+  - name: push the apigateway image on Docker Hub
+    command: docker push isakggong/apigateway-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      
+  - name: remove the apigateway image from the ansible server
+    command: docker rmi isakggong/apigateway-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+
+  - name: create a news server docker image with deployed jar file
+    command: docker build . -f ssafycnt/Dockerfile_news -t isakggong/news-server:ssafycnt-1.0
+    tags: 
+      - main
+      - back_build
+      - ssafycnt-news-service
+  - name: push the news image on Docker Hub
+    command: docker push isakggong/news-server:ssafycnt-1.0   
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+  - name: remove the news image from the ansible server
+    command: docker rmi isakggong/news-server:ssafycnt-1.0   
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+
+  - name: create a user server docker image with deployed jar file
+    command: docker build . -f ssafycnt/Dockerfile_user -t isakggong/user-server:ssafycnt-1.0
+    tags: 
+      - main
+      - back_build
+      - ssafycnt-user-service
+  - name: push the user image on Docker Hub
+    command: docker push isakggong/user-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+  - name: remove the user image from the ansible server
+    command: docker rmi isakggong/user-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+  
+  - name: create a trade server docker image with deployed jar file
+    command: docker build . -f ssafycnt/Dockerfile_trade -t isakggong/trade-server:ssafycnt-1.0
+    tags: 
+      - main
+      - back_build
+      - ssafycnt-trade-service
+  - name: push the trade image on Docker Hub
+    command: docker push isakggong/trade-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+  - name: remove the trade image from the ansible server
+    command: docker rmi isakggong/trade-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+
+  - name: remove anonymous docker image
+    # command: docker rmi $(docker images -f "dangling=true" -q)
+    command: docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      
+  # - name: remove docker image prune
+  #   command: docker image prune -f
+  #   ignore_errors: yes
+  #   tags:  
+  #     - main
+  #     
+  # - name: remove docker image prune
+  #   command: sudo docker system prune --volumes
+  #   ignore_errors: yes
+  #   tags:  
+  #     - main
+  #     
+
