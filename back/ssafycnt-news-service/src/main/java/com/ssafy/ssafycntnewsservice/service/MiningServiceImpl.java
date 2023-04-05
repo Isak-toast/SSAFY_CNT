@@ -4,14 +4,21 @@ import com.ssafy.ssafycntnewsservice.dto.NewsDto;
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+//@RequiredArgsConstructor(access = AccessLevel.PROTECTED)  # 1
 public class MiningServiceImpl implements MiningService{
+//    private final NewsService newsService;                # 2
     @Override
-    public Map<String, List<NewsDto>> getMiningData(List<NewsDto> newsdata) {
+    public Map<String, List<NewsDto>> getMiningData(List<NewsDto> newsdata, String country, String item) {
+//        newsService.getNewsData()                         # 3 이렇게 불러서 newsService를 사용할 수 있음
+
         Map<String, List<NewsDto>> wordDict = new HashMap<>();      // {명사:[뉴스DTO]} 딕셔너리
         Map<String, List<NewsDto>> miningResult = new HashMap<>();  // 위에서 정렬 50개 추출
         Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
@@ -29,6 +36,9 @@ public class MiningServiceImpl implements MiningService{
                 if (word.matches("[0-9]+")) {
                     continue;
                 }
+                if (word.equals("무역") || country.contains(word) || item.contains(word)) {
+                    continue;
+                }
                 List<NewsDto> newsDtoList = wordDict.computeIfAbsent(word, k -> new ArrayList<>());
                 newsDtoList.add(news);
             }
@@ -42,7 +52,6 @@ public class MiningServiceImpl implements MiningService{
             Map.Entry<String, List<NewsDto>> entry = entries.get(i);
             miningResult.put(entry.getKey(), entry.getValue());
         }
-        
         return miningResult;
     }
 }

@@ -23,6 +23,6 @@ public class NewsController {
     @GetMapping("/news/mining")
     public Map<String, List<NewsDto>> TextMining(@RequestParam String country, String item, String startDate, String endDate) {
         List<NewsDto> newsdata = newsService.getNewsData(country, item, startDate, endDate);
-        return miningService.getMiningData(newsdata);
+        return miningService.getMiningData(newsdata, country, item);
     }
 }
