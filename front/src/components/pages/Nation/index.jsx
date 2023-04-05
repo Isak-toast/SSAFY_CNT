@@ -6,58 +6,54 @@ import DataFirst from "../../organism/DataFirst";
 import DataSecond from "../../organism/DataSecond";
 import DataThird from "../../organism/DataThird/index";
 import WorldMap from "../../organism/WorldMap";
-import News from "../../organism/News";
-import TextMining from "../../organism/TextMining";
 import NewsTextMining from "../../organism/NewsTextMining";
+import html2canvas from "html2canvas";
+import { useRecoilState } from "recoil";
+import { excelState1 } from "../../../states/Excel";
+import { data1ImgAtom } from "../../../states/recoilPdfState";
 
 function Nation() {
   const params = useParams();
+  const [excelData, setExcelData] = useRecoilState(excelState1);
+  const [data1Img, setData1Img] = useRecoilState(data1ImgAtom);
 
   // 지도 & 데이터 1열 axios 요청
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
       .get(
-        "https://98320413-724a-44ba-a0b5-9b226001b6d6.mock.pstmn.io/api/trade/country/data1?" +
-          "statcd=" +
+        "https://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/onerow?" +
+          "statCd=" +
           params.nationCode +
           "&" +
           "startDate=" +
           params.duration.substring(0, 6) +
           "&" +
           "endDate=" +
-          params.duration.substring(7, 12)
+          params.duration.substring(7, 13)
       )
-      .then((response) => setData(response.data));
+      .then((response) => {
+        setData(response.data);
+        setExcelData(response.data);
+        const input = document.getElementById("data1ImgHandler");
+        html2canvas(input).then((canvas) => {
+          let data1 = canvas.toDataURL("image/png");
+          setData1Img(data1);
+        });
+      });
   }, [params]);
-
-  // const [position, setPosition] = useState(window.pageYOffset);
-  // const [visible, setVisible] = useState(true);
-  
-  //   useEffect(() => {
-  //   const handleScroll = () => {
-  //     const moving = window.pageYOffset;
-  //     setVisible(position > moving);
-  //     setPosition(moving);
-  //     }
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, [position]);
 
   return (
     <>
-     
-
-      <NavBar />
-      
-      <WorldMap data1={data} />
+      <div className="z-30 sticky top-0">
+        <NavBar apiData={data} />
+      </div>
+      <div className="z-0">
+        <WorldMap />
+      </div>
       <DataFirst data1={data} />
       <DataSecond />
       <DataThird />
-      {/* <TextMining />
-      <News /> */}
       <NewsTextMining />
     </>
   );

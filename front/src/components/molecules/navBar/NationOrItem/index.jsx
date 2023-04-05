@@ -17,7 +17,10 @@ function NationOrItem(props) {
             props.stateHandler("Nation");
           }}
         />
-        <label htmlFor="nation" className="peer-checked/nation:text-sky-500 ml-2 text-2xl font-bold">
+        <label
+          htmlFor="nation"
+          className="peer-checked/nation:text-sky-500 ml-2 text-2xl font-bold"
+        >
           국가별
         </label>
       </div>
@@ -30,10 +33,13 @@ function NationOrItem(props) {
           name="status"
           onClick={() => {
             props.stateHandler("Item");
-            navigate("/item/all/" + params.duration);
+            navigate("/item/000000/" + params.duration);
           }}
         />
-        <label htmlFor="item" className="peer-checked/item:text-sky-500 ml-2 text-2xl font-bold">
+        <label
+          htmlFor="item"
+          className="peer-checked/item:text-sky-500 ml-2 text-2xl font-bold"
+        >
           품목별
         </label>
       </div>

@@ -38,14 +38,11 @@ public class MiningServiceImpl implements MiningService{
         // entry들을 value로 내림차순 정렬
         Collections.sort(entries, (e1, e2) -> e2.getValue().size() - e1.getValue().size());
         // 상위 50개의 entry를 miningResult에 추가
-
-        System.out.println("before mining result : " + miningResult.get(0) + miningResult.size());
         for (int i = 0; i < 50 && i < entries.size(); i++) {
             Map.Entry<String, List<NewsDto>> entry = entries.get(i);
             miningResult.put(entry.getKey(), entry.getValue());
         }
-        System.out.println("after mining result : " + miningResult.get(0) + miningResult.size());
-
+        
         return miningResult;
     }
 }

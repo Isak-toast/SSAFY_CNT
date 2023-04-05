@@ -43,7 +43,7 @@ function PageButton({ children, className, ...rest }) {
 
 function Table({ columns, data, exportImportState }) {
   function frameColor(exportImportState) {
-    return exportImportState ? "bg-red-300" : "bg-blue-300";
+    return exportImportState ? "bg-gray-300" : "bg-gray-300";
   }
 
   const {
@@ -111,7 +111,7 @@ function Table({ columns, data, exportImportState }) {
                             <td
                               {...cell.getCellProps()}
                               role="cell"
-                              className="px-6 py-4 whitespace-nowrap"
+                              className=" py-4 whitespace-nowrap "
                             >
                               {cell.render("Cell")}
                             </td>
@@ -233,8 +233,8 @@ const onErrorImg = (e) => {
 export function NAtionFlag({ value }) {
   const imgSrc = "./../../../../../assets/nationalFlags/" + value + ".gif";
   return (
-    <div className="flex items-center justify-items-center">
-      <div className="flex-shrink-0 h-10 w-10">
+    <div className="flex items-center ">
+      <div className="flex-shrink-0 h-10 w-10 ml-5">
         <img className="mt-2 h-7 w-10 " src={imgSrc} onError={onErrorImg} />
       </div>
       <div className="ml-3">

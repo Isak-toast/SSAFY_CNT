@@ -77,7 +77,7 @@ function NationRatio({ data1 }) {
         <div className='mb-5'>
             <div className='flex justify-between items-center ml-2 text-left'>
                 <div>
-                    <div className='w-72 mt-1 mb-3 text-lg text-right font-mun'>기간 : { duration }</div>
+                <div className='w-72 mt-1 mb-3 font-medium text-xl font-mun text-right'>( 한국 ⇆ { data1.nationName } )</div>
                     <hr className='mb-10'/>
                 </div>
             </div>

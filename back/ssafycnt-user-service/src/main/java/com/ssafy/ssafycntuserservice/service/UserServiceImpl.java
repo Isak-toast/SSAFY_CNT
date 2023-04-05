@@ -29,6 +29,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity save(UserEntity userEntity) {
+        userEntity.setEncryptedPwd(passwordEncoder.encode(userEntity.getEncryptedPwd()));
+        return userRepository.save(userEntity);
+    }
+
+    @Override
+    public UserEntity findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public List<String> findUsers(List<Long> idList){
+        return userRepository.findByIdList(idList);
+    }
+
+
+    @Override
     public UserDto createUser(UserDto userDto) {
         // 보안을 위한 인코딩(UUID)
         userDto.setUserId(UUID.randomUUID().toString());
