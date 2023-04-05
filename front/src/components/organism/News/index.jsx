@@ -70,7 +70,7 @@ function News() {
   // console.log(newsData[0]);
 
   return (
-    <div>
+    <div className="font-mun">
       {newsData.map((news, index) => (
         <a
           // key={index}

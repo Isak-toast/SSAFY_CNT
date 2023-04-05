@@ -8,47 +8,26 @@ function WorldMap() {
   const duration = params.duration;
   const [a, setA] = useState(params.nationCode);
   const navigate = useNavigate();
-
   const [isLoading, setIsLoading] = useState(true);
-
-  const data1 = [
-    ["Country", "balnce", "test"],
-    ["Germany", -100, 100],
-    ["United States", -75, 100],
-    ["BR", -50, 100],
-    ["CA", -25, 100],
-    ["FR", 0, 100],
-    ["RU", 25, 100],
-    ["CN", 50, 100],
-    ["Korea", 75, 100],
-    ["JApan", 100, 100],
-  ];
   const setAHandler = (e) => {
     setA(data[e][0]);
   };
-
   const [data, setData] = useState([]);
-
   const dataHandler = (data) => {
     const temp = [["Country", "무역수지 ($) "]];
     for (let i in data) {
       const item = [];
       item.push(i);
       item.push(data[i]["balpaymentsDlr"]);
-      // item.push(data[i]["nationName"]);
-      // item.push(100);
       temp.push(item);
     }
-
     setData(temp);
   };
 
-  //여기서 axios
   useEffect(() => {
     axios
       .get(
         "https://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/zerorow?" +
-          // "https://98320413-724a-44ba-a0b5-9b226001b6d6.mock.pstmn.io/api/trade/country/map?" +
           "startDate=" +
           params.duration.substring(0, 6) +
           "&" +
@@ -69,16 +48,13 @@ function WorldMap() {
   }, [a]);
 
   const options = {
-    // backgroundColor: "81d4fa",  "008000"
     colorAxis: {
       colors: ["265EAF"],
     },
     datalessRegionColor: "white",
-    // forceIFrame: 20,
     geochartVersion: 11,
     height: 550,
     width: 1200,
-    // legend: "none",
     tooltip: {
       textStyle: { fontName: "munchebu", fontSize: 12, bold: true },
       showColorCode: true,
@@ -86,7 +62,6 @@ function WorldMap() {
       ignoreBounds: true,
       text: "both",
     },
-    // sizeAxis: { minValue: 0, maxSize: 20 },
   };
 
   const chartEvents = [
@@ -97,7 +72,6 @@ function WorldMap() {
         const selectedId = chartWrapper.getChart().getSelection();
         if (selectedId.length) {
           setAHandler(selectedId[0]["row"] + 1);
-          // navigate("/nation/" + params.nationCode + "/2203-2302");
         }
       },
     },
@@ -105,16 +79,6 @@ function WorldMap() {
 
   return (
     <>
-      {/* <div className="flex mb-5 flex-start ml-10 mt-5 "> */}
-      {/* <div className="w-5 h-5 rounded-full bg-red-900 mr-3"></div>
-        <div className="mr-5">수출</div>
-        <div className="w-5 h-5 rounded-full bg-blue-900 mr-3"></div>
-        <div className="mr-5">수입</div> */}
-      {/* <div className="w-5 h-5 rounded-full bg-yellow-300 mr-3"></div> */}
-      {/* <div className="mr-5">수출입</div> */}
-      {/* <div className="ml-20">{params.nationName}</div> */}
-      {/* </div> */}
-
       {isLoading && (
         <div className="mb-40 h-96">
           <div className="relative flex h-10 w-10 ml-96 mt-10 pt-60 ">

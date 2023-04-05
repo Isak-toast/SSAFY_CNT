@@ -24,14 +24,6 @@ const customStyles = {
   },
 };
 
-// 오늘 년도 기준 10년전
-// const yearList = [
-//   { value: 2023, label: 2023 },
-//   { value: 2022, label: 2022 },
-//   { value: 2021, label: 2021 },
-//   { value: 2020, label: 2020 },
-//   { value: 2019, label: 2019 },
-// ];
 const yearList = [];
 for (let i = todayYear; i >= todayYear - 10; i = i - 1) {
   {
@@ -39,12 +31,6 @@ for (let i = todayYear; i >= todayYear - 10; i = i - 1) {
   }
 }
 
-// 올해 년도 기준, 월 표시
-// const todayYearMonthList = [
-//   { value: 1, label: 1 },
-//   { value: 2, label: 2 },
-//   { value: 3, label: 3 },
-// ];
 const todayYearMonthList = [];
 for (let i = 1; i <= todayMonth; i = i + 1) {
   {
@@ -52,21 +38,6 @@ for (let i = 1; i <= todayMonth; i = i + 1) {
   }
 }
 
-// 1월 ~ 12월
-// const monthList = [
-//   { value: 1, label: 1 },
-//   { value: 2, label: 2 },
-//   { value: 3, label: 3 },
-//   { value: 4, label: 4 },
-//   { value: 5, label: 5 },
-//   { value: 6, label: 6 },
-//   { value: 7, label: 7 },
-//   { value: 8, label: 8 },
-//   { value: 9, label: 9 },
-//   { value: 10, label: 10 },
-//   { value: 11, label: 11 },
-//   { value: 12, label: 12 },
-// ];
 const monthList = [];
 for (let i = 1; i <= 12; i = i + 1) {
   {
@@ -86,10 +57,6 @@ function ViewPeriodI() {
     setIsOpen(true);
     setSearch(false);
   };
-
-  // const afterOpenModal = () => {
-  //   // references are now sync'd and can be accessed.
-  // };
 
   // Modal을 Close하는 함수
   const closeModal = () => {
@@ -136,7 +103,6 @@ function ViewPeriodI() {
     endY: endYear,
     endM: endMonth,
   };
-  // console.log(endYM);
 
   // 조회 기간 표현
   const searchEnd = endYM.endY + "." + endYM.endM;

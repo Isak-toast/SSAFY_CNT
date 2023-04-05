@@ -39,9 +39,6 @@ for (let i = 3; i < Code.국가코드.length; i++) {
         <div className="ml-3">{Code.국가코드[i].Column2}</div>
       </div>
     ),
-    // label: Code.국가코드[i].Column2,
-    // 다음과 같이 표현가능
-    // value: Code.국가코드[i]["Column1"]
   });
 }
 
@@ -70,19 +67,15 @@ function NationSelector() {
     nationName: nationSelect.split(" / ")[1],
   };
 
-  // useEffect(() => {
-  //   navigate("/nation/" + nationState.nationCode + "/" + params.duration);
-  // }, [nationSelect]);
-
   const styles = {
-    control: base => ({
+    control: (base) => ({
       ...base,
       fontFamily: "munchebu",
     }),
-    menu: base => ({
+    menu: (base) => ({
       ...base,
       fontFamily: "munchebu",
-    })
+    }),
   };
 
   return (
@@ -94,7 +87,6 @@ function NationSelector() {
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
-        // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
@@ -102,7 +94,6 @@ function NationSelector() {
         <Select
           options={nationOptions}
           placeholder="국가를 검색해주세요."
-          // defaultInputValue="국가를 검색해주세요."
           onChange={nationSelectHandler}
           styles={styles}
         />

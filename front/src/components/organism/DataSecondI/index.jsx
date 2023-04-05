@@ -1,19 +1,22 @@
-import BarChartExport from './../../molecules/dataSecondI/ExportTop5/index'
-import BarChartImport from './../../molecules/dataSecondI/ImportTop5/index'
-import LineChartTrend from './../../molecules/dataSecondI/LineGraph/index'
-import { useState, useEffect } from 'react'
+import BarChartExport from "./../../molecules/dataSecondI/ExportTop5/index";
+import BarChartImport from "./../../molecules/dataSecondI/ImportTop5/index";
+import LineChartTrend from "./../../molecules/dataSecondI/LineGraph/index";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import { useRecoilState } from "recoil";
+import { data2ImgAtom } from "../../../states/recoilPdfState";
+import html2canvas from "html2canvas";
+import { excelStateI2 } from "../../../states/Excel";
 
 // function DataSecond() {
 //   const params = useParams();
-  
+
 //   let firstExportData
 //   let Top5Data
-  
+
 //   // const [currentState, chagneState] = useState([0, 0, '모든 품목', '수출', firstExportData]) // [Export, Import] clicked???
-  
+
 //   useEffect(() => {
 //     axios
 //       .get(
@@ -29,7 +32,7 @@ import axios from "axios";
 //         console.log(Top5Data)
 //       })
 //     }, [params]);
-    
+
 //     const [currentState, chagneState] = useState([0, 0, '모든 품목', '수출', firstExportData]) // [Export, Import] clicked???
 //     console.log(currentState)
 
@@ -53,23 +56,59 @@ import axios from "axios";
 // export default DataSecond;
 
 function DataSecondI() {
+  const [excelData, setExcelData] = useRecoilState(excelStateI2);
+  const [data2Img, setData2Img] = useRecoilState(data2ImgAtom);
   const params = useParams();
-  const [currentState, changeState] = useState([0, 0, '전세계', '수출', [], {}, '전세계', {}]); // initialize the state with an empty array
-  let nationConnection
+  const [currentState, changeState] = useState([
+    0,
+    0,
+    "전세계",
+    "수출",
+    [],
+    {},
+    "전세계",
+    {},
+  ]); // initialize the state with an empty array
+  let nationConnection;
   useEffect(() => {
     axios
       .get(
         "https://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/item/tworow?" +
-          "item=" + params.hsCode + "&" +
-          "startDate=" + params.duration.substring(0,6) + "&" +
-          "endDate=" + params.duration.substring(7,13)
+          "item=" +
+          params.hsCode +
+          "&" +
+          "startDate=" +
+          params.duration.substring(0, 6) +
+          "&" +
+          "endDate=" +
+          params.duration.substring(7, 13)
       )
       .then((response) => {
         const firstExportData = response.data.expdlrChange;
-        const Top5Data = { '수출': response.data.exportTop, '수입': response.data.importTop };
-        const nation = response.data.nationName
-        nationConnection = response.data.nationName
-        changeState([0, 0, '전세계', '수출', firstExportData, Top5Data, nation, firstExportData]);
+        const Top5Data = {
+          수출: response.data.exportTop,
+          수입: response.data.importTop,
+        };
+        const nation = response.data.nationName;
+        nationConnection = response.data.nationName;
+        changeState([
+          0,
+          0,
+          "전세계",
+          "수출",
+          firstExportData,
+          Top5Data,
+          nation,
+          firstExportData,
+        ]);
+        setExcelData(response.data);
+        setTimeout(() => {
+          const input = document.getElementById("data2ImgHandler");
+          html2canvas(input).then((canvas) => {
+            let data2 = canvas.toDataURL("image/png");
+            setData2Img(data2);
+          });
+        }, 3000);
       })
       .catch((error) => {
         console.log(error);
@@ -77,17 +116,52 @@ function DataSecondI() {
   }, [params]);
 
   const onChangeExportClick = (item) => {
-    changeState([1, 0, currentState[5]['수출'][item]['nationName'], '수출', currentState[4], currentState[5], currentState[6], currentState[5]['수출'][item]['exportChange']]);
-  }
+    changeState([
+      1,
+      0,
+      currentState[5]["수출"][item]["nationName"],
+      "수출",
+      currentState[4],
+      currentState[5],
+      currentState[6],
+      currentState[5]["수출"][item]["exportChange"],
+    ]);
+  };
   const onChangeImportClick = (item) => {
-    changeState([0, 1, currentState[5]['수입'][item]['nationName'], '수입', currentState[4], currentState[5], currentState[6], currentState[5]['수입'][item]['importChange']]);
+    changeState([
+      0,
+      1,
+      currentState[5]["수입"][item]["nationName"],
+      "수입",
+      currentState[4],
+      currentState[5],
+      currentState[6],
+      currentState[5]["수입"][item]["importChange"],
+    ]);
   };
 
+  // // TextMining 화면 캡쳐
+  // const [data2Img, setData2Img] = useRecoilState(data2ImgAtom);
+  // useEffect(() => {
+  //   const input = document.getElementById("data2ImgHadler");
+  //   html2canvas(input).then((canvas) => {
+  //     const data2 = canvas.toDataURL("image/png");
+  //     setData2Img(data2);
+  //   });
+  // }, [currentState]);
+  // // console.log(data2Img);
+
   return (
-    <div className="flex justify-center space-x-5 mt-7">
+    <div className="flex justify-center space-x-5 mt-7" id="data2ImgHandler">
       <LineChartTrend anyItem={currentState} />
-      <BarChartExport alreadyClicked={currentState} onSaveClickOrNot={onChangeExportClick} />
-      <BarChartImport alreadyClicked={currentState} onSaveClickOrNot={onChangeImportClick} />
+      <BarChartExport
+        alreadyClicked={currentState}
+        onSaveClickOrNot={onChangeExportClick}
+      />
+      <BarChartImport
+        alreadyClicked={currentState}
+        onSaveClickOrNot={onChangeImportClick}
+      />
     </div>
   );
 }

@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import Code from "../../../assets/Code.json";
 import NewsI from "../../molecules/newsTextMiningI/NewsI";
 import TextMiningI from "../../molecules/newsTextMiningI/TextMiningI";
+import { useRecoilState } from "recoil";
+import { textMiningImgAtom } from "../../../states/recoilPdfState";
+import html2canvas from "html2canvas";
 
 function NewsTextMiningI() {
   const params = useParams();
@@ -71,7 +74,14 @@ function NewsTextMiningI() {
 
   useEffect(() => {
     axios.get(newsUrl).then((response) => setNewsData(response.data));
-    axios.get(textMiningUrl).then((response) => setTextData(response.data));
+    axios.get(textMiningUrl).then((response) => {
+      setTextData(response.data);
+      const input = document.getElementById("textMiningImgHadler");
+      html2canvas(input).then((canvas) => {
+        const textMining = canvas.toDataURL("image/png");
+        setTextMiningImg(textMining);
+      });
+    });
   }, [params]);
 
   const textDataKeys = Object.keys(textData);
@@ -92,6 +102,7 @@ function NewsTextMiningI() {
   const [searchWord, setSearchWord] = useState("");
   const searchWordHandler = (event) => {
     event.preventDefault();
+    setSelectedWord("");
     setSearchWord(event.target[0].value);
 
     // console.log(event.target[0].value);
@@ -121,6 +132,8 @@ function NewsTextMiningI() {
     endDate;
   // console.log(textMiningUrl);
 
+  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
+
   useEffect(() => {
     axios.get(newsUrlSearch).then((response) => setNewsData(response.data));
     axios
@@ -149,9 +162,6 @@ function NewsTextMiningI() {
 
   const selectedWordNewsData = [];
   if (selectedWord === "") {
-    // for (let i = 0; i < newsData.length; i++) {
-    //   selectedWordNewsData.push(newsData[i]);
-    // }
   } else {
     for (let i = 0; i < textData[selectedWord].length; i++) {
       selectedWordNewsData.push(textData[selectedWord][i]);
@@ -160,7 +170,7 @@ function NewsTextMiningI() {
   // console.log(selectedWordNewsData);
 
   return (
-    <div className="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2 ">
+    <div className="grid mb-5 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2 ">
       <div
         className=" overflow-y-scroll scrollbar-hide bg-blue-300 mt-10"
         style={{ height: "600px" }}
@@ -172,28 +182,29 @@ function NewsTextMiningI() {
         />
       </div>
 
-      <div className="mt-3">
-        <form onSubmit={searchWordHandler} className="h-10">
+      <div className="mt-10 font-mun">
+        <form onSubmit={searchWordHandler} className="h-10 ml-10">
           <input
-            className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline font-mun"
             type="text"
             placeholder="품목을 검색하세요."
           />
-
           <button
             type="submit"
-            className="rounded-full bg-blue-300 w-20 h-10 font-mun text-2xl ml-5"
+            className="rounded hover:rounded-lg bg-blue-300 mr-3 pl-4 pr-4 pt-1 pb-1 h-10 ml-3"
           >
             검색
           </button>
         </form>
         {/* <div>{searchWord}</div> */}
-        <TextMiningI
-          textDataInfo={textDataInfo}
-          wordClickHandler={wordClickHandler}
-          nothingHandler={nothingHandler}
-          selectedWord={selectedWord}
-        />
+        <div id="textMiningImgHadler">
+          <TextMiningI
+            textDataInfo={textDataInfo}
+            wordClickHandler={wordClickHandler}
+            nothingHandler={nothingHandler}
+            selectedWord={selectedWord}
+          />
+        </div>
       </div>
     </div>
   );

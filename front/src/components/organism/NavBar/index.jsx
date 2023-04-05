@@ -36,12 +36,10 @@ function NavBar(props) {
       nationNameList.push(Code.국가코드[i].Column2);
     }
   }
-  // console.log(nationNameList)
 
   return (
     <>
       <nav className="flex justify-between  sticky top-0 bg-slate-200 content-center font-mun">
-        {/* <img src={logo} className="w-20 h-20 ml-5 mt-2" /> */}
         <button
           onClick={() => {
             navigate("/nation/ALL/202203-202302");
@@ -54,7 +52,6 @@ function NavBar(props) {
           <NationOrItem stateHandler={stateHandler} />
         </div>
 
-        {/* {state === "Nation" ? ( */}
         <div className="content-center flex items-center">
           <NationSelector />
           <div className="flex flex-inline text-2xl ml-5">
@@ -63,22 +60,24 @@ function NavBar(props) {
           </div>
         </div>
 
-        {/* // ) : null} */}
-        {/* // {state === "Item" ? <ItemSelector /> : null} */}
-
         <div className="flex flex-inline items-center text-2xl ml-5">
           <ViewPeriod />
         </div>
 
         <div className="flex justify-between items-center align-middle mr-10">
           <Pdf />
-          <Excel apiData={props.apiData} />
+          <Excel state={state} />
           <div className="ml-10">
-            <button onClick={() => {
-            navigate("/login")
-          }}>  로그인</button> </div>
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              {" "}
+              로그인
+            </button>{" "}
+          </div>
         </div>
-
       </nav>
     </>
   );

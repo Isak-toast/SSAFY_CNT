@@ -6,7 +6,6 @@ function NationOrItemI(props) {
   const params = useParams();
   return (
     <>
-      {/* <div className="flex justify-between font-mun"> */}
       <div className="font-mun align-middle">
         <input
           id="nation"

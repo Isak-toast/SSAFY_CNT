@@ -38,7 +38,6 @@ function ItemSelector() {
   for (let i = 4; i < SixCode.length; i++) {
     sixDigitCode.push(SixCode[i].hsCode.toString());
   }
-  // console.log(sixDigitCode);
 
   // hsCode 10자리
   // vlaue에 codeColumn2 + " / " + codeColumn4 + " / " + codeColumn5과
@@ -142,7 +141,6 @@ function ItemSelector() {
       }, 1000);
     });
 
-  // const [itemSelect, setItemSelect] = useState(params.nationCode);
   const navigate = useNavigate();
 
   const [IsOpen, setIsOpen] = useState(false);
@@ -165,20 +163,17 @@ function ItemSelector() {
       });
     }
   }
-  // console.log(itemSelect);
 
   const [codeCoulmn, setCodeColumn] = useState(itemSelect[0].value);
   const codeColumnHandler = (event) => {
     setCodeColumn(event.value);
   };
-  // console.log(codeCoulmn);
-  // console.log(codeCoulmn.slice(0, 10));
+
   const allCodeColumn = {
     hsCode: codeCoulmn.split(" / ")[0],
     fourDigit: codeCoulmn.split(" / ")[1],
     // tenDigit: codeCoulmn.split(" / ")[2], // hsCode 10자리
   };
-  // console.log(allCodeColumn);
 
   return (
     <div className="font-mun">
@@ -189,14 +184,12 @@ function ItemSelector() {
       <Modal
         ariaHideApp={false}
         isOpen={IsOpen}
-        // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
         <AsyncSelect
           cacheOptions
-          // defaultValue={itemOptions[0]}
           defaultOptions={false}
           loadOptions={promiseOptions}
           filterOption={null}

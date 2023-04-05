@@ -1,8 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useState } from "react";
-
 import "./App.css";
-
 import Item from "./components/pages/Item";
 import Nation from "./components/pages/Nation";
 import Login from "./components/pages/Login";
@@ -10,12 +7,6 @@ import Signup from "./components/pages/Signup";
 import Err404 from "./components/pages/ERR404";
 
 function App() {
-  // const [nationOrItem, setNationOrItem] = useState("nation");
-
-  // const setNationOrItemHandler = (e) => {
-  //   setNationOrItem(e);
-  // };
-
   return (
     <>
       <Routes>
@@ -27,14 +18,6 @@ function App() {
         <Route path="/err404" element={<Err404 />} />
         <Route path="/*" element={<Err404 />} />
       </Routes>
-
-      {/* {nationOrItem === "nation" ? (
-        <>
-          <Nation setNationOrItemHandler={setNationOrItemHandler} />
-        </>
-      ) : (
-        <Item setNationOrItemHandler={setNationOrItemHandler} />
-      )} */}
     </>
   );
 }

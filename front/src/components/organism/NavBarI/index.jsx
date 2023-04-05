@@ -6,6 +6,9 @@ import excel from "./../../../assets/excel.svg";
 import NationOrItemI from "./../../molecules/navBar/NationalOrItemI";
 import ItemSelector from "../../molecules/navBar/ItemSelector";
 import ViewPeriodI from "./../../molecules/navBar/ViewPeriodI";
+import PdfI from "../../molecules/navBar/PdfI";
+
+import Excel from "./../../molecules/navBar/Excel/index";
 
 function NavBarI() {
   const navigate = useNavigate();
@@ -18,11 +21,6 @@ function NavBarI() {
   };
 
   const params = useParams();
-  //   const src =
-  //     "./../../../../assets/nationalFlags/" + params.hsCode + ".gif";
-  //   const onErrorImg = (e) => {
-  //     e.target.src = unImg;
-  //   };
 
   return (
     <>
@@ -39,22 +37,18 @@ function NavBarI() {
           <NationOrItemI stateHandler={stateHandler} />
         </div>
 
-        {/* {state === "Nation" ? ( */}
         <div className="content-center flex items-center text-2xl">
           <ItemSelector />
           {params.hsCode}
         </div>
-
-        {/* // ) : null} */}
-        {/* // {state === "Item" ? <ItemSelector /> : null} */}
 
         <div className="flex flex-inline items-center text-2xl ml-5">
           <ViewPeriodI />
         </div>
 
         <div className="flex justify-between items-center align-middle mr-10">
-          <img src={pdf} className="w-10 h-10 mr-5" />
-          <img src={excel} className="w-10 h-10" />
+          <PdfI />
+          <Excel state={state} />
         </div>
       </nav>
     </>

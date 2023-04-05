@@ -1,17 +1,22 @@
 import { useMemo, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import ExportImportToggle from "../../molecules/dataThird/ExportImportToggle";
 import Table from "../../molecules/dataThirdI/Table";
 import { AvatarCell } from "../../molecules/dataThird/Table";
 import axios from "axios";
 import codeName from "../../../assets/nationNameToCode.json";
+import { useRecoilState } from "recoil";
+import { data3ImgAtom } from "../../../states/recoilPdfState";
+import html2canvas from "html2canvas";
+import { excelStateI3 } from "../../../states/Excel";
 
 function DataThirdI(props) {
   const [exportImportState, setExportImportState] = useState(true);
+  const [excelData, setExcelData] = useRecoilState(excelStateI3);
   const params = useParams();
   const duration = params.duration;
   const [isLoading, setIsLoading] = useState(true);
+  const [data3Img, setData3Img] = useRecoilState(data3ImgAtom);
 
   const exColumns = useMemo(() => [
     { accessor: "ranking", Header: "순위" },
@@ -162,6 +167,14 @@ function DataThirdI(props) {
         exDataHandler(response.data);
         imDataHandler(response.data);
         setIsLoading(false);
+        setExcelData(response.data);
+        setTimeout(() => {
+          const input = document.getElementById("data3ImgHandler");
+          html2canvas(input).then((canvas) => {
+            let data3 = canvas.toDataURL("image/png");
+            setData3Img(data3);
+          });
+        }, 3000);
       })
       .catch((error) => {
         console.log(error);
@@ -193,6 +206,16 @@ function DataThirdI(props) {
   //   []
   // );
 
+  // const [data3Img, setData2Img] = useRecoilState(data3ImgAtom);
+  // useEffect(() => {
+  //   const input = document.getElementById("data3ImgHadler");
+  //   html2canvas(input).then((canvas) => {
+  //     const data3 = canvas.toDataURL("image/png");
+  //     setData2Img(data3);
+  //   });
+  // }, [exData]);
+  // // console.log(data3Img);
+
   return (
     <>
       <hr className="mt-3"></hr>
@@ -214,7 +237,7 @@ function DataThirdI(props) {
               params={params}
             />
           </div>
-          <div className=" mt-5  text-gray-900">
+          <div className=" mt-5  text-gray-900" id="data3ImgHandler">
             <main className="mx-10 my-5">
               {/* mx-auto px-4 sm:px-6 lg:px-8 pt-4  */}
 

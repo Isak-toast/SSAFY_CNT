@@ -25,52 +25,52 @@ function NewsI(props) {
       {selectedWord === "" ? (
         // <div class="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 grid-cols-2">
 
-        <div className="grid items-center justify-center p-8 text-center bg-white rounded-t-lg md:rounded-t-none md:rounded-tl-lg md:border-r dark:bg-gray-800 dark:border-gray-700 border-r-4 border-black">
+        <div className="pl-5 grid items-center justify-center text-center bg-white rounded-t-lg md:rounded-t-none md:rounded-tl-lg md:border-r dark:bg-gray-800 dark:border-gray-700 border-r-4 border-black font-mun">
           {newsData.map((news, index) => (
             <a
               key={index}
               href={news.newsLink}
               target="_blank"
-              className="mb-10 block max-w-l p-6 items-center justify-center bg-gray-200 border border-gray-200 rounded-lg shadow hover:bg-blue-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+              className="pt-5 pl-3 pr-3 mb-5 block max-w-l items-center bg-gray-200 border border-gray-200 rounded-lg shadow hover:bg-blue-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
-              <blockquote className="  max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
+              <h5>{news.newsPress}</h5>
+              <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
                 <h5
                   // key={index}
-                  className="text-lg font-semibold text-gray-900 dark:text-white max-h-20"
+                  className="text-xl font-semibold text-gray-900 dark:text-white max-h-20  mt-1  mb-1"
                 >
                   {news.newsTitle}
                 </h5>
-                <p className="my-4 h-30 truncate">{news.newsContent}</p>
+                <h5>{news.newsDate.substring(0, 10)}</h5>
+                <p className="h-30 truncate mt-2">{news.newsContent}</p>
               </blockquote>
 
-              <h5>{news.newsPress}</h5>
-              <h5>{news.newsDate}</h5>
             </a>
           ))}
         </div>
       ) : (
         // </div>
 
-        <div className="grid items-center justify-center p-8 text-center bg-white  rounded-t-lg md:rounded-t-none md:rounded-tl-lg md:border-r dark:bg-gray-800 dark:border-gray-700 border-r-4 border-black">
+        <div className="pl-5 grid items-center justify-center text-center bg-white rounded-t-lg md:rounded-t-none md:rounded-tl-lg md:border-r dark:bg-gray-800 dark:border-gray-700 border-r-4 border-black font-mun">
           {selectedWordNewsData.map((wordNews, index) => (
             <a
               key={index}
               href={wordNews.newsLink}
               target="_blank"
-              className="mb-10 block max-w-l p-6 bg-gray-200 border border-gray-200 rounded-lg shadow hover:bg-blue-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+              className="pt-5 pl-3 pr-3 mb-5 block max-w-l items-center bg-gray-200 border border-gray-200 rounded-lg shadow hover:bg-blue-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
+              <h5>{wordNews.newsPress}</h5>
               <blockquote class="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
                 <h5
                   // key={index}
-                  class="text-lg font-semibold text-gray-900 dark:text-white"
+                  class="text-xl font-semibold text-gray-900 dark:text-white max-h-20  mt-1  mb-1"
                 >
                   {wordNews.newsTitle}
                 </h5>
-                <p class="my-4 h-30 truncate">{wordNews.newsContent}</p>
+                <h5>{wordNews.newsDate}</h5>
+                <p class="h-30 truncate mt-2">{wordNews.newsContent}</p>
               </blockquote>
               <figcaption class="flex items-center justify-center space-x-3">
-                <h5>{wordNews.newsPress}</h5>
-                <h5>{wordNews.newsDate}</h5>
               </figcaption>
             </a>
           ))}

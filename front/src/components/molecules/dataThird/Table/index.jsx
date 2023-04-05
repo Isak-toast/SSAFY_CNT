@@ -47,69 +47,6 @@ function Table({ columns, data, exportImportState }) {
     return exportImportState ? "bg-gray-300" : "bg-gray-300";
   }
 
-  // const headList = columns.map((value, key) => (
-  //   <th className="px-6 py-3" key={key}>
-  //     {value.Header}
-  //   </th>
-  // ));
-
-  // console.log(data);
-
-  // const dataList = data.map((value, key) => (
-  //   <tr>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.order}
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       <div>
-  //         <div className="flex items-center justify-items-center">
-  //           <div className="flex-shrink-0 h-10 w-10">
-  //             <img className="mt-2 h-7 w-10 " src={value.imgSrc} alt="" />
-  //           </div>
-  //           <div className="ml-3">
-  //             <div>{value.nation}</div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.date}
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.amount}
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.amountPortion}
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.weight}
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.weightPortion}
-  //     </td>
-  //     <td className="px-6 py-3" key={key}>
-  //       {value.hsCode}
-  //     </td>
-  //   </tr>
-  // ));
-
-  // console.log(dataList);
-
-  // return (
-  //   <>
-  //     <div className="relative overflow-auto">
-  //       <table className="w-full font-mun m-2">
-  //         <thead>
-  //           <tr>{headList}</tr>
-  //         </thead>
-  //         <div>
-  //           <tbody>{dataList}</tbody>
-  //         </div>
-  //       </table>
-  //     </div>
-  //   </>
-  // );
-
   const {
     getTableProps,
     getTableBodyProps,

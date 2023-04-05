@@ -5,12 +5,20 @@ import { AvatarCell } from "../../molecules/dataThird/Table";
 import ExportImportToggle from "../../molecules/dataThird/ExportImportToggle";
 import axios from "axios";
 import codeName from "../../../assets/nationNameToCode.json";
+import { useRecoilState } from "recoil";
+import { excelState3 } from "../../../states/Excel";
+import html2canvas from "html2canvas";
+import { data3ImgAtom } from "../../../states/recoilPdfState";
+import { excelDisabled } from "../../../states/Excel";
 
 function DataThird() {
   const [exportImportState, setExportImportState] = useState(true);
   const params = useParams();
   const duration = params.duration;
   const [isLoading, setIsLoading] = useState(true);
+  const [excelData, setExcelData] = useRecoilState(excelState3);
+  const [data3Img, setData3Img] = useRecoilState(data3ImgAtom);
+  const [disable, setDisable] = useRecoilState(excelDisabled);
 
   const exColumns = useMemo(() => [
     { accessor: "ranking", Header: "순위" },
@@ -76,7 +84,6 @@ function DataThird() {
           a[0] + "." + a[1].slice(0, 1);
       }
 
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       num = data["importDetail"][objKey]["impdlrSum"].toLocaleString();
       data["importDetail"][objKey]["impdlrSum"] = num;
 
@@ -126,7 +133,6 @@ function DataThird() {
           a[0] + "." + a[1].slice(0, 1);
       }
 
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       num = data["exportDetail"][objKey]["expdlrSum"].toLocaleString();
       data["exportDetail"][objKey]["expdlrSum"] = num;
 
@@ -142,12 +148,11 @@ function DataThird() {
     setExData(temp);
   };
 
-  ///////여기에서 axios 쓴다
   useEffect(() => {
+    setDisable(true);
     axios
       .get(
         "https://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/threerow?" +
-          // "https://98320413-724a-44ba-a0b5-9b226001b6d6.mock.pstmn.io/api/trade/country/data3?" +
           "startDate=" +
           params.duration.substring(0, 6) +
           "&" +
@@ -158,6 +163,13 @@ function DataThird() {
         exDataHandler(response.data);
         imDataHandler(response.data);
         setIsLoading(false);
+        setExcelData(response.data);
+        const input = document.getElementById("data3ImgHandler");
+        html2canvas(input).then((canvas) => {
+          let data3 = canvas.toDataURL("image/png");
+          setData3Img(data3);
+          setDisable(false);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -167,27 +179,6 @@ function DataThird() {
   const exportImportStateHandler = () => {
     setExportImportState(!exportImportState);
   };
-
-  // const data = useMemo(
-  //   () =>
-  //     Array(100)
-  //       .fill()
-  //       .map(() => ({
-  //         ranking: faker.datatype.number({ min: 1, max: 10 }),
-  //         nationCode: faker.address.countryCode(),
-  //         // imgSrc:
-  //         //   "./../../../../../assets/nationalFlags/" +
-  //         //   faker.address.countryCode() +
-  //         //   ".gif",
-  //         duration: "2022.3 - 2023.3",
-  //         expdlrSum: faker.commerce.price(0, 100000000, 0, "$"),
-  //         expdlrRatio: "11%",
-  //         expwgtSum: faker.datatype.number({ min: 100000 }),
-  //         expwgtRatio: "11%",
-  //         hsCode: "전체품목",
-  //       })),
-  //   []
-  // );
 
   return (
     <>
@@ -210,10 +201,8 @@ function DataThird() {
               params={params}
             />
           </div>
-          <div className=" mt-5  text-gray-900">
+          <div className=" mt-5  text-gray-900" id="data3ImgHandler">
             <main className="mx-10 my-5">
-              {/* mx-auto px-4 sm:px-6 lg:px-8 pt-4  */}
-
               {exportImportState === true ? (
                 <div className="mt-2">
                   <Table
