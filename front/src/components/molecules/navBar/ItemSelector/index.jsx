@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import Code from "../../../../assets/Code.json";
 import SixCode from "../../../../assets/SixCode.json";
 import magnifier1 from "../../../../assets/magnifier1.png";
+import { useRecoilState } from "recoil";
+import { pdfStateAtom } from "../../../../states/recoilPdfState";
 
 const customStyles = {
   content: {
@@ -31,6 +33,7 @@ const styles = {
 };
 
 function ItemSelector() {
+  const [pdfState, setPdfState] = useRecoilState(pdfStateAtom);
   const params = useParams();
 
   // hsCode 정제
@@ -216,6 +219,7 @@ function ItemSelector() {
             <button
               onClick={() => {
                 closeModal();
+                setPdfState(false);
                 navigate(
                   "/item/" + codeCoulmn.slice(0, 6) + "/" + params.duration
                 );

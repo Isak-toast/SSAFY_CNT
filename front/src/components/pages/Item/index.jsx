@@ -9,21 +9,31 @@ import WorldMapI from "../../organism/WorldMapI";
 import NewsTextMiningI from "../../organism/NewsTextMiningI";
 import html2canvas from "html2canvas";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { data1ImgAtom, pdfStateAtom } from "../../../states/recoilPdfState";
+import {
+  data1ImgAtom,
+  pdfStateAtom,
+  data1StateAtom,
+  preventClickAtom,
+} from "../../../states/recoilPdfState";
 import { excelStateI1 } from "../../../states/Excel";
 
 function Item() {
   const params = useParams();
   const [excelData, setExcelData] = useRecoilState(excelStateI1);
   const [data1Img, setData1Img] = useRecoilState(data1ImgAtom);
+  const [data1State, setData1State] = useRecoilState(data1StateAtom);
   const pdfState = useRecoilValue(pdfStateAtom);
+  const preventClick = useRecoilValue(preventClickAtom);
 
+  // PDF Button Click 시, pdfState가 true로 변경되며 Rendering이 완료된 화면을 Capture
+  // 화면 Capture 완료 후, data1State를 true로 변경하며 화면 Capture 완료 상태를 관리
   useEffect(() => {
     if (pdfState === true) {
       const input = document.getElementById("data1ImgHandler");
       html2canvas(input).then((canvas) => {
         let data1 = canvas.toDataURL("image/png");
         setData1Img(data1);
+        setData1State(true);
         // console.log("Item Data1 Done");
       });
     }
@@ -52,7 +62,35 @@ function Item() {
 
   return (
     <>
-      <div className="z-30 sticky top-0">
+      {console.log("왜 계속 렌더링 됨?")}
+      {preventClick === true ? (
+        <div>
+          <div className="z-30 sticky top-0 hidden">
+            <NavBarI apiData={data} />
+          </div>
+          <div className="z-0 hidden">
+            <WorldMapI />
+          </div>
+          <DataFirstI data1={data} />
+          <DataSecondI />
+          <DataThirdI />
+          <NewsTextMiningI />
+        </div>
+      ) : (
+        <div>
+          <div className="z-30 sticky top-0">
+            <NavBarI />
+          </div>
+          <div className="z-0">
+            <WorldMapI apiData={data} />
+          </div>
+          <DataFirstI data1={data} />
+          <DataSecondI />
+          <DataThirdI />
+          <NewsTextMiningI />
+        </div>
+      )}
+      {/* <div className="z-30 sticky top-0">
         <NavBarI />
       </div>
       <div className="z-0">
@@ -61,7 +99,7 @@ function Item() {
       <DataFirstI data1={data} />
       <DataSecondI />
       <DataThirdI />
-      <NewsTextMiningI />
+      <NewsTextMiningI /> */}
     </>
   );
 }

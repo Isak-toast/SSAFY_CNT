@@ -13,6 +13,7 @@ import {
 import html2canvas from "html2canvas";
 
 function NewsTextMining() {
+  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
   const pdfState = useRecoilValue(pdfStateAtom);
   const [textMiningState, setTextMiningState] =
     useRecoilState(textMiningStateAtom);
@@ -61,8 +62,6 @@ function NewsTextMining() {
   const endDate =
     paramsDuration.substring(7, 11) + "." + paramsDuration.substring(11, 13);
   // console.log(startDate, endDate);
-
-  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
 
   // newsUrl 요청
   const newsUrl =

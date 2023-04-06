@@ -22,8 +22,8 @@ function Nation() {
   const [excelData, setExcelData] = useRecoilState(excelState1);
   const [data1Img, setData1Img] = useRecoilState(data1ImgAtom);
   const [data1State, setData1State] = useRecoilState(data1StateAtom);
-  const preventClick = useRecoilValue(preventClickAtom);
   const pdfState = useRecoilValue(pdfStateAtom);
+  const preventClick = useRecoilValue(preventClickAtom);
 
   // PDF Button Click 시, pdfState가 true로 변경되며 Rendering이 완료된 화면을 Capture
   // 화면 Capture 완료 후, data1State를 true로 변경하며 화면 Capture 완료 상태를 관리
@@ -71,7 +71,6 @@ function Nation() {
           <div className="z-0 hidden">
             <WorldMap />
           </div>
-          {/* <div className="">PDF DOWNLOADING ...</div> */}
           <DataFirst data1={data} />
           <DataSecond />
           <DataThird />

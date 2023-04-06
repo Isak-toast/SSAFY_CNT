@@ -20,6 +20,8 @@ import {
 function Pdf() {
   // buttonState를 이용하여 화면 Rendering 시작 5초 후에 Button 활성화
   const [buttonState, setButtonState] = useState(false);
+
+  // Capture한 Image 경로 저장
   const data1Img = useRecoilValue(data1ImgAtom);
   const data2Img = useRecoilValue(data2ImgAtom);
   const data3Img = useRecoilValue(data3ImgAtom);
@@ -35,6 +37,7 @@ function Pdf() {
   const [data3State, setData3State] = useRecoilState(data3StateAtom);
   const [textMiningState, setTextMiningState] =
     useRecoilState(textMiningStateAtom);
+  // console.log(data1State, data2State, data3State, textMiningState);
 
   // preventClickAtom을 이용하여 화면 Capture Image 경로 저장 시 NavBar와 WorldMap의 Clcik을 방지
   const [preventClick, setPreventClick] = useRecoilState(preventClickAtom);

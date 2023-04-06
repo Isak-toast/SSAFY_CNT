@@ -13,6 +13,7 @@ import {
 import html2canvas from "html2canvas";
 
 function NewsTextMiningI() {
+  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
   const pdfState = useRecoilValue(pdfStateAtom);
   const [textMiningState, setTextMiningState] =
     useRecoilState(textMiningStateAtom);
@@ -145,8 +146,6 @@ function NewsTextMiningI() {
     "&endDate=" +
     endDate;
   // console.log(textMiningUrl);
-
-  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
 
   useEffect(() => {
     axios.get(newsUrlSearch).then((response) => setNewsData(response.data));
