@@ -4,11 +4,32 @@ import { useParams } from "react-router-dom";
 import Code from "../../../assets/Code.json";
 import News from "../../molecules/newsTextMining/News";
 import TextMining from "../../molecules/newsTextMining/TextMining";
-import { useRecoilState } from "recoil";
-import { textMiningImgAtom } from "../../../states/recoilPdfState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  textMiningImgAtom,
+  pdfStateAtom,
+  textMiningStateAtom,
+} from "../../../states/recoilPdfState";
 import html2canvas from "html2canvas";
 
 function NewsTextMining() {
+  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
+  const pdfState = useRecoilValue(pdfStateAtom);
+  const [textMiningState, setTextMiningState] =
+    useRecoilState(textMiningStateAtom);
+
+  useEffect(() => {
+    if (pdfState === true) {
+      const input = document.getElementById("textMiningImgHadler");
+      html2canvas(input).then((canvas) => {
+        const textMining = canvas.toDataURL("image/png");
+        setTextMiningImg(textMining);
+        setTextMiningState(true);
+      });
+    }
+  }, [pdfState]);
+  // console.log(textMiningState);
+
   const params = useParams();
 
   const paramsNationCode = params.nationCode;
@@ -42,8 +63,6 @@ function NewsTextMining() {
     paramsDuration.substring(7, 11) + "." + paramsDuration.substring(11, 13);
   // console.log(startDate, endDate);
 
-  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
-
   // newsUrl 요청
   const newsUrl =
     "https://ssafycnt.site:8000/ssafycnt-news-service/api/news?" +
@@ -72,15 +91,15 @@ function NewsTextMining() {
   const [textData, setTextData] = useState([]);
   // console.log(textData);
 
-  useEffect(() => {
-    axios.get(newsUrl).then((response) => setNewsData(response.data));
-    axios.get(textMiningUrl).then((response) => {
+  useEffect(async () => {
+    await axios.get(newsUrl).then((response) => {
+      setNewsData(response.data);
+    });
+  }, [params]);
+
+  useEffect(async () => {
+    await axios.get(textMiningUrl).then((response) => {
       setTextData(response.data);
-      const input = document.getElementById("textMiningImgHadler");
-      html2canvas(input).then((canvas) => {
-        const textMining = canvas.toDataURL("image/png");
-        setTextMiningImg(textMining);
-      });
     });
   }, [params]);
 
@@ -141,9 +160,8 @@ function NewsTextMining() {
           selectedWordNewsData={selectedWordNewsData}
         />
       </div>
-
+      {/* <div>선택 단어 : {selectedWord}</div> */}
       <div id="textMiningImgHadler">
-        {/* <div>선택 단어 : {selectedWord}</div> */}
         <TextMining
           textDataInfo={textDataInfo}
           wordClickHandler={wordClickHandler}

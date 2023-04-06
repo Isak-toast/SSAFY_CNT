@@ -5,6 +5,8 @@ import Code from "../../../../assets/Code.json";
 import unImg from "./../../../../../assets/nationalFlags/UN.png";
 import Modal from "react-modal";
 import magnifier1 from "../../../../assets/magnifier1.png";
+import { useRecoilState } from "recoil";
+import { pdfStateAtom } from "../../../../states/recoilPdfState";
 
 const customStyles = {
   content: {
@@ -43,6 +45,7 @@ for (let i = 3; i < Code.국가코드.length; i++) {
 }
 
 function NationSelector() {
+  const [pdfState, setPdfState] = useRecoilState(pdfStateAtom);
   const params = useParams();
   const [nationSelect, setNationSelect] = useState(params.nationCode);
   const navigate = useNavigate();
@@ -80,7 +83,7 @@ function NationSelector() {
 
   return (
     <div className="font-mun">
-      <button onClick={openModal} className="text-2xl inline-flex">
+      <button onClick={openModal} className="text-2xl inline-flex hover:scale-125">
         국가
         <img src={magnifier1} className="w-8 h-8 ml-2" />
       </button>
@@ -102,6 +105,7 @@ function NationSelector() {
           <button
             onClick={() => {
               closeModal();
+              setPdfState(false);
               navigate(
                 "/nation/" + nationState.nationCode + "/" + params.duration
               );

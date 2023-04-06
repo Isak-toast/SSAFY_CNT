@@ -159,7 +159,7 @@ function ViewPeriod() {
 
   return (
     <div className="font-mun">
-      <button onClick={openModal} className="mr-5 inline-flex">
+      <button onClick={openModal} className="mr-5 inline-flex hover:scale-125">
         기간
         <img src={magnifier1} className="w-8 h-8 ml-2" />
       </button>

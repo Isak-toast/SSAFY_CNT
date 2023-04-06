@@ -1,22 +1,5 @@
 import React from "react";
 import WordCloud from "react-d3-cloud";
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import Code from "../../../../assets/Code.json";
-// import { useParams } from "react-router-dom";
-// import TextMiningInfo from "../../../../assets/TextMiningInfo.json";
-
-// DUMMY_TEXTDATA
-// const textMiningInfo = Object.keys(TextMiningInfo);
-// const textInfo = [];
-// for (let i = 0; i < textMiningInfo.length; i++) {
-//   let wordString = textMiningInfo[i];
-//   textInfo.push({
-//     text: wordString,
-//     value: TextMiningInfo[wordString].length,
-//   });
-// }
-// console.log(textInfo);
 
 function TextMining(props) {
   let textDataInfo = props.textDataInfo;
@@ -26,21 +9,21 @@ function TextMining(props) {
     <>
       <div className="font-mun mt-10">
         <div className="flex justify-center ml-2">
-            {props.selectedWord === "" ? (
-              <label
-                className="block text-gray-700 text-4xl font-bold"
-                htmlFor="username"
-              >
-                키워드 : 없음
-              </label>
-            ) : (
-              <label
-                className="block text-gray-700 text-4xl font-bold"
-                htmlFor="username"
-              >
-                키워드 : {props.selectedWord}
-              </label>
-            )}
+          {props.selectedWord === "" ? (
+            <label
+              className="block text-gray-700 text-4xl font-bold"
+              htmlFor="username"
+            >
+              키워드 : 없음
+            </label>
+          ) : (
+            <label
+              className="block text-gray-700 text-4xl font-bold"
+              htmlFor="username"
+            >
+              키워드 : {props.selectedWord}
+            </label>
+          )}
         </div>
         <div className="flex justify-end mr-7 mb-4">
           <button
@@ -52,15 +35,13 @@ function TextMining(props) {
         </div>
         <WordCloud
           data={textDataInfo}
-          // onWordClick={(event, d) => {
-          //   console.log(`onWordClick: ${d.text}`);
-          // }}
           onWordClick={props.wordClickHandler}
           font="munchebu"
           spiral="archimedean"
           width={500}
           height={350}
           rotate={() => 0}
+          random={() => 0}
         />
         {/* <div className="flex flex-inline justify-center ml-2">
           {props.selectedWord === "" ? (

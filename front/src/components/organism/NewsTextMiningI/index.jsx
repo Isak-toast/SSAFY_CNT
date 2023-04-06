@@ -4,11 +4,31 @@ import { useParams } from "react-router-dom";
 import Code from "../../../assets/Code.json";
 import NewsI from "../../molecules/newsTextMiningI/NewsI";
 import TextMiningI from "../../molecules/newsTextMiningI/TextMiningI";
-import { useRecoilState } from "recoil";
-import { textMiningImgAtom } from "../../../states/recoilPdfState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  textMiningImgAtom,
+  pdfStateAtom,
+  textMiningStateAtom,
+} from "../../../states/recoilPdfState";
 import html2canvas from "html2canvas";
 
 function NewsTextMiningI() {
+  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
+  const pdfState = useRecoilValue(pdfStateAtom);
+  const [textMiningState, setTextMiningState] =
+    useRecoilState(textMiningStateAtom);
+
+  useEffect(() => {
+    if (pdfState === true) {
+      const input = document.getElementById("textMiningImgHadler");
+      html2canvas(input).then((canvas) => {
+        const textMining = canvas.toDataURL("image/png");
+        setTextMiningImg(textMining);
+        setTextMiningState(true);
+      });
+    }
+  }, [pdfState]);
+
   const params = useParams();
 
   const paramsHsCode = params.hsCode;
@@ -76,11 +96,6 @@ function NewsTextMiningI() {
     axios.get(newsUrl).then((response) => setNewsData(response.data));
     axios.get(textMiningUrl).then((response) => {
       setTextData(response.data);
-      const input = document.getElementById("textMiningImgHadler");
-      html2canvas(input).then((canvas) => {
-        const textMining = canvas.toDataURL("image/png");
-        setTextMiningImg(textMining);
-      });
     });
   }, [params]);
 
@@ -131,8 +146,6 @@ function NewsTextMiningI() {
     "&endDate=" +
     endDate;
   // console.log(textMiningUrl);
-
-  const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
 
   useEffect(() => {
     axios.get(newsUrlSearch).then((response) => setNewsData(response.data));
