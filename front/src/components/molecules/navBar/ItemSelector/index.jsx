@@ -5,6 +5,9 @@ import Modal from "react-modal";
 import Code from "../../../../assets/Code.json";
 import SixCode from "../../../../assets/SixCode.json";
 import magnifier1 from "../../../../assets/magnifier1.png";
+import { useRecoilState } from "recoil";
+import { pdfStateAtom } from "../../../../states/recoilPdfState";
+import { excelDisabled } from "../../../../states/Excel";
 
 const customStyles = {
   content: {
@@ -31,7 +34,9 @@ const styles = {
 };
 
 function ItemSelector() {
+  const [pdfState, setPdfState] = useRecoilState(pdfStateAtom);
   const params = useParams();
+  const [disable, setDisable] = useRecoilState(excelDisabled);
 
   // hsCode 정제
   const sixDigitCode = [];
@@ -177,7 +182,7 @@ function ItemSelector() {
 
   return (
     <div className="font-mun">
-      <button onClick={openModal} className="text-2xl inline-flex">
+      <button onClick={openModal} className="text-2xl inline-flex hover:scale-125">
         품목
         <img src={magnifier1} className="w-8 h-8 ml-2 mr-5" />
       </button>
@@ -216,6 +221,8 @@ function ItemSelector() {
             <button
               onClick={() => {
                 closeModal();
+                setPdfState(false);
+                setDisable(true);
                 navigate(
                   "/item/" + codeCoulmn.slice(0, 6) + "/" + params.duration
                 );

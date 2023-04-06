@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
 import excel from "../../../../assets/excel.svg";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import {
   excelState1,
   excelState2,
@@ -10,6 +10,8 @@ import {
   excelStateI3,
   excelDisabled,
 } from "../../../../states/Excel";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function Excel(props) {
   const filename =
@@ -23,7 +25,12 @@ function Excel(props) {
   const dataI2 = useRecoilValue(excelStateI2);
   const dataI3 = useRecoilValue(excelStateI3);
 
-  const disable = useRecoilValue(excelDisabled);
+  const [disable, setDisable] = useRecoilState(excelDisabled);
+  const params = useParams();
+
+  useEffect(() => {
+    setDisable(true);
+  }, [params]);
 
   function convertData2ToTable(data1, data2) {
     const table = [
@@ -282,8 +289,12 @@ function Excel(props) {
         <img src={excel} className="w-10 h-10" />
       </button>
     )
+  ) : disable == true ? (
+    <button onClick={exportToExcelI} disabled={disable}>
+      <img src={excel} className="w-10 h-10 grayscale" />
+    </button>
   ) : (
-    <button onClick={exportToExcelI}>
+    <button onClick={exportToExcelI} disabled={disable}>
       <img src={excel} className="w-10 h-10" />
     </button>
   );

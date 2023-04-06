@@ -5,10 +5,14 @@ import Table from "../../molecules/dataThirdI/Table";
 import { AvatarCell } from "../../molecules/dataThird/Table";
 import axios from "axios";
 import codeName from "../../../assets/nationNameToCode.json";
-import { useRecoilState } from "recoil";
-import { data3ImgAtom } from "../../../states/recoilPdfState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  data3ImgAtom,
+  pdfStateAtom,
+  data3StateAtom,
+} from "../../../states/recoilPdfState";
 import html2canvas from "html2canvas";
-import { excelStateI3 } from "../../../states/Excel";
+import { excelStateI3, excelDisabled } from "../../../states/Excel";
 
 function DataThirdI(props) {
   const [exportImportState, setExportImportState] = useState(true);
@@ -17,6 +21,24 @@ function DataThirdI(props) {
   const duration = params.duration;
   const [isLoading, setIsLoading] = useState(true);
   const [data3Img, setData3Img] = useRecoilState(data3ImgAtom);
+  const [data3State, setData3State] = useRecoilState(data3StateAtom);
+  const pdfState = useRecoilValue(pdfStateAtom);
+  const [disable, setDisable] = useRecoilState(excelDisabled);
+  // 이 코드가 안돌아감
+  // 이유가 뭐지...?
+  // 한번 더 저장하면 돌아감.
+  useEffect(() => {
+    if (pdfState === true) {
+      const input = document.getElementById("data3ImgHandler");
+      html2canvas(input).then((canvas) => {
+        let data3 = canvas.toDataURL("image/png");
+        setData3Img(data3);
+        setData3State(true);
+      });
+    }
+  }, [pdfState]);
+  // console.log(pdfState);
+  // console.log(data3State);
 
   const exColumns = useMemo(() => [
     { accessor: "ranking", Header: "순위" },
@@ -64,7 +86,7 @@ function DataThirdI(props) {
         .toString()
         .split(".");
 
-      if (num != 100) {
+      if (num != 100 && num != 50) {
         data["importDetail"][objKey]["impdlrRatio"] =
           num[0] + "." + num[1].slice(0, 1);
       }
@@ -77,7 +99,7 @@ function DataThirdI(props) {
         .toString()
         .split(".");
 
-      if (a != 100) {
+      if (a != 100 && a != 50) {
         data["importDetail"][objKey]["impwgtRatio"] =
           a[0] + "." + a[1].slice(0, 1);
       }
@@ -114,7 +136,7 @@ function DataThirdI(props) {
         .toString()
         .split(".");
 
-      if (num != 100) {
+      if (num != 100 && num != 50) {
         data["exportDetail"][objKey]["expdlrRatio"] =
           num[0] + "." + num[1].slice(0, 1);
       }
@@ -127,7 +149,7 @@ function DataThirdI(props) {
         .toString()
         .split(".");
 
-      if (a != 100) {
+      if (a != 100 && a != 50) {
         data["exportDetail"][objKey]["expwgtRatio"] =
           a[0] + "." + a[1].slice(0, 1);
       }
@@ -168,13 +190,7 @@ function DataThirdI(props) {
         imDataHandler(response.data);
         setIsLoading(false);
         setExcelData(response.data);
-        setTimeout(() => {
-          const input = document.getElementById("data3ImgHandler");
-          html2canvas(input).then((canvas) => {
-            let data3 = canvas.toDataURL("image/png");
-            setData3Img(data3);
-          });
-        }, 3000);
+        setDisable(false);
       })
       .catch((error) => {
         console.log(error);

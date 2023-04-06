@@ -4,10 +4,14 @@ import LineChartTrend from "./../../molecules/dataSecond/LineGraph/index";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { excelState2 } from "../../../states/Excel";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { excelState2, excelDisabled } from "../../../states/Excel";
 import html2canvas from "html2canvas";
-import { data2ImgAtom } from "../../../states/recoilPdfState";
+import {
+  data2ImgAtom,
+  pdfStateAtom,
+  data2StateAtom,
+} from "../../../states/recoilPdfState";
 
 // function DataSecond() {
 //   const params = useParams();
@@ -58,6 +62,8 @@ import { data2ImgAtom } from "../../../states/recoilPdfState";
 function DataSecond() {
   const [exelData, setExcelData] = useRecoilState(excelState2);
   const [data2Img, setData2Img] = useRecoilState(data2ImgAtom);
+  const [data2State, setData2State] = useRecoilState(data2StateAtom);
+  const pdfState = useRecoilValue(pdfStateAtom);
   const params = useParams();
   const [currentState, changeState] = useState([
     0,
@@ -69,9 +75,23 @@ function DataSecond() {
     "전세계",
     {},
   ]); // initialize the state with an empty array
-  // http://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/tworow?statCd=US&startDate=202201&endDate=202203
+  const [disable, setDisable] = useRecoilState(excelDisabled);
+
   useEffect(() => {
-    axios
+    if (pdfState === true) {
+      const input = document.getElementById("data2ImgHandler");
+      html2canvas(input).then((canvas) => {
+        let data2 = canvas.toDataURL("image/png");
+        setData2Img(data2);
+        setData2State(true);
+      });
+    }
+  }, [pdfState]);
+  // console.log(data2State);
+
+  // http://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/tworow?statCd=US&startDate=202201&endDate=202203
+  useEffect(async () => {
+    await axios
       .get(
         "https://ssafycnt.site:8000/ssafycnt-trade-service/api/trade/tworow?" +
           "statCd=" +
@@ -101,14 +121,7 @@ function DataSecond() {
           firstExportData,
         ]);
         setExcelData(response.data);
-        setTimeout(() => {
-          const input = document.getElementById("data2ImgHandler");
-          html2canvas(input).then((canvas) => {
-            let data2 = canvas.toDataURL("image/png");
-            setData2Img(data2);
-            console.log("Nation data2 done");
-          });
-        }, 3000);
+        // setDisable(false);
       })
       .catch((error) => {
         console.log(error);

@@ -7,6 +7,7 @@ import Signup from "./components/pages/Signup";
 import Err404 from "./components/pages/ERR404";
 
 function App() {
+  //path 주소 입력 시, element 컴포넌트 렌더링
   return (
     <>
       <Routes>
