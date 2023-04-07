@@ -4,9 +4,14 @@ import axios from "axios";
 import Chart from "react-google-charts";
 import { useRecoilState } from "recoil";
 import { pdfStateAtom } from "../../../states/recoilPdfState";
+import { worldMapNewsTextMiningAtom } from "../../../states/recoilOverClick";
 
 function WorldMap() {
   const [pdfState, setPdfState] = useRecoilState(pdfStateAtom);
+  const [worldMapNewsTextMining, setWorldMapNewsTextMining] = useRecoilState(
+    worldMapNewsTextMiningAtom
+  );
+  const [worldMapClick, setWorldMapClick] = useState(0);
   const params = useParams();
   const duration = params.duration;
   const [a, setA] = useState(params.nationCode);
@@ -49,7 +54,16 @@ function WorldMap() {
   useEffect(() => {
     setPdfState(false);
     navigate("/nation/" + a + "/" + params.duration);
-  }, [a]);
+    if (worldMapNewsTextMining === false) {
+      setWorldMapClick((prevCount) => prevCount + 1);
+    } else {
+      setWorldMapClick(0);
+    }
+    if (worldMapClick > 1 && worldMapNewsTextMining === false) {
+      alert("Data Loading ...");
+    }
+  }, [a, worldMapNewsTextMining]);
+  console.log(worldMapClick, worldMapNewsTextMining);
 
   const options = {
     colorAxis: {
@@ -77,6 +91,7 @@ function WorldMap() {
         if (selectedId.length) {
           setAHandler(selectedId[0]["row"] + 1);
         }
+        setWorldMapNewsTextMining(false);
       },
     },
   ];

@@ -11,12 +11,16 @@ import {
   textMiningStateAtom,
 } from "../../../states/recoilPdfState";
 import html2canvas from "html2canvas";
+import { worldMapNewsTextMiningAtom } from "../../../states/recoilOverClick";
 
 function NewsTextMining() {
   const [textMiningImg, setTextMiningImg] = useRecoilState(textMiningImgAtom);
   const pdfState = useRecoilValue(pdfStateAtom);
   const [textMiningState, setTextMiningState] =
     useRecoilState(textMiningStateAtom);
+  const [worldMapNewsTextMining, setWorldMapNewsTextMining] = useRecoilState(
+    worldMapNewsTextMiningAtom
+  );
 
   useEffect(() => {
     if (pdfState === true) {
@@ -95,12 +99,10 @@ function NewsTextMining() {
     await axios.get(newsUrl).then((response) => {
       setNewsData(response.data);
     });
-  }, [params]);
-
-  useEffect(async () => {
     await axios.get(textMiningUrl).then((response) => {
       setTextData(response.data);
     });
+    setWorldMapNewsTextMining(true);
   }, [params]);
 
   const textDataKeys = Object.keys(textData);
