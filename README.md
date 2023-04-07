@@ -3,17 +3,20 @@
 # :question: 왜 "싸피물산"을 사용해야 하나요?
 
 ## WHY
+
 - 국내외 원부자재의 안정적 공급망 확보
 - 공급 리스트 대응 전략 수립 및 수행
+
 ## HOW
+
 - 수출입 의존도 현황 파악
 - 품목, 국가별 수출입 추세 확인
 - 기간별 특정 이슈에 대한 원인 확인
-> <span style="color:red"><b>사전 이슈 점검 -> 안정적인 공급망 확보 -> 회사 매출 극대화</b></span>
+  > <span style="color:red"><b>사전 이슈 점검 -> 안정적인 공급망 확보 -> 회사 매출 극대화</b></span>
 
 <br />
 
-##  ❗ 특장점
+## ❗ 특장점
 
 - 누적 수출입 데이터 <span style="color:red"><b>8억 개</b></span> 이상
 - 신규 생성 데이터 매월 <span style="color:red"><b>650만 개</b></span> <br>
@@ -31,48 +34,57 @@
 <br />
 
 # 배포 주소 : [🚢싸피물산](https://ssafycnt.site) : https://ssafycnt.site
-<br />
-
-## 🔨 [주요 기술](https://www.notion.so/ba70fea1d3b8444aa13af51b2b13cded)
-![주요 기술](./assets/%EA%B8%B0%EC%88%A0%EC%8A%A4%ED%83%9D.png)
 
 <br />
 
-## 🎫 ERD
-![erd](./assets/ERD.png)
+### 🚀 배포 주소
 
 <br />
 
-### 🍏 [API 명세서](https://www.notion.so/API-831823b4daed49329c68bbb85ae15100)
-![API](./assets/apilist1.png)
-![API](./assets/apilist2.png)
+### 🎫 ERD
+
+![erd](./assets/samulERD.png)
+
+####
 
 <br />
 
-### 🎇 [아키텍쳐](https://www.notion.so/12ae9a24969c4f8aa632d843bbe71a23)
-![시스템 아키텍쳐](./assets/systemArchitecture.png)
+### 🍏 API
+
+![api](./assets/apilist1.png)
+![api](./assets/apilist2.png)
+
+####
+
+####
+
+####
 
 <br />
 
-# 📜 [프로젝트 결과물](https://www.notion.so/SSAFY-CNT-22a58c4cdc1244f4abadfcf9f101f808)
+### 🎇 서비스 아키텍쳐
 
-![](./assets/service4.png)
-![](./assets/service3.png)
-![](./assets/service2.png)
-![](./assets/service1.png)
+####
+
+<br />
+
+## 📜 프로젝트 결과물
+
+### 메인 페이지
 
 <br />
 
 ## Member & Role 👪
 
-| 이름        | 담당 영역      |
-| --------- | ---------- |
-| 김관섭<br>팀장 | FrontEnd |
-| 엄희원<br>   | FrontEnd |
-| 장준호<br>   | FrontEnd |
-| 김진희<br>   | BackEnd  |
-| 김이삭<br>   | BackEnd  |
-| 백승범<br>   | BackEnd  |
+| 이름           | 담당 영역 |
+| -------------- | --------- |
+| 김관섭<br>팀장 | FrontEnd  |
+| 엄희원<br>     | FrontEnd  |
+| 장준호<br>     | FrontEnd  |
+| 김진희<br>     | BackEnd   |
+| 김이삭<br>     | BackEnd   |
+| 백승범<br>     | BackEnd   |
+
 <br/>
 
 ```

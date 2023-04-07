@@ -1,0 +1,35 @@
+---
+- hosts: aws
+  remote_user : ubuntu
+#   become: true
+
+  tasks:
+  # remove running containers and images
+  - name: stop current running container for react
+    command: docker stop react-server
+    ignore_errors: yes
+
+  - name: remove stopped cotainer
+    command: docker rm react-server -f
+    ignore_errors: yes
+
+  - name: remove current docker image
+    command: docker rmi isakggong/react:ssafycnt-1.0
+    ignore_errors: yes
+
+  - name: remove anonymous docker image
+    command: docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+    ignore_errors: yes
+
+  - name: pull the newest react image from Docker Hub
+    command: docker pull isakggong/react:ssafycnt-1.0
+
+  - name: create a container using react-server image
+    command: docker run -d -p 80:80 -p 443:443 -v /etc/letsencrypt/archive/www.ssafycnt.site:/etc/ssl --name react-server isakggong/react:ssafycnt-1.0
+
+  # - name : wait for react server is stable!
+  #   wait_for:
+  #     port: 5173
+  #     delay: 5
+
+

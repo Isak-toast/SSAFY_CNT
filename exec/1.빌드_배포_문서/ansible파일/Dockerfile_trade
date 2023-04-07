@@ -1,0 +1,11 @@
+FROM anapsix/alpine-java
+LABEL org.opencontainers.image.authors="isakggong@gmail.com"
+
+ARG BIN_BASE=/jarfiles
+
+VOLUME /tmp
+
+COPY $BIN_BASE/ssafycnt-trade-service-0.0.1-SNAPSHOT.jar TradeService.jar
+
+# ENTRYPOINT [ "java", "-jar", "TradeService.jar"]
+ENTRYPOINT [ "java", "-jar", "TradeService.jar", "--spring.profiles.active=prod"]

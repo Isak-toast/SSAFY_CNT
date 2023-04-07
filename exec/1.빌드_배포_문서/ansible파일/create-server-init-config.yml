@@ -1,0 +1,32 @@
+---
+- name: server initialized
+  hosts: aws
+  remote_user: ubuntu
+  # become: true
+
+  tasks:
+  # docker run infra container
+  - name: create docker network
+    command: docker network create --gateway 172.18.0.1 --subnet 172.18.0.0/16 ssafycnt-network
+    ignore_errors: yes
+  - name: Copy docker compose
+    copy:
+      src: "/home/ubuntu/ssafycnt/init_server/docker-compose.yml" 
+      dest: "/home/ubuntu/docker-compose.yml"
+    ignore_errors: yes
+  - name: Ensure file exsists
+    file:
+      path: /home/ubuntu/mysql-data
+      state: directory
+  - name: execute docker compose
+    command: docker compose up -d
+    ignore_errors: yes
+
+  # - name: docker login
+  #   command: docker login --username isakggong --password dckr_pat_H688855sJMAtOLk5QfdoYhCY3Sg
+  #   tags:
+  #     - docker_compose
+
+  # - name: Execute docker compose
+  #   command: docker compose down
+

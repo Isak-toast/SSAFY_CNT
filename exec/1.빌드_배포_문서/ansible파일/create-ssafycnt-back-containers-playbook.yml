@@ -1,0 +1,234 @@
+---
+- hosts: aws
+  remote_user : ubuntu
+#   become: true
+
+  tasks:
+  # remove running containers and images
+  - name: stop current running container for config server 
+    command: docker stop config-service
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+  - name: remove stopped cotainer
+    command: docker rm config-service -f
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+  - name: remove current docker image
+    command: docker rmi isakggong/config-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+
+  - name: stop current running container for discovery server
+    command: docker stop discovery-service
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+  - name: remove stopped cotainer
+    command: docker rm discovery-service -f
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+  - name: remove current docker image
+    command: docker rmi isakggong/discovery-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+
+  - name: stop current running container for apigateway server
+    command: docker stop apigateway-service
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+  - name: remove stopped cotainer
+    command: docker rm apigateway-service -f
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+  - name: remove current docker image
+    command: docker rmi isakggong/apigateway-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+
+  - name: stop current running container for news server
+    command: docker stop news-service
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+  - name: remove stopped cotainer
+    command: docker rm news-service -f
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+  - name: remove current docker image
+    command: docker rmi isakggong/news-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+
+  - name: stop current running container for user server
+    command: docker stop user-service
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+  - name: remove stopped cotainer
+    command: docker rm user-service -f
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+  - name: remove current docker image
+    command: docker rmi isakggong/user-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+
+  - name: stop current running container for trade server
+    command: docker stop trade-service
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+  - name: remove stopped cotainer
+    command: docker rm trade-service -f
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+  - name: remove current docker image
+    command: docker rmi isakggong/trade-server:ssafycnt-1.0
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+
+  - name: remove anonymous docker image
+    command: docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+    ignore_errors: yes
+    tags:  
+      - main
+      - back_build
+
+  # pull new images
+  - name: pull the newest config image from Docker Hub
+    command: docker pull isakggong/config-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+  - name: create a container using config-server image
+    command: docker run -d -p 8888:8888 --network ssafycnt-network -e "spring.rabbitmq.host=rabbitmq" -e "spring.profiles.active=prod" --name config-service isakggong/config-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+  - name : wait for config server is stable!
+    wait_for:
+      port: 8888
+      delay: 5
+    tags:  
+      - main
+      - back_build
+      
+  - name: pull the newest discovery image from Docker Hub
+    command: docker pull isakggong/discovery-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+  - name: create a container using discovery-server image
+    command: docker run -d -p 8761:8761 --network ssafycnt-network -e "spring.cloud.config.uri=http://config-service:8888" -e "spring.rabbitmq.host=rabbitmq" --name discovery-service isakggong/discovery-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+  - name : wait for discovery server is stable!
+    wait_for:
+      port: 8761
+      delay: 5
+    tags:  
+      - main
+      - back_build
+
+  - name: pull the newest apigateway image from Docker Hub
+    command: docker pull isakggong/apigateway-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+  - name: create a container using apigateway-server image
+    command: docker run -d -p 8000:8000 --network ssafycnt-network -e "spring.cloud.config.uri=http://config-service:8888" -e "spring.rabbitmq.host=rabbitmq" -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" --name apigateway-service isakggong/apigateway-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+  - name : wait for apigateway server is stable!
+    wait_for:
+      port: 8000
+      delay: 5
+    tags:  
+      - main
+      - back_build
+
+
+  - name: pull the newest user image from Docker Hub
+    command: docker pull isakggong/user-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+  - name: create a container using user-server image
+    command: docker run -d --network ssafycnt-network --name user-service -e "spring.cloud.config.uri=http://config-service:8888" -e "spring.rabbitmq.host=rabbitmq" -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" -e "logging.file=/api-logs/users-ws.log" isakggong/user-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-user-service
+
+  - name: pull the newest news image from Docker Hub
+    command: docker pull isakggong/news-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+  - name: create a container using news-server image
+    command: docker run -d --network ssafycnt-network --name news-service -e "spring.cloud.config.uri=http://config-service:8888" -e "spring.rabbitmq.host=rabbitmq" -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" -e "logging.file=/api-logs/newss-ws.log" isakggong/news-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-news-service
+
+  - name: pull the newest trade image from Docker Hub
+    command: docker pull isakggong/trade-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+  - name: create a container using trade-server image
+    command: docker run -d --network ssafycnt-network --name trade-service -e "spring.cloud.config.uri=http://config-service:8888" -e "spring.rabbitmq.host=rabbitmq" -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" -e "logging.file=/api-logs/trades-ws.log" isakggong/trade-server:ssafycnt-1.0
+    tags:  
+      - main
+      - back_build
+      - ssafycnt-trade-service
+
+
+
